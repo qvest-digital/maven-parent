@@ -68,10 +68,6 @@
 		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
@@ -375,10 +371,10 @@
 						<include>**/*.sh</include>
 						<include>**/*.tex</include>
 					</includes>
-					<headerDefinitions>
+					<headerDefinitions combine.children="append">
 						<headerDefinition>${project.basedir}/src/main/ancillary/myc-javapkg.xml</headerDefinition>
 					</headerDefinitions>
-					<mapping>
+					<mapping combine.children="append">
 						<java>JavaPackage_style</java>
 					</mapping>
 					<useDefaultExcludes>true</useDefaultExcludes>
@@ -403,7 +399,7 @@
 							<rules>
 								<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
 								<bannedDependencies>
-									<excludes>
+									<excludes combine.children="append">
 										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
 										<exclude>commons-collections:commons-collections:4.0</exclude>
 									</excludes>

@@ -7,3 +7,14 @@ Default plugins:
 • maven-javadoc-plugin
 • maven-source-plugin
 • maven-surefire-plugin
+
+Children still need to define:
+
+• groupId, artifactId, version, packaging, name, description
+• url
+• licenses (if not MirOS): at least one license (name, url)
+• developers: at least one developer (name, email, organization{,Url}, …)
+• organization (if not tarent): name, url
+• scm: connection, developerConnection, url, tag
+• distributionManagement: repository: id, (name), url
+• build plugins not listed above
