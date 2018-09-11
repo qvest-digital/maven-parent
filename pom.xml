@@ -133,6 +133,52 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>build-mvnparent</id>
+			<build>
+				<plugins>
+					<plugin>
+						<inherited>false</inherited>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<configuration>
+							<descriptors>
+								<descriptor>src/main/ancillary/mksrc.xml</descriptor>
+							</descriptors>
+						</configuration>
+						<executions>
+							<execution>
+								<id>mksrc-mvnparent-package</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<inherited>false</inherited>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>mksrc-mvnparent-build</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>./src/main/ancillary/mksrc.sh</executable>
+									<environmentVariables>
+										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
+									</environmentVariables>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<build>
 		<pluginManagement>
