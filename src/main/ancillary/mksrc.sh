@@ -33,7 +33,7 @@ if test -z "$MKSRC_RUN_FROM_MAVEN"; then
 fi
 # initialisation
 set -e
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../../.."
 rm -rf target/mksrc
 mkdir -p target/mksrc
 
