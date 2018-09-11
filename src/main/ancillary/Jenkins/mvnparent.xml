@@ -1,7 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset plugin="maven-plugin@2.10">
   <actions/>
-  <description>Parent POM for &#x2ba1; Maven projects</description>
+  <description>&lt;p&gt;Parent POM for &#x2ba1; Maven projects&lt;/p&gt;&#xd;
+&lt;p&gt;Used by:&lt;/p&gt;&lt;ul&gt;&#xd;
+&lt;li&gt;kolab-ws&lt;/li&gt;&#xd;
+&lt;li&gt;kpitool&lt;/li&gt;&#xd;
+&lt;li&gt;org.evolvis.tartools&lt;ul&gt;&#xd;
+  &lt;li&gt;tsutc&lt;/li&gt;&#xd;
+ &lt;/ul&gt;&lt;/li&gt;&#xd;
+&lt;li&gt;VerA.web&lt;/li&gt;&#xd;
+&lt;/ul&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -53,7 +61,11 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <goals>-e clean install</goals>
+  <rootModule>
+    <groupId>org.evolvis.tartools</groupId>
+    <artifactId>maven-parent</artifactId>
+  </rootModule>
+  <goals>-Pbuild-mvnparent -e clean install</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <ignoreUpstremChanges>false</ignoreUpstremChanges>
@@ -82,8 +94,8 @@
       <scmUserEnvVar></scmUserEnvVar>
       <scmPasswordEnvVar></scmPasswordEnvVar>
       <releaseEnvVar>IS_M2RELEASEBUILD</releaseEnvVar>
-      <releaseGoals>-Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -Darguments=&#34;-Dgpg.passphrase=<SECRET> -Pgpg&#34; -e</releaseGoals>
-      <dryRunGoals>-Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
+      <releaseGoals>-Pbuild-mvnparent -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -Darguments=&#34;-Dgpg.passphrase=<SECRET> -Pgpg -Pbuild-mvnparent&#34; -e</releaseGoals>
+      <dryRunGoals>-Pbuild-mvnparent -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
       <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
       <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
       <selectScmCredentials>false</selectScmCredentials>
