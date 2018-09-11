@@ -1,0 +1,9 @@
+Default plugins:
+
+• jacoco-maven-plugin
+• license-maven-plugin (inherited=false)
+• maven-compiler-plugin
+• maven-enforcer-plugin
+• maven-javadoc-plugin
+• maven-source-plugin
+• maven-surefire-plugin
