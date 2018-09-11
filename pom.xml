@@ -173,6 +173,30 @@
 					<groupId>com.mycila</groupId>
 					<artifactId>license-maven-plugin</artifactId>
 					<version>${maven.mycila.version}</version>
+					<configuration>
+						<basedir>${project.basedir}</basedir>
+						<header>${project.basedir}/src/main/ancillary/LICENCE.hdr</header>
+						<quiet>false</quiet>
+						<failIfMissing>true</failIfMissing>
+						<aggregate>true</aggregate>
+						<includes>
+							<include>**/*.cs</include>
+							<include>**/*.java</include>
+							<include>**/*.js</include>
+							<include>**/*.sh</include>
+							<include>**/*.tex</include>
+						</includes>
+						<headerDefinitions combine.children="append">
+							<headerDefinition>${project.basedir}/src/main/ancillary/myc-javapkg.xml</headerDefinition>
+						</headerDefinitions>
+						<mapping combine.children="append">
+							<java>JavaPackage_style</java>
+						</mapping>
+						<useDefaultExcludes>true</useDefaultExcludes>
+						<useDefaultMapping>true</useDefaultMapping>
+						<encoding>UTF-8</encoding>
+						<strictCheck>true</strictCheck>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -358,30 +382,6 @@
 				<inherited>false</inherited>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<configuration>
-					<basedir>${project.basedir}</basedir>
-					<header>${project.basedir}/src/main/ancillary/LICENCE.hdr</header>
-					<quiet>false</quiet>
-					<failIfMissing>true</failIfMissing>
-					<aggregate>true</aggregate>
-					<includes>
-						<include>**/*.cs</include>
-						<include>**/*.java</include>
-						<include>**/*.js</include>
-						<include>**/*.sh</include>
-						<include>**/*.tex</include>
-					</includes>
-					<headerDefinitions combine.children="append">
-						<headerDefinition>${project.basedir}/src/main/ancillary/myc-javapkg.xml</headerDefinition>
-					</headerDefinitions>
-					<mapping combine.children="append">
-						<java>JavaPackage_style</java>
-					</mapping>
-					<useDefaultExcludes>true</useDefaultExcludes>
-					<useDefaultMapping>true</useDefaultMapping>
-					<encoding>UTF-8</encoding>
-					<strictCheck>true</strictCheck>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
