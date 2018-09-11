@@ -263,6 +263,7 @@
 					<version>${maven.enforcer.version}</version>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>${maven.jar.version}</version>
 					<configuration>
@@ -297,6 +298,7 @@
 					<version>${maven.release.version}</version>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>${maven.resources.version}</version>
 					<configuration>
