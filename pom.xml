@@ -183,8 +183,6 @@
 							<include>**/*.cs</include>
 							<include>**/*.java</include>
 							<include>**/*.js</include>
-							<include>**/*.sh</include>
-							<include>**/*.tex</include>
 						</includes>
 						<headerDefinitions combine.children="append">
 							<headerDefinition>${project.basedir}/src/main/ancillary/myc-javapkg.xml</headerDefinition>
