@@ -224,7 +224,6 @@
 					<version>${maven.mycila.version}</version>
 					<configuration>
 						<basedir>${project.basedir}</basedir>
-						<header>${project.basedir}/src/main/ancillary/LICENCE.hdr</header>
 						<quiet>false</quiet>
 						<failIfMissing>true</failIfMissing>
 						<aggregate>true</aggregate>
@@ -431,6 +430,10 @@
 				<inherited>false</inherited>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
+				<configuration>
+					<!-- skipping requires header to be not defined -->
+					<header>${project.basedir}/src/main/ancillary/LICENCE.hdr</header>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
