@@ -29,5 +29,9 @@ Children still need to define:
 • (optionally)
   ‣ (modules)
   ‣ (profiles)
-    ⇒ predefined: jdk8orolder, jdk9ornewer, gpg
+    ⇒ predefined:
+      – jdk8orolder (auto-activated)
+	→ mockito.version := 2.10.0
+      – jdk9ornewer (auto-activated)
+      – gpg
 • build plugins not listed above
