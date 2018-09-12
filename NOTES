@@ -15,6 +15,19 @@ Children still need to define:
 • licenses (if not MirOS): at least one license (name, url)
 • developers: at least one developer (name, email, organization{,Url}, …)
 • organization (if not tarent): name, url
+• (optionally)
+  ‣ (inceptionYear)
+  ‣ (mailingLists: mailingList: name)
+  ‣ …
+  ‣ properties (e.g. override some defaults)
+    – archiver.copyright (Copyright © 2018; Licensor: tarent solutions GmbH)
+    – javaRelease (8)
+    – maven.minimum.version (3.2)
+    – doclint.optappend (-Xdoclint:all)
 • scm: connection, developerConnection, url, tag
-• distributionManagement: repository: id, (name), url
+• distributionManagement: repository(, snapshotRepository): id, (name), url
+• (optionally)
+  ‣ (modules)
+  ‣ (profiles)
+    ⇒ predefined: jdk8orolder, jdk9ornewer, gpg
 • build plugins not listed above
