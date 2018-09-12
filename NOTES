@@ -34,4 +34,5 @@ Children still need to define:
 	→ mockito.version := 2.10.0
       – jdk9ornewer (auto-activated)
       – gpg
-• build plugins not listed above
+• build: settings/resources, pluginManagement and plugins not listed above
+• (dependencyManagement)
