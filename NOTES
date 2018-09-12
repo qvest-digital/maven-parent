@@ -26,6 +26,7 @@ Children still need to define:
     – javaRelease (8)
     – maven.minimum.version (3.2)
     – doclint.optappend (-Xdoclint:all)
+    – sonar.sources, sonar.tests (both unset)
 • scm: connection, developerConnection, url, tag
 • distributionManagement: repository(, snapshotRepository): id, (name), url
 • (optionally)
