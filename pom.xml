@@ -40,7 +40,7 @@
 		<releaseVersion>${project.version}</releaseVersion>
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
 		<archiver.copyright.lastyear>2018</archiver.copyright.lastyear>
-		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: cf. version_vendor</archiver.copyright>
+		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
 		<sonar.sources>src/main</sonar.sources>
 		<sonar.tests>src/test</sonar.tests>
 		<javaRelease>8</javaRelease>
