@@ -10,7 +10,9 @@ Default plugins:
 
 Children still need to define:
 
-• groupId, artifactId, version, packaging, name, description
+• groupId, artifactId, version, packaging, (name), description
+  ‣ name: either just ${project.artifactId} or unset, except when
+    targetting Central, then: ${project.groupId}:${project.artifactId}
 • url
 • licenses (if not MirOS): at least one license (name, url)
 • developers: at least one developer (name, email, organization{,Url}, …)
