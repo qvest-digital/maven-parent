@@ -294,6 +294,7 @@
 								<Build-Number>${BUILD_NUMBER}</Build-Number>
 								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
+								<Target-JRE>${javaRelease}</Target-JRE>
 								<version_name>${project.groupId}:${project.artifactId}</version_name>
 								<version_description>${project.description}</version_description>
 								<version_copyright>${archiver.copyright}</version_copyright>
@@ -333,6 +334,7 @@
 								<Build-Number>${BUILD_NUMBER}</Build-Number>
 								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
+								<Target-JRE>${javaRelease}</Target-JRE>
 								<version_name>${project.groupId}:${project.artifactId}</version_name>
 								<version_description>${project.description}</version_description>
 								<version_copyright>${archiver.copyright}</version_copyright>
@@ -393,6 +395,7 @@
 								<Build-Number>${BUILD_NUMBER}</Build-Number>
 								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
+								<Target-JRE>${javaRelease}</Target-JRE>
 								<version_name>${project.groupId}:${project.artifactId}</version_name>
 								<version_description>${project.description}</version_description>
 								<version_copyright>${archiver.copyright}</version_copyright>
