@@ -233,7 +233,7 @@
 							<include>**/*.java</include>
 							<include>**/*.js</include>
 						</includes>
-						<headerDefinitions combine.children="append">
+						<headerDefinitions>
 							<headerDefinition>${project.basedir}/src/main/ancillary/myc-javapkg.xml</headerDefinition>
 						</headerDefinitions>
 						<mapping combine.children="append">
