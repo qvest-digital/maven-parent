@@ -38,7 +38,9 @@
 		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<releaseVersion>${project.version}</releaseVersion>
-		<archiver.copyright>Copyright © 2018; Licensor: tarent solutions GmbH</archiver.copyright>
+		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
+		<archiver.copyright.lastyear>2018</archiver.copyright.lastyear>
+		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: cf. version_vendor</archiver.copyright>
 		<sonar.sources>src/main</sonar.sources>
 		<sonar.tests>src/test</sonar.tests>
 		<javaRelease>8</javaRelease>
@@ -294,7 +296,7 @@
 								<Build-Number>${BUILD_NUMBER}</Build-Number>
 								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<version_name>${project.artifactId}</version_name>
+								<version_name>${project.groupId}:${project.artifactId}</version_name>
 								<version_description>${project.description}</version_description>
 								<version_copyright>${archiver.copyright}</version_copyright>
 								<version_vendor>${project.organization.name} (${project.organization.url})</version_vendor>
@@ -333,7 +335,7 @@
 								<Build-Number>${BUILD_NUMBER}</Build-Number>
 								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<version_name>${project.artifactId}</version_name>
+								<version_name>${project.groupId}:${project.artifactId}</version_name>
 								<version_description>${project.description}</version_description>
 								<version_copyright>${archiver.copyright}</version_copyright>
 								<version_vendor>${project.organization.name} (${project.organization.url})</version_vendor>
@@ -393,7 +395,7 @@
 								<Build-Number>${BUILD_NUMBER}</Build-Number>
 								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<version_name>${project.artifactId}</version_name>
+								<version_name>${project.groupId}:${project.artifactId}</version_name>
 								<version_description>${project.description}</version_description>
 								<version_copyright>${archiver.copyright}</version_copyright>
 								<version_vendor>${project.organization.name} (${project.organization.url})</version_vendor>

@@ -20,7 +20,7 @@ Children still need to define:
   ‣ (mailingLists: mailingList: name)
   ‣ …
   ‣ properties (e.g. override some defaults)
-    – archiver.copyright (Copyright © 201x–201y; Licensor: tarent solutions GmbH)
+    – archiver.copyright (Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: cf. version_vendor)
     – javaRelease (8)
     – maven.minimum.version (3.2)
     – doclint.optappend (-Xdoclint:all)
