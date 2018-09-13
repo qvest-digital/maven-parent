@@ -39,3 +39,5 @@ Children still need to define:
       – gpg
 • build: settings/resources, pluginManagement and plugins not listed above
 • (dependencyManagement)
+
+Warning: resource filtering eats ${foo}, @foo@, plus ⚠ new: \$ and \@
