@@ -45,7 +45,7 @@ for x in *.xml; do
 	    " | sed --posix \
 	    -e 's!\([&]\)apos[;]!\1#39;!g' \
 	    -e 's!\([&]\)quot[;]!\1#34;!g' \
-	    -e 's!\(-Dgpg.passphrase=\)[^ "]*\([ "]\)!\1<SECRET>\2!g' \
+	    -e 's!\(-Dgpg.passphrase=\)[^ "]*\([ "]\)!\1<SECRET/>\2!g' \
 	    >"$x.xml~"
 
 	while IFS= read -r line; do
