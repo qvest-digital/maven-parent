@@ -61,8 +61,8 @@
 		<maven.latex.version>1.4.4</maven.latex.version>
 		<maven.mycila.version>3.0</maven.mycila.version>
 		<maven.release.version>2.5.3</maven.release.version>
-		<!-- due to MRESOURCES-237 -->
-		<maven.resources.version>2.7</maven.resources.version>
+		<!-- due to MRESOURCES-237 and MSHARED-325 -->
+		<maven.resources.version>2.6</maven.resources.version>
 		<maven.shade.version>3.1.0</maven.shade.version>
 		<maven.source.version>2.4</maven.source.version>
 		<maven.surefire.version>2.19</maven.surefire.version>
