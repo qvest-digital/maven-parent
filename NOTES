@@ -41,3 +41,5 @@ Children still need to define:
 • (dependencyManagement)
 
 Warning: resource filtering eats ${foo}, @foo@, plus ⚠ new: \$ and \@
+Do diff all resources between their source and filtered form, not just
+main/ but test/ as well, after adopting this parent POM!
