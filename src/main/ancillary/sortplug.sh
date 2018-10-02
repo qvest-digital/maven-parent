@@ -30,6 +30,7 @@ cr=$'\r'
 lf=$'\n'
 (( ${#cr} == 1 ))
 set -o pipefail
+me=$(realpath "$0/..")
 
 # offsets in element array
 OgroupId=1
@@ -80,7 +81,7 @@ while IFS= read -pr line; do
 	(1:'	</plugin>')
 		if [[ -n ${el[Odependencies]} ]]; then
 			line=${el[Odependencies]}
-			el[Odependencies]=$(mksh "$0" <<<"$line") || \
+			el[Odependencies]=$(mksh "$me/sortdeps.sh" <<<"$line") || \
 			    die could not sort dependencies
 		fi
 		sortlines+=("${el[0]}$cr${el[1]}$cr${el[2]}$cr${el[3]}$cr${el[4]}$cr${el[5]}$cr${el[6]}$cr${el[7]}$cr${el[8]}$cr${el[9]}$cr${el[10]}")
