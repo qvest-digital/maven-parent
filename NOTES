@@ -40,6 +40,9 @@ Children still need to define:
 • build: settings/resources, pluginManagement and plugins not listed above
 • (dependencyManagement)
 
+Model: https://maven.apache.org/ref/current/maven-model/maven.html
+Full POM reference: https://maven.apache.org/pom.html
+
 Warning: resource filtering eats ${foo}, @foo@, plus ⚠ new: \$ and \@
 Do diff all resources between their source and filtered form, not just
 main/ but test/ as well, after adopting this parent POM!
