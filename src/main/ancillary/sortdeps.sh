@@ -32,18 +32,18 @@ lf=$'\n'
 set -o pipefail
 
 # offsets in element array
-otype=0
-oG=1
-oA=2
-oV=5
-oType=4
-oClassifier=3
-oScope=6
-oSystemPath=8
-oExclusions=9
-oOptional=7
-oprecomments=10
-oincomments=11
+OTYPE=0
+OgroupId=1
+OartifactId=2
+Oversion=5
+Otype=4
+Oclassifier=3
+Oscope=6
+OsystemPath=8
+Oexclusions=9
+Ooptional=7
+OPRECOMMENT=10
+OINCOMMENT=11
 
 exec 4<&0
 (
@@ -69,17 +69,31 @@ set -A el
 state=0
 while IFS= read -pr line; do
 	case $state:$line {
+	(0:'<!--'*'-->')
+		el[OPRECOMMENT]+=$line ;;
+	(1:'<!--'*'-->')
+		el[OINCOMMENT]+=$line ;;
 	(0:'<!--'*)
-		el[oprecomments]+=$line ;;
+		el[OPRECOMMENT]+=$line
+		while IFS= read -pr line; do
+			el[OPRECOMMENT]+=\ ${line##*([	 ])}
+			[[ $line = *'-->' ]] && break
+		done
+		[[ $line = *'-->' ]] || die unclosed comment ;;
 	(1:'<!--'*)
-		el[oincomments]+=$line ;;
+		el[OINCOMMENT]+=$line
+		while IFS= read -pr line; do
+			el[OINCOMMENT]+=\ ${line##*([	 ])}
+			[[ $line = *'-->' ]] && break
+		done
+		[[ $line = *'-->' ]] || die unclosed comment ;;
 	(0:'</toplevel>')
 		state=9 ;;
 	(0:'<dependency>')
-		el[otype]=0
+		el[OTYPE]=0
 		state=1 ;;
 	(0:'<exclusion>')
-		el[otype]=1
+		el[OTYPE]=1
 		state=1 ;;
 	(1:'</dependency>'|1:'</exclusion>')
 		sortlines+=("${el[0]}$cr${el[1]}$cr${el[2]}$cr${el[3]}$cr${el[4]}$cr${el[5]}$cr${el[6]}$cr${el[7]}$cr${el[8]}$cr${el[9]}$cr${el[10]}$cr${el[11]}")
@@ -89,28 +103,28 @@ while IFS= read -pr line; do
 		;;
 	(1:'<groupId>'*'</groupId>')
 		x=${line#'<groupId>'}
-		el[oG]=${x%'</groupId>'} ;;
+		el[OgroupId]=${x%'</groupId>'} ;;
 	(1:'<artifactId>'*'</artifactId>')
 		x=${line#'<artifactId>'}
-		el[oA]=${x%'</artifactId>'} ;;
+		el[OartifactId]=${x%'</artifactId>'} ;;
 	(1:'<version>'*'</version>')
 		x=${line#'<version>'}
-		el[oV]=${x%'</version>'} ;;
+		el[Oversion]=${x%'</version>'} ;;
 	(1:'<type>'*'</type>')
 		x=${line#'<type>'}
-		el[oType]=${x%'</type>'} ;;
+		el[Otype]=${x%'</type>'} ;;
 	(1:'<classifier>'*'</classifier>')
 		x=${line#'<classifier>'}
-		el[oClassifier]=${x%'</classifier>'} ;;
+		el[Oclassifier]=${x%'</classifier>'} ;;
 	(1:'<scope>'*'</scope>')
 		x=${line#'<scope>'}
-		el[oScope]=${x%'</scope>'} ;;
+		el[Oscope]=${x%'</scope>'} ;;
 	(1:'<systemPath>'*'</systemPath>')
 		x=${line#'<systemPath>'}
-		el[oSystemPath]=${x%'</systemPath>'} ;;
+		el[OsystemPath]=${x%'</systemPath>'} ;;
 	(1:'<optional>'*'</optional>')
 		x=${line#'<optional>'}
-		el[oOptional]=${x%'</optional>'} ;;
+		el[Ooptional]=${x%'</optional>'} ;;
 	(1:'<exclusions>')
 		x=
 		while IFS= read -pr line; do
@@ -120,7 +134,7 @@ while IFS= read -pr line; do
 		[[ $line = '</exclusions>' ]] || die unterminated exclusions
 		line=$x
 		x=$(mksh "$0" <<<"$line") || die could not sort sub-exclusions
-		el[oExclusions]=${x//"$lf"} ;;
+		el[Oexclusions]=${x//"$lf"} ;;
 	(*)
 		die illegal line in state $state ;;
 	}
@@ -134,19 +148,19 @@ done | sort -u |&
 set -A beg -- '<dependency>' '<exclusion>'
 set -A end -- '</dependency>' '</exclusion>'
 while IFS="$cr" read -prA el; do
-	[[ -n ${el[oprecomments]} ]] && print -r -- "${el[oprecomments]}"
-	print -r -- "${beg[el[otype]]}"
-	[[ -n ${el[oincomments]} ]] && print -r -- "${el[oincomments]}"
-	[[ -n ${el[oG]} ]] && print -r -- "<groupId>${el[oG]}</groupId>"
-	[[ -n ${el[oA]} ]] && print -r -- "<artifactId>${el[oA]}</artifactId>"
-	[[ -n ${el[oV]} ]] && print -r -- "<version>${el[oV]}</version>"
-	[[ -n ${el[oType]} ]] && print -r -- "<type>${el[oType]}</type>"
-	[[ -n ${el[oClassifier]} ]] && print -r -- "<classifier>${el[oClassifier]}</classifier>"
-	[[ -n ${el[oScope]} ]] && print -r -- "<scope>${el[oScope]}</scope>"
-	[[ -n ${el[oSystemPath]} ]] && print -r -- "<systemPath>${el[oSystemPath]}</systemPath>"
-	[[ -n ${el[oExclusions]} ]] && print -r -- "<exclusions>${el[oExclusions]}</exclusions>"
-	[[ -n ${el[oOptional]} ]] && print -r -- "<optional>${el[oOptional]}</optional>"
-	print -r -- "${end[el[otype]]}"
+	[[ -n ${el[OPRECOMMENT]} ]] && print -r -- "${el[OPRECOMMENT]}"
+	print -r -- "${beg[el[OTYPE]]}"
+	[[ -n ${el[OINCOMMENT]} ]] && print -r -- "${el[OINCOMMENT]}"
+	[[ -n ${el[OgroupId]} ]] && print -r -- "<groupId>${el[OgroupId]}</groupId>"
+	[[ -n ${el[OartifactId]} ]] && print -r -- "<artifactId>${el[OartifactId]}</artifactId>"
+	[[ -n ${el[Oversion]} ]] && print -r -- "<version>${el[Oversion]}</version>"
+	[[ -n ${el[Otype]} ]] && print -r -- "<type>${el[Otype]}</type>"
+	[[ -n ${el[Oclassifier]} ]] && print -r -- "<classifier>${el[Oclassifier]}</classifier>"
+	[[ -n ${el[Oscope]} ]] && print -r -- "<scope>${el[Oscope]}</scope>"
+	[[ -n ${el[OsystemPath]} ]] && print -r -- "<systemPath>${el[OsystemPath]}</systemPath>"
+	[[ -n ${el[Oexclusions]} ]] && print -r -- "<exclusions>${el[Oexclusions]}</exclusions>"
+	[[ -n ${el[Ooptional]} ]] && print -r -- "<optional>${el[Ooptional]}</optional>"
+	print -r -- "${end[el[OTYPE]]}"
 done
 
 exit 0

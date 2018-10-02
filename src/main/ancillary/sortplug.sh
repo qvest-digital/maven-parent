@@ -42,8 +42,8 @@ Odependencies=8
 Ogoals=9
 Oinherited=2
 Oconfiguration=10
-Oprecomments=4
-Oincomments=3
+OPRECOMMENT=4
+OINCOMMENT=3
 
 exec 4<&0
 (
@@ -70,10 +70,24 @@ el[OgroupId]=org.apache.maven.plugins
 state=0
 while IFS= read -pr line; do
 	case $state:$line {
-	(0:'<!--'*)
-		el[oprecomments]+=$line ;;
-	(1:'<!--'*)
-		el[oincomments]+=$line ;;
+	(0:*(	)'<!--'*'-->')
+		el[OPRECOMMENT]+=$line ;;
+	(1:*(	)'<!--'*'-->')
+		el[OINCOMMENT]+=$line ;;
+	(0:*(	)'<!--'*)
+		el[OPRECOMMENT]+=$line
+		while IFS= read -pr line; do
+			el[OPRECOMMENT]+=\ ${line##*([	 ])}
+			[[ $line = *'-->' ]] && break
+		done
+		[[ $line = *'-->' ]] || die unclosed comment ;;
+	(1:*(	)'<!--'*)
+		el[OINCOMMENT]+=$line
+		while IFS= read -pr line; do
+			el[OINCOMMENT]+=\ ${line##*([	 ])}
+			[[ $line = *'-->' ]] && break
+		done
+		[[ $line = *'-->' ]] || die unclosed comment ;;
 	(0:'</toplevel>')
 		state=9 ;;
 	(0:'	<plugin>')
@@ -211,9 +225,9 @@ for x in "${sortlines[@]}"; do
 done | sort -u |&
 
 while IFS="$cr" read -prA el; do
-	[[ -n ${el[Oprecomments]} ]] && print -r -- "${el[Oprecomments]}"
+	[[ -n ${el[OPRECOMMENT]} ]] && print -r -- "${el[OPRECOMMENT]}"
 	print -r -- '<plugin>'
-	[[ -n ${el[Oincomments]} ]] && print -r -- "${el[Oincomments]}"
+	[[ -n ${el[OINCOMMENT]} ]] && print -r -- "${el[OINCOMMENT]}"
 	[[ -n ${el[OgroupId]} ]] && print -r -- "<groupId>${el[OgroupId]}</groupId>"
 	[[ -n ${el[OartifactId]} ]] && print -r -- "<artifactId>${el[OartifactId]}</artifactId>"
 	[[ -n ${el[Oversion]} ]] && print -r -- "<version>${el[Oversion]}</version>"
