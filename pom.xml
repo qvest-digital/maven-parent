@@ -149,26 +149,6 @@
 			<build>
 				<plugins>
 					<plugin>
-						<inherited>false</inherited>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-assembly-plugin</artifactId>
-						<configuration>
-							<descriptors>
-								<descriptor>src/main/ancillary/mksrc.xml</descriptor>
-							</descriptors>
-						</configuration>
-						<executions>
-							<execution>
-								<id>mksrc-mvnparent-package</id>
-								<phase>package</phase>
-								<goals>
-									<goal>single</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<inherited>false</inherited>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
 						<executions>
@@ -186,6 +166,26 @@
 								</configuration>
 							</execution>
 						</executions>
+						<inherited>false</inherited>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>mksrc-mvnparent-package</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+						<inherited>false</inherited>
+						<configuration>
+							<descriptors>
+								<descriptor>src/main/ancillary/mksrc.xml</descriptor>
+							</descriptors>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
@@ -438,9 +438,9 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<inherited>false</inherited>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
+				<inherited>false</inherited>
 				<configuration>
 					<!-- skipping requires header to be not defined -->
 					<header>${project.basedir}/src/main/ancillary/LICENCE.hdr</header>
