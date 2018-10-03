@@ -37,7 +37,7 @@ die() {
 
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 function extract {
-	local line value base path p t x
+	local line value base path p t x bron=$1 lines=$2
 
 	# thankfully neither ' nor = are valid in XML names
 	exec 4>&0
@@ -51,9 +51,9 @@ function extract {
 		line=${line%%=*}
 		base=${line##*/}
 		line=${line%/*}
-		asso_sets "$value" p "$line" "$base"
+		asso_sets "$value" "$bron" "$line" "$base"
 	done
-	asso_loadk p
+	asso_loadk "$bron"
 	for path in "${asso_y[@]}"; do
 		p=${path//'['+([0-9])']'}
 		if [[ $p = //project/parent ]]; then
@@ -76,9 +76,9 @@ function extract {
 			continue
 		fi
 		t+=/${grouping[$t]}
-		x=$(asso_getv p "$path" groupId)
+		x=$(asso_getv "$bron" "$path" groupId)
 		[[ -n $x ]] || case $t {
-		(1)	x=$(asso_getv p //project/parent groupId)
+		(1)	x=$(asso_getv "$bron" //project/parent groupId)
 			[[ -n $x ]] || die "No groupId for project or parent"
 			;;
 		(4)	x=org.apache.maven.plugins
@@ -89,16 +89,29 @@ function extract {
 		}
 		[[ $x = */* ]] && die "wtf, groupId ${x@Q} for $path contains a slash"
 		t+=/$x
-		x=$(asso_getv p "$path" artifactId)
+		x=$(asso_getv "$bron" "$path" artifactId)
 		if [[ -n $x ]]; then
 			t+=/$x
 			[[ $x = */* ]] && die "wtf, artifactId ${x@Q} for $path contains a slash"
-			x=$(asso_getv p "$path" version)
+			x=$(asso_getv "$bron" "$path" version)
 			[[ -z $x || $x = *'${'* || $x = *[\\/:\"\<\>\|?*]* ]] || t+=/$x
 		fi
-		print -r -- "$t"
+		asso_setnull $lines "$t"
 	done
 	set -e
 }
 
-extract <pom.xml | sort -u
+function output {
+	local lineno=-1 nlines lines=$1
+
+	set +e
+	asso_loadk $lines
+	set -e
+	nlines=${#asso_y[*]}
+	while (( ++lineno < nlines )); do
+		print -r -- "${asso_y[lineno]}"
+	done
+}
+
+extract p plines <pom.xml
+output plines | sort -u
