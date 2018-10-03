@@ -75,7 +75,7 @@ function extract {
 			print -ru2 -- "W: Unknown XPath: $path"
 			continue
 		fi
-		t+=/${grouping[$t]}
+#		t+=/${grouping[$t]}
 		x=$(asso_getv "$bron" "$path" groupId)
 		[[ -n $x ]] || case $t {
 		(1)	x=$(asso_getv "$bron" //project/parent groupId)
@@ -94,23 +94,27 @@ function extract {
 			t+=/$x
 			[[ $x = */* ]] && die "wtf, artifactId ${x@Q} for $path contains a slash"
 			x=$(asso_getv "$bron" "$path" version)
-			[[ -z $x || $x = *'${'* || $x = *[\\/:\"\<\>\|?*]* ]] || t+=/$x
+			[[ $x = *'${'* || $x = *[\\/:\"\<\>\|?*]* ]] && x=
 		fi
+		asso_sets "$x" versions "$t"
 		asso_setnull $lines "$t"
 	done
 	set -e
 }
 
 function output {
-	local lineno=-1 nlines lines=$1
+	local lineno=-1 nlines line vsn lines=$1
 
 	set +e
 	asso_loadk $lines
-	set -e
 	nlines=${#asso_y[*]}
 	while (( ++lineno < nlines )); do
-		print -r -- "${asso_y[lineno]}"
+		line=${asso_y[lineno]}
+		vsn=$(asso_getv versions "$line")
+		[[ -n $vsn ]] && line+=/$vsn
+		print -r -- "$line"
 	done
+	set -e
 }
 
 extract p plines <pom.xml
