@@ -39,7 +39,7 @@ die() {
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 
 function xml2path {
-	xmlstarlet tr "$me/tmp.xsl" "$1" | \
+	xmlstarlet tr "$me/mvnrepo.xsl" "$1" | \
 	    egrep "^[^']*/(groupId|artifactId|version)='" >target/pom.xp
 }
 
