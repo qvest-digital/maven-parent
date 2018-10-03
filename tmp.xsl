@@ -8,13 +8,14 @@
 	<xsl:strip-space elements="*"/>
 	<xsl:variable name="sq">'</xsl:variable>
 	<xsl:template name="quote">
-		<xsl:value-of select="."/>
+		<xsl:param name="str"/>
+		<xsl:value-of select="$str"/>
 	</xsl:template>
 	<xsl:template match="*[@* or not(*)]">
 		<xsl:if test="not(*)">
 			<xsl:apply-templates select="ancestor-or-self::*" mode="path"/>
 			<xsl:text>='</xsl:text>
-			<xsl:call-template name="quote"/>
+			<xsl:call-template name="quote"><xsl:with-param name="str" select="."/></xsl:call-template>
 			<xsl:text>'&nl;</xsl:text>
 		</xsl:if>
 		<xsl:apply-templates select="@*|*"/>
@@ -32,7 +33,7 @@
 		<xsl:text>[@</xsl:text>
 		<xsl:value-of select="name()"/>
 		<xsl:text>='</xsl:text>
-		<xsl:call-template name="quote"/>
+		<xsl:call-template name="quote"><xsl:with-param name="str" select="."/></xsl:call-template>
 		<xsl:text>']&nl;</xsl:text>
 	</xsl:template>
 </xsl:stylesheet>
