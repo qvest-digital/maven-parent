@@ -116,8 +116,23 @@ function output {
 	set -e
 }
 
+function drop {
+	local lineno=-1 nlines line vsn lines=$1 from=$2
+
+	set +e
+	asso_loadk $lines
+	nlines=${#asso_y[*]}
+	while (( ++lineno < nlines )); do
+		asso_unset $from "${asso_y[lineno]}"
+	done
+	set -e
+}
+
 extract 'cat pom.xml' p plines
 extract 'mvn -B -N help:effective-pom -Doutput=/dev/fd/4 4>&1 >/dev/null 2>&1' e elines
+
+drop plines elines
+
 output plines
 echo
 output elines
