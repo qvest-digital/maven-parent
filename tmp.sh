@@ -119,3 +119,5 @@ function output {
 extract 'cat pom.xml' p plines
 extract 'mvn -B -N help:effective-pom -Doutput=/dev/fd/4 4>&1 >/dev/null 2>&1' e elines
 output plines
+echo
+output elines
