@@ -29,6 +29,7 @@ set -e
 set -o pipefail
 me=$(realpath "$0/..")
 . "$me/assockit.ksh"
+. "$me/progress-bar"
 
 die() {
 	print -ru2 -- "E: $*"
@@ -36,14 +37,19 @@ die() {
 }
 
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
+
+function xml2path {
+	xmlstarlet tr "$me/tmp.xsl" "$1" | \
+	    egrep "^[^']*/(groupId|artifactId|version)='" >target/pom.xp
+}
+
 function extract {
-	local line value base path p t x infile=$1 bron=$2 lines=$3
+	local line value base path p t x bron=$1 lines=$2
 
 	# thankfully neither ' nor = are valid in XML names
-	xmlstarlet tr "$me/tmp.xsl" "$infile" | \
-	    egrep "^[^']*/(groupId|artifactId|version)='" |&
 	set +e
-	while IFS= read -pr line; do
+	while IFS= read -r line; do
+		draw_progress_bar
 		value=${line#*=}
 		eval "value=$value" # trust our XSLT escaping code
 		(( $? )) && die "Error reading value from line ${line@Q}"
@@ -51,9 +57,10 @@ function extract {
 		base=${line##*/}
 		line=${line%/*}
 		asso_sets "$value" "$bron" "$line" "$base"
-	done
+	done <target/pom.xp
 	asso_loadk "$bron"
 	for path in "${asso_y[@]}"; do
+		draw_progress_bar
 		p=${path//'['+([0-9])']'}
 		if [[ $p = //project/parent ]]; then
 			t=0
@@ -74,7 +81,6 @@ function extract {
 			print -ru2 -- "W: Unknown XPath: $path"
 			continue
 		fi
-#		t+=/${grouping[$t]}
 		x=$(asso_getv "$bron" "$path" groupId)
 		[[ -n $x ]] || case $t {
 		(1)	x=$(asso_getv "$bron" //project/parent groupId)
@@ -110,6 +116,7 @@ function output {
 	nlines=${#asso_y[*]}
 	(( nlines )) || print -r -- "(none)"
 	while (( ++lineno < nlines )); do
+		draw_progress_bar
 		line=${asso_y[lineno]}
 		vsn=$(asso_getv versions "$line")
 		[[ -n $vsn ]] && line+=/$vsn
@@ -134,21 +141,72 @@ function drop {
 	asso_loadk $lines
 	nlines=${#asso_y[*]}
 	while (( ++lineno < nlines )); do
+		draw_progress_bar
 		asso_unset $from "${asso_y[lineno]}"
 	done
 	set -e
 }
 
-extract pom.xml p plines
 mkdir -p target
+xml2path pom.xml
+
+Lxp=$(wc -l <target/pom.xp)
+# first estimate
+Lxe=$((Lxp * 3 / 2))
+Lop=$((Lxp / 3))
+Ldrop=$Lop
+Loe=200 # outrageous, I know, but it makes things smoother
+set +e
+init_progress_bar $((2*Lxp + 2 + 2*Lxe + 1 + Ldrop + 1 + Lop + Loe))
+set -e
+
+LN=$_cur_progress_bar
+extract p plines
+Lxpr=$((_cur_progress_bar - LN))
+
 rm -f target/effective-pom.xml
 mvn -B -N help:effective-pom -Doutput=target/effective-pom.xml >&2
-extract target/effective-pom.xml e elines
-rm -f target/effective-pom.xml
+set +e
+draw_progress_bar
+set -e
 
+xml2path target/effective-pom.xml
+Lxe=$(wc -l <target/pom.xp)
+# re-estimate
+Loe=$(( (Lxe-Lxp) / 3 ))
+set +e
+asso_loadk plines
+Lop=${#asso_y[*]}
+_cnt_progress_bar=$((Lxpr + 2 + 2*Lxe + 1 + Ldrop + 1 + Lop + Loe))
+draw_progress_bar
+set -e
+
+LN=$_cur_progress_bar
+extract e elines
+Lxer=$((_cur_progress_bar - LN))
+
+rm -f target/effective-pom.xml target/pom.xp
+# recalculate
+set +e
+asso_loadk elines
+Loe=${#asso_y[*]}
+_cnt_progress_bar=$((Lxpr + 2 + Lxer + 1 + Ldrop + 1 + Lop + Loe))
+draw_progress_bar
+set -e
+
+LN=$_cur_progress_bar
 drop plines elines
+Ldrop=$((_cur_progress_bar - LN))
+set +e
+asso_loadk elines
+Loe=${#asso_y[*]}
+_cnt_progress_bar=$((Lxpr + 2 + Lxer + 1 + Ldrop + 1 + Lop + Loe))
+draw_progress_bar
+set -e
 
 output plines
 print
 print Effective POM extras:
 output elines
+set +e
+done_progress_bar
