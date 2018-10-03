@@ -7,10 +7,14 @@
 	<xsl:output method="text" encoding="UTF-8" indent="no"/>
 	<xsl:strip-space elements="*"/>
 	<xsl:variable name="sq">'</xsl:variable>
+	<xsl:template name="quote">
+		<xsl:value-of select="concat($sq, ., $sq)"/>
+	</xsl:template>
 	<xsl:template match="*[@* or not(*)]">
 		<xsl:if test="not(*)">
 			<xsl:apply-templates select="ancestor-or-self::*" mode="path"/>
-			<xsl:value-of select="concat('=', $sq, ., $sq)"/>
+			<xsl:text>=</xsl:text>
+			<xsl:call-template name="quote"/>
 			<xsl:text>&nl;</xsl:text>
 		</xsl:if>
 		<xsl:apply-templates select="@*|*"/>
@@ -25,7 +29,10 @@
 	</xsl:template>
 	<xsl:template match="@*">
 		<xsl:apply-templates select="../ancestor-or-self::*" mode="path"/>
-		<xsl:value-of select="concat('[@', name(), '=', $sq, ., $sq, ']')"/>
-		<xsl:text>&nl;</xsl:text>
+		<xsl:text>[@</xsl:text>
+		<xsl:value-of select="name()"/>
+		<xsl:text>=</xsl:text>
+		<xsl:call-template name="quote"/>
+		<xsl:text>]&nl;</xsl:text>
 	</xsl:template>
 </xsl:stylesheet>
