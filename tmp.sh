@@ -67,7 +67,7 @@ function extract {
 			t=4
 		elif [[ $p = */dependencies/dependency ]]; then
 			t=2
-		elif [[ $p = */configuration/* ]]; then
+		elif [[ $p = */@(configuration|exclusions)/* ]]; then
 			# skip well-known others silently
 			continue
 		else
