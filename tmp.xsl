@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+	This XSLT 1.0 file, converting XML to an XPath string list, is:
+	Copyright © 2018 mirabilos <t.glaser@tarent.de>
+	Licensor: tarent solutions GmbH, Bonn
+
+	This is a derivative work of an original Work retrieved from the
+	StackOverflow/StackExchange network, whose Original Author is:
+	© 2011 Dimitre Novatchev <https://stackoverflow.com/users/36305>
+	Source: https://stackoverflow.com/a/4747858/2171120
+	Question by ant <https://stackoverflow.com/users/169277>
+
+	Further incorporated works from the same site are by:
+
+	© 2014 Sam Harwell <https://stackoverflow.com/users/138304>
+	Source: https://stackoverflow.com/a/24831920/2171120
+	Question by Mithil <https://stackoverflow.com/users/34219>
+
+	© 2011 Mads Hansen <https://stackoverflow.com/users/14419>
+	Source: https://stackoverflow.com/a/7523245/2171120
+	Question by Paul <https://stackoverflow.com/users/925899>
+
+	This Adaption may be Distributed or Publicly Performed under the
+	CC-BY-SA 3.0 (unported) licence or (at Your option) any later
+	version of that licence, as published by Creative Commons, with
+	no associated URI or title of the Work supplied. Licence URI:
+	https://creativecommons.org/licenses/by-sa/3.0/legalcode.txt
+-->
 <!DOCTYPE xsl:stylesheet [
 <!ENTITY nl "&#x0A;">
 ]>
