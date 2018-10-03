@@ -37,10 +37,10 @@ die() {
 
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 function extract {
-	local line value base path p t x cmd=$1 bron=$2 lines=$3
+	local line value base path p t x infile=$1 bron=$2 lines=$3
 
 	# thankfully neither ' nor = are valid in XML names
-	eval "$cmd" | xmlstarlet tr "$me/tmp.xsl" | \
+	xmlstarlet tr "$me/tmp.xsl" "$infile" | \
 	    egrep "^[^']*/(groupId|artifactId|version)='" |&
 	set +e
 	while IFS= read -pr line; do
@@ -139,8 +139,12 @@ function drop {
 	set -e
 }
 
-extract 'cat pom.xml' p plines
-extract 'mvn -B -N help:effective-pom -Doutput=/dev/fd/4 4>&1 >/dev/null 2>&1' e elines
+extract pom.xml p plines
+mkdir -p target
+rm -f target/effective-pom.xml
+mvn -B -N help:effective-pom -Doutput=target/effective-pom.xml >&2
+extract target/effective-pom.xml e elines
+rm -f target/effective-pom.xml
 
 drop plines elines
 
