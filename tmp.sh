@@ -103,15 +103,26 @@ function extract {
 
 function output {
 	local lineno=-1 nlines line vsn lines=$1
+	local last=-1 typ
 
 	set +e
 	asso_loadk $lines
 	nlines=${#asso_y[*]}
+	(( nlines )) || print -r -- "(none)"
 	while (( ++lineno < nlines )); do
 		line=${asso_y[lineno]}
 		vsn=$(asso_getv versions "$line")
 		[[ -n $vsn ]] && line+=/$vsn
-		print -r -- "$line"
+		typ=${line::1}
+		line=${line:2}
+		if (( typ < 2 )); then
+			print -nr -- "${grouping[typ]}: "
+		elif (( typ != last )); then
+			print
+			print -r -- "${grouping[typ]}:"
+		fi
+		(( last = typ ))
+		print -r -- "https://mvnrepository.com/artifact/$line"
 	done
 	set -e
 }
@@ -134,5 +145,6 @@ extract 'mvn -B -N help:effective-pom -Doutput=/dev/fd/4 4>&1 >/dev/null 2>&1' e
 drop plines elines
 
 output plines
-echo
+print
+print Effective POM extras:
 output elines
