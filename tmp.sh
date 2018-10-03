@@ -156,10 +156,9 @@ Lxp=$(wc -l <target/pom.xp)
 # first estimate
 Lxe=$((Lxp * 3 / 2))
 Lop=$((Lxp / 3))
-Ldrop=$Lop
 Loe=300 # outrageous, I know, but it makes things smoother
 set +e
-init_progress_bar $((2*Lxp + 2 + 2*Lxe + 1 + Ldrop + 1 + Lop + Loe))
+init_progress_bar $((2*Lxp + 2 + 2*Lxe + 1 + Lop + 1 + Lop + Loe))
 set -e
 
 LN=$_cur_progress_bar
@@ -172,36 +171,36 @@ draw_progress_bar
 set -e
 
 xml2path target/effective-pom.xml
+
 Lxe=$(wc -l <target/pom.xp)
 # re-estimate
 Loe=$(( (Lxe-Lxp) / 3 ))
 set +e
 asso_loadk plines
 Lop=${#asso_y[*]}
-_cnt_progress_bar=$((Lxpr + 2 + 2*Lxe + 1 + Ldrop + 1 + Lop + Loe))
+_cnt_progress_bar=$((Lxpr + 2 + 2*Lxe + 1 + Lop + 1 + Lop + Loe))
 draw_progress_bar
 set -e
 
 LN=$_cur_progress_bar
 extract e elines
 Lxer=$((_cur_progress_bar - LN))
-
 rm -f target/effective-pom.xml target/pom.xp
+
 # recalculate
 set +e
 asso_loadk elines
 Loe=${#asso_y[*]}
-_cnt_progress_bar=$((Lxpr + 2 + Lxer + 1 + Ldrop + 1 + Lop + Loe))
+_cnt_progress_bar=$((Lxpr + 2 + Lxer + 1 + Lop + 1 + Lop + Loe))
 draw_progress_bar
 set -e
 
-LN=$_cur_progress_bar
 drop plines elines
-Ldrop=$((_cur_progress_bar - LN))
+
 set +e
 asso_loadk elines
 Loe=${#asso_y[*]}
-_cnt_progress_bar=$((Lxpr + 2 + Lxer + 1 + Ldrop + 1 + Lop + Loe))
+_cnt_progress_bar=$((Lxpr + 2 + Lxer + 1 + Lop + 1 + Lop + Loe))
 draw_progress_bar
 set -e
 
