@@ -43,7 +43,7 @@ function xml2path {
 	xmlstarlet tr "$me/mvnrepo.xsl" "$1" | tr '\n' '' | \
 	    sed -e 's!$!!' -e "s!'//!'//!g" -e "s!'\\\\''!'\\\\''!g" | \
 	    tr '' '\n\n' | \
-	    egrep "^[^']*/(groupId|artifactId|version)='" >target/pom.xp
+	    grep -E "^[^']*/(groupId|artifactId|version)='" >target/pom.xp
 }
 
 function extract {
