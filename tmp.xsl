@@ -18,7 +18,8 @@
 	<xsl:template match="*" mode="path">
 		<xsl:value-of select="concat('/', name())"/>
 		<xsl:variable name="precSiblings" select="count(preceding-sibling::*[name()=name(current())])"/>
-		<xsl:if test="$precSiblings">
+		<xsl:variable name="nextSiblings" select="count(following-sibling::*[name()=name(current())])"/>
+		<xsl:if test="$precSiblings or $nextSiblings">
 			<xsl:value-of select="concat('[', $precSiblings + 1, ']')"/>
 		</xsl:if>
 	</xsl:template>
