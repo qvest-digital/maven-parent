@@ -39,7 +39,10 @@ die() {
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 
 function xml2path {
-	xmlstarlet tr "$me/mvnrepo.xsl" "$1" | \
+	# thankfully only HT, CR, LF are, out of all C0, valid in XML
+	xmlstarlet tr "$me/mvnrepo.xsl" "$1" | tr '\n' '' | \
+	    sed -e 's!$!!' -e "s!'//!'//!g" -e "s!'\\\\''!'\\\\''!g" | \
+	    tr '' '\n\n' | \
 	    egrep "^[^']*/(groupId|artifactId|version)='" >target/pom.xp
 }
 
@@ -50,6 +53,10 @@ function extract {
 	set +e
 	while IFS= read -r line; do
 		draw_progress_bar
+		if [[ $line = *''* ]]; then
+			print -ru2 -- "W: Embedded newline in ${line@Q}"
+			continue
+		fi
 		value=${line#*=}
 		eval "value=$value" # trust our XSLT escaping code
 		(( $? )) && die "Error reading value from line ${line@Q}"
