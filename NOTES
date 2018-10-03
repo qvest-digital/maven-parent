@@ -63,3 +63,18 @@ http://www.mirbsd.org/cvs.cgi/contrib/hosted/tg/.gitconfig?rev=HEAD;content-type
 (needs https://github.com/mirabilos/git-find and pcregrep), then
 pipe those files through “cat -s” or “perl -00pe0” to drop those
 double empty lines as files without a header may get them added.
+
+Some description on ancillary tools:
+• mvnrepo.sh lists dependencies and plugins from the POM in the
+  current working directory as links to mvnrepository.com for
+  manual up-to-dateness checking in a browser
+• sortdeps.sh sorts <dependencies> and <exclusions> that are
+  piped through it (strip the surrounding tags and pass only
+  the individual dependency/exclusion tags); postprocess the
+  entire POM afterwards with: xmlstarlet fo -e UTF-8 -t -
+• sortplug.sh does the same for <plugins> sorting any listed
+  dependencies with the above script internally
+
+You’ll need coreutils, xmlstarlet and a recent enough mksh for
+most tools although they should be pretty portable even though
+tested on Debian only.
