@@ -9,7 +9,18 @@
 	<xsl:variable name="sq">'</xsl:variable>
 	<xsl:template name="quote">
 		<xsl:param name="str"/>
-		<xsl:value-of select="$str"/>
+		<xsl:choose>
+			<xsl:when test="contains($str, $sq)">
+				<xsl:value-of select="substring-before($str, $sq)"/>
+				<xsl:text>'\''</xsl:text>
+				<xsl:call-template name="quote">
+					<xsl:with-param name="str" select="substring-after($str, $sq)"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$str"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="*[@* or not(*)]">
 		<xsl:if test="not(*)">
