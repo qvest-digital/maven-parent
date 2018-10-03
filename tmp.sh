@@ -148,6 +148,8 @@ function drop {
 }
 
 mkdir -p target
+rm -f target/effective-pom.xml
+mvn -B -N help:effective-pom -Doutput=target/effective-pom.xml >&2 &
 xml2path pom.xml
 
 Lxp=$(wc -l <target/pom.xp)
@@ -155,7 +157,7 @@ Lxp=$(wc -l <target/pom.xp)
 Lxe=$((Lxp * 3 / 2))
 Lop=$((Lxp / 3))
 Ldrop=$Lop
-Loe=200 # outrageous, I know, but it makes things smoother
+Loe=300 # outrageous, I know, but it makes things smoother
 set +e
 init_progress_bar $((2*Lxp + 2 + 2*Lxe + 1 + Ldrop + 1 + Lop + Loe))
 set -e
@@ -164,8 +166,7 @@ LN=$_cur_progress_bar
 extract p plines
 Lxpr=$((_cur_progress_bar - LN))
 
-rm -f target/effective-pom.xml
-mvn -B -N help:effective-pom -Doutput=target/effective-pom.xml >&2
+wait
 set +e
 draw_progress_bar
 set -e
