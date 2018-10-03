@@ -20,6 +20,10 @@
 			<name>The MirOS Licence</name>
 			<url>http://www.mirbsd.org/MirOS-Licence.htm</url>
 		</license>
+		<license>
+			<name>CC-BY-SA 3.0 (unported)</name>
+			<url>https://creativecommons.org/licenses/by-sa/3.0/legalcode.txt</url>
+		</license>
 	</licenses>
 	<developers>
 		<developer>
