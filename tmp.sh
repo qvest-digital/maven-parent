@@ -40,7 +40,7 @@ function extract {
 	local line value base path p t x cmd=$1 bron=$2 lines=$3
 
 	# thankfully neither ' nor = are valid in XML names
-	$cmd | xmlstarlet tr "$me/tmp.xsl" | \
+	eval "$cmd" | xmlstarlet tr "$me/tmp.xsl" | \
 	    egrep "^[^']*/(groupId|artifactId|version)='" |&
 	set +e
 	while IFS= read -pr line; do
@@ -95,7 +95,7 @@ function extract {
 			x=$(asso_getv "$bron" "$path" version)
 			[[ $x = *'${'* || $x = *[\\/:\"\<\>\|?*]* ]] && x=
 		fi
-		asso_sets "$x" versions "$t"
+		[[ -n $x ]] && asso_sets "$x" versions "$t"
 		asso_setnull $lines "$t"
 	done
 	set -e
