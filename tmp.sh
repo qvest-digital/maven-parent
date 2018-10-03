@@ -81,7 +81,7 @@ function extract {
 			[[ -n $x ]] || die "No groupId for project or parent"
 			;;
 		(4)	x=org.apache.maven.plugins
-			print -ru2 -- "W: missing groupId for $path"
+			#print -ru2 -- "W: missing groupId for $path"
 			;;
 		(*)	die "missing groupId for $path"
 			;;
