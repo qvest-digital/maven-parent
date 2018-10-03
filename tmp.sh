@@ -37,11 +37,10 @@ die() {
 
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 function extract {
-	local line value base path p t x bron=$1 lines=$2
+	local line value base path p t x cmd=$1 bron=$2 lines=$3
 
 	# thankfully neither ' nor = are valid in XML names
-	exec 4>&0
-	xmlstarlet tr "$me/tmp.xsl" <&4 | \
+	$cmd | xmlstarlet tr "$me/tmp.xsl" | \
 	    egrep "^[^']*/(groupId|artifactId|version)='" |&
 	set +e
 	while IFS= read -pr line; do
@@ -117,5 +116,5 @@ function output {
 	set -e
 }
 
-extract p plines <pom.xml
+extract 'cat pom.xml' p plines
 output plines | sort -u
