@@ -39,10 +39,10 @@ die() {
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 
 function xml2path {
-	# thankfully only HT, CR, LF are, out of all C0, valid in XML
-	xmlstarlet tr "$me/mvnrepo.xsl" "$1" | tr '\n' '' | \
-	    sed -e 's!$!!' -e "s!'//!'//!g" -e "s!'\\\\''!'\\\\''!g" | \
-	    tr '' '\n\n' | \
+	# thankfully only HT, CR, LF are, out of all C0 controls, valid in XML
+	xmlstarlet tr "$me/mvnrepo.xsl" "$1" | { tr '\n' ''; print; } | \
+	    sed -e 's!$!!' -e "s!'//!'//!g" -e "s!'\\\\''!'\\\\''!g" | \
+	    tr '' '\n' | \
 	    grep -E "^[^']*/(groupId|artifactId|version)='" >target/pom.xp
 }
 
