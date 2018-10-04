@@ -14,7 +14,7 @@ Children still need to define:
   ‣ name: either just ${project.artifactId} or unset, except when
     targetting Central, then: ${project.groupId}:${project.artifactId}
 • url
-• licenses (if not MirOS): at least one license (name, url)
+• licenses: at least one license (name, url)
 • developers: at least one developer (name, email, organization{,Url}, …)
 • organization (if not tarent): name, url
 • (optionally)
