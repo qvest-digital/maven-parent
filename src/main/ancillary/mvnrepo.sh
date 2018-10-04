@@ -172,7 +172,7 @@ LN=$_cur_progress_bar
 extract p plines
 Lxpr=$((_cur_progress_bar - LN))
 
-wait
+while [[ -n $(jobs) ]]; do wait; done
 set +e
 draw_progress_bar
 set -e
