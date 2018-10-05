@@ -73,7 +73,6 @@
 		<maven.war.version>2.6</maven.war.version>
 		<pitest.plugin.version>1.0.0</pitest.plugin.version>
 		<!-- updates scheduled for testing --><!--
-		<gmavenplus.plugin.version>1.6.1</gmavenplus.plugin.version>
 		<maven.assembly.version>3.1.0</maven.assembly.version>
 		<maven.compiler.version>3.8.0</maven.compiler.version>
 		<maven.eclipse.version>2.10</maven.eclipse.version>
