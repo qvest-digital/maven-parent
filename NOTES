@@ -39,6 +39,7 @@ Children still need to define:
       – gpg
 • build: settings/resources, pluginManagement and plugins not listed above
 • (dependencyManagement)
+• (dependencies)
 
 Model: https://maven.apache.org/ref/current/maven-model/maven.html
 Full POM reference: https://maven.apache.org/pom.html
