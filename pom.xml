@@ -46,6 +46,8 @@
 		<archiver.copyright.lastyear>2018</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
 		<javaRelease>8</javaRelease>
+		<!-- http://groovy.github.io/GMavenPlus/compileTests-mojo.html#targetBytecode -->
+		<gmavenplus.javaRelease>1.8</gmavenplus.javaRelease>
 		<maven.minimum.version>3.2</maven.minimum.version>
 		<doclint.optappend>-Xdoclint:all</doclint.optappend>
 		<!-- maven plugins -->
@@ -219,6 +221,9 @@
 							</goals>
 						</execution>
 					</executions>
+					<configuration>
+						<targetBytecode>${gmavenplus.javaRelease}</targetBytecode>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.jacoco</groupId>
