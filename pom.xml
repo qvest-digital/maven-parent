@@ -207,7 +207,7 @@
 								<configuration>
 									<classifier>testcp</classifier>
 									<includes>
-										<include>src/test/resources</include>
+										<include>src/test/resources/*</include>
 									</includes>
 								</configuration>
 							</execution>
