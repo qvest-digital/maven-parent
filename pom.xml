@@ -555,4 +555,14 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.evolvis.tartools</groupId>
+				<artifactId>maven-parent</artifactId>
+				<version>${org.evolvis.tartools.maven-parent.version}</version>
+				<classifier>tests</classifier>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
