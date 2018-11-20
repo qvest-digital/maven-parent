@@ -42,7 +42,7 @@
 		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<releaseVersion>${project.version}</releaseVersion>
-		<org.evolvis.tartools.maven-parent.version>${project.version}</org.evolvis.tartools.maven-parent.version>
+		<org.evolvis.tartools.maven-parent.version>1.8-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
 		<archiver.copyright.lastyear>2018</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
