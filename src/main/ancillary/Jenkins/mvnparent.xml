@@ -36,6 +36,20 @@
       <permission>hudson.model.Run.Update:tglase</permission>
       <permission>hudson.scm.SCM.Tag:tglase</permission>
     </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>DSTREPO_PROFILE</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>tarent</string>
+              <string>central</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
     <configVersion>2</configVersion>
@@ -70,7 +84,7 @@
     <groupId>org.evolvis.tartools</groupId>
     <artifactId>maven-parent</artifactId>
   </rootModule>
-  <goals>-Pbuild-mvnparent -e clean install</goals>
+  <goals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -e clean install</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <ignoreUpstremChanges>false</ignoreUpstremChanges>
@@ -99,8 +113,8 @@
       <scmUserEnvVar></scmUserEnvVar>
       <scmPasswordEnvVar></scmPasswordEnvVar>
       <releaseEnvVar>IS_M2RELEASEBUILD</releaseEnvVar>
-      <releaseGoals>-Pbuild-mvnparent -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -Darguments=&#34;-Dgpg.passphrase=<SECRET/> -Pgpg -Pbuild-mvnparent&#34; -e</releaseGoals>
-      <dryRunGoals>-Pbuild-mvnparent -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
+      <releaseGoals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -Darguments=&#34;-Dgpg.passphrase=<SECRET/> -Pgpg -Pbuild-mvnparent&#34; -e</releaseGoals>
+      <dryRunGoals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
       <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
       <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
       <selectScmCredentials>false</selectScmCredentials>

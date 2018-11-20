@@ -29,6 +29,7 @@ Children still need to define:
     – sonar.sources, sonar.tests (both unset)
 • scm: connection, developerConnection, url, tag (HEAD)
 • distributionManagement: repository(, snapshotRepository): id, (name), url
+  only if neither dstrepo-{central,tarent} profile are used
 • (optionally)
   ‣ (modules)
   ‣ (profiles)
