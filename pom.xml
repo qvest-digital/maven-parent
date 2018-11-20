@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.evolvis.tartools</groupId>
 	<artifactId>maven-parent</artifactId>
-	<version>1.7.901</version>
+	<version>1.8-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Parent POM for Maven projects</description>
@@ -42,7 +42,7 @@
 		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<releaseVersion>${project.version}</releaseVersion>
-		<org.evolvis.tartools.maven-parent.version>1.7.901</org.evolvis.tartools.maven-parent.version>
+		<org.evolvis.tartools.maven-parent.version>1.8-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
 		<archiver.copyright.lastyear>2018</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
@@ -80,7 +80,7 @@
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/tartools/mvnparent.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=tartools/mvnparent.git</url>
-		<tag>maven-parent-1.7.901</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<profiles>
 		<profile>
