@@ -47,6 +47,8 @@
 		<archiver.copyright.lastyear>2019</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
 		<javaRelease>8</javaRelease>
+		<maven.compiler.source>${javaRelease}</maven.compiler.source>
+		<maven.compiler.release>${javaRelease}</maven.compiler.release>
 		<!-- http://groovy.github.io/GMavenPlus/compileTests-mojo.html#targetBytecode -->
 		<gmavenplus.javaRelease>1.8</gmavenplus.javaRelease>
 		<maven.minimum.version>3.2</maven.minimum.version>
