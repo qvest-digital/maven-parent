@@ -311,8 +311,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven.compiler.version}</version>
 					<configuration>
-						<source>1.${javaRelease}</source>
-						<target>1.${javaRelease}</target>
+						<source>${javaRelease}</source>
+						<target>${javaRelease}</target>
 						<release>${javaRelease}</release>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<compilerArgs>
