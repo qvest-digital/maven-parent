@@ -515,6 +515,7 @@
 				<executions>
 					<execution>
 						<id>analyse-dependency-management</id>
+						<phase>validate</phase>
 						<goals>
 							<goal>analyze-dep-mgt</goal>
 						</goals>
@@ -528,6 +529,7 @@
 						<goals>
 							<goal>analyze-duplicate</goal>
 						</goals>
+						<phase>validate</phase>
 					</execution>
 					<execution>
 						<id>analyse-dependency-usage</id>
