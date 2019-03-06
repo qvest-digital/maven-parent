@@ -514,6 +514,13 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
+						<id>analyse-dependency-duplicates</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>analyze-duplicate</goal>
+						</goals>
+					</execution>
+					<execution>
 						<id>analyse-dependency-management</id>
 						<phase>validate</phase>
 						<goals>
@@ -525,22 +532,15 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>analyse-dependency-duplicates</id>
-						<goals>
-							<goal>analyze-duplicate</goal>
-						</goals>
-						<phase>validate</phase>
-					</execution>
-					<execution>
 						<id>analyse-dependency-usage</id>
+						<goals>
+							<goal>analyze-only</goal>
+						</goals>
 						<configuration>
 							<failOnWarning>true</failOnWarning>
 							<outputXML>true</outputXML>
 							<verbose>true</verbose>
 						</configuration>
-						<goals>
-							<goal>analyze-only</goal>
-						</goals>
 					</execution>
 				</executions>
 				<inherited>true</inherited>
@@ -550,6 +550,7 @@
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<executions>
 					<execution>
+						<id>mvnparent-enforce-run</id>
 						<goals>
 							<goal>enforce</goal>
 						</goals>
