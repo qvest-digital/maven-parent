@@ -51,7 +51,6 @@
 		<maven.compiler.release>${javaRelease}</maven.compiler.release>
 		<!-- http://groovy.github.io/GMavenPlus/compileTests-mojo.html#targetBytecode -->
 		<gmavenplus.javaRelease>1.8</gmavenplus.javaRelease>
-		<maven.dependency.analyseFailBuild>false</maven.dependency.analyseFailBuild>
 		<maven.minimum.version>3.2</maven.minimum.version>
 		<doclint.optappend>-Xdoclint:all</doclint.optappend>
 		<!-- maven plugins -->
@@ -520,7 +519,7 @@
 							<goal>analyze-dep-mgt</goal>
 						</goals>
 						<configuration>
-							<failBuild>${maven.dependency.analyseFailBuild}</failBuild>
+							<failBuild>true</failBuild>
 							<ignoreDirect>false</ignoreDirect>
 						</configuration>
 					</execution>
@@ -533,7 +532,7 @@
 					<execution>
 						<id>analyse-dependency-usage</id>
 						<configuration>
-							<failOnWarning>${maven.dependency.analyseFailBuild}</failOnWarning>
+							<failOnWarning>true</failOnWarning>
 							<outputXML>true</outputXML>
 							<verbose>true</verbose>
 						</configuration>
