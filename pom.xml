@@ -66,9 +66,9 @@
 		<maven.enforcer.version>1.4.1</maven.enforcer.version>
 		<maven.exec.version>1.6.0</maven.exec.version>
 		<maven.gpg.version>1.6</maven.gpg.version>
-		<maven.jacoco.version>0.8.2</maven.jacoco.version>
+		<maven.jacoco.version>0.8.3</maven.jacoco.version>
 		<maven.jar.version>3.1.1</maven.jar.version>
-		<maven.javadoc.version>3.0.1</maven.javadoc.version>
+		<maven.javadoc.version>3.1.0</maven.javadoc.version>
 		<maven.latex.version>1.4.4</maven.latex.version>
 		<maven.mycila.version>3.0</maven.mycila.version>
 		<maven.release.version>2.5.3</maven.release.version>
@@ -78,7 +78,7 @@
 		<maven.source.version>3.0.1</maven.source.version>
 		<maven.surefire.version>2.22.1</maven.surefire.version>
 		<maven.war.version>2.6</maven.war.version>
-		<pitest.plugin.version>1.4.3</pitest.plugin.version>
+		<pitest.plugin.version>1.4.5</pitest.plugin.version>
 	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
