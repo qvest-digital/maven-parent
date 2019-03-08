@@ -94,6 +94,7 @@
 			<properties>
 				<!-- maven plugins -->
 				<maven.compiler.version>3.5.1</maven.compiler.version>
+				<maven.javadoc.version>3.0.1</maven.javadoc.version>
 				<!-- dependencies -->
 				<mockito.version>2.10.0</mockito.version>
 			</properties>
