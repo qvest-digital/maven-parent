@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016
+# Copyright © 2016, 2018
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -33,26 +33,32 @@ if test -z "$MKSRC_RUN_FROM_MAVEN"; then
 fi
 # initialisation
 set -e
+set -o pipefail
 cd "$(dirname "$0")/../../.."
 rm -rf target/mksrc
 mkdir -p target/mksrc
 
+# performing a release?
+if test x"$IS_M2RELEASEBUILD" = x"true"; then
+	# fail the build if dependency licence review has a to-do item:
+	# src/main/ancillary/ckdep.sh will fail the build when the list
+	# was not up-to-date, so we only need to care about the current
+	# state of the list (by default commented out):
+	:||if grep -e ' TO''DO$' -e ' FA''IL$' src/main/ancillary/ckdep.lst; then
+		echo >&2 "[ERROR] licence review incomplete"
+		exit 1
+	fi
+fi
+
 # check for source cleanliness
-if test -n "$(git status --porcelain)"; then
+x=$(git status --porcelain)
+if test -n "$x"; then
 	echo >&2 "[ERROR] source tree not clean"
+	echo >&2 "[INFO] git status output follows:"
+	print -r -- "$x" | sed 's/^/[INFO]   /' >&2
 	if test x"$IS_M2RELEASEBUILD" = x"true"; then
 		:>target/mksrc/failed
 		echo >&2 "[WARNING] maven-release-plugin prepare, continuing anyway"
-
-		# fail the build if dependency licence review has a to-do item:
-		# src/main/ancillary/ckdep.sh will fail the build when the list
-		# was not up-to-date, so we only need to care about the current
-		# state of the list
-		#if grep -e ' TO''DO$' -e ' FA''IL$' src/main/ancillary/ckdep.lst; then
-		#	echo >&2 "[ERROR] licence review incomplete"
-		#	exit 1
-		#fi
-
 		exit 0
 	fi
 	exit 1
