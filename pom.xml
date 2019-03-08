@@ -88,19 +88,24 @@
 	<profiles>
 		<profile>
 			<id>jdk8orolder</id>
+			<!-- only tested with JDK 8 -->
 			<activation>
 				<jdk>(,9)</jdk>
 			</activation>
 			<properties>
 				<!-- maven plugins -->
+				<!-- ↓ last version working with JDK 8 -->
 				<maven.compiler.version>3.5.1</maven.compiler.version>
+				<!-- ↓ 3.1.0 calls javadoc with -‒release -->
 				<maven.javadoc.version>3.0.1</maven.javadoc.version>
 				<!-- dependencies -->
+				<!-- ↓ last version working with JDK 8 -->
 				<mockito.version>2.10.0</mockito.version>
 			</properties>
 		</profile>
 		<profile>
 			<id>jdk9ornewer</id>
+			<!-- only tested with JDK 11 -->
 			<activation>
 				<jdk>[9,)</jdk>
 			</activation>
