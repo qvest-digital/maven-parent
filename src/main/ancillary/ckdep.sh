@@ -22,7 +22,7 @@
 # Script to check dependencies
 
 # initialisation
-LC_ALL=C; export LC_ALL
+export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
 set -e

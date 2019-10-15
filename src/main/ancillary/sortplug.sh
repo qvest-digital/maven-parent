@@ -22,7 +22,7 @@
 # Pipe a Maven POM’s <plugins> element’s content without the plugins
 # element itself through this to sort them.
 
-LC_ALL=C; export LC_ALL
+export LC_ALL=C
 unset LANGUAGE
 
 set -e

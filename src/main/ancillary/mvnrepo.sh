@@ -22,7 +22,7 @@
 # Create mvnrepository.com URLs for all dependencies, extensions and
 # Maven plugins, sorted and categorised, for up-to-date checks.
 
-LC_ALL=C; export LC_ALL
+export LC_ALL=C
 unset LANGUAGE
 
 set -e

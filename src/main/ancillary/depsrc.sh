@@ -24,12 +24,12 @@
 # placed under src/dist/extra-depsrc/ as courtesy copy.
 
 # initialisation
-LC_ALL=C; export LC_ALL
+export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
 # check that we’re really run from mvn
-if test -z "$DEPSRC_RUN_FROM_MAVEN"; then
-	echo >&2 "[ERROR] do not call me directly, I am only used by Maven"
+if [[ -z $DEPSRC_RUN_FROM_MAVEN ]]; then
+	print -ru2 -- "[ERROR] do not call me directly, I am only used by Maven"
 	export -p
 	exit 1
 fi
