@@ -44,7 +44,7 @@ if test x"$IS_M2RELEASEBUILD" = x"true"; then
 	# src/main/ancillary/ckdep.sh will fail the build when the list
 	# was not up-to-date, so we only need to care about the current
 	# state of the list (by default commented out):
-	:||if grep -e ' TO''DO$' -e ' FA''IL$' src/main/ancillary/ckdep.lst; then
+	if grep -e ' TO''DO$' -e ' FA''IL$' src/main/ancillary/ckdep.lst; then
 		echo >&2 "[ERROR] licence review incomplete"
 		exit 1
 	fi
