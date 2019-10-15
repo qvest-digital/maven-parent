@@ -80,7 +80,7 @@ if [[ -n $x ]]; then
 		:>"$tbname"/failed
 		print -ru2 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
 		cd "$tbname"
-		paxtar -M norm -cf - "$tzname/f*" | gzip -n9 >"../$tzname.tgz"
+		paxtar -M norm -cf - "$tzname"/f* | gzip -n9 >"../$tzname.tgz"
 		exit 0
 	fi
 	exit 1
