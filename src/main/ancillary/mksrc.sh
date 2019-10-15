@@ -80,7 +80,7 @@ if [[ -n $x ]]; then
 		:>"$tbname"/failed
 		print -ru2 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
 		cd "$tbname"
-		paxtar -M norm -cf - "$tzname"/f* | gzip -n9 >"../$tzname.tgz"
+		paxtar -M dist -cf - "$tzname"/f* | gzip -n9 >"../$tzname.tgz"
 		exit 0
 	fi
 	exit 1
@@ -90,10 +90,13 @@ fi
 set -x
 
 # copy git HEAD state
-git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0dlu "$tgname/"
+git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0du "$tgname/"
+ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
+    --date=format-local:%Y%m%d%H%M.%S)
 
 # create source tarball
 cd "$tbname"
+find "$tzname" -print0 | xargs -0r touch -h -t "$ts" --
 find "$tzname" \( -type f -o -type l \) -print0 | sort -z | \
-    paxcpio -oC512 -0 -Hustar -Mnorm | gzip -n9 >"../$tzname.tgz"
+    paxcpio -oC512 -0 -Hustar -Mdist | gzip -n9 >"../$tzname.tgz"
 rm -rf "$tzname"  # to save space
