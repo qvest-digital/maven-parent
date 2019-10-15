@@ -36,6 +36,13 @@ die() {
 	exit 1
 }
 
+x=$(sed --posix 's/u\+/x/g' <<<'fubar fuu' 2>&1) && alias 'sed=sed --posix'
+x=$(sed -e 's/u\+/x/g' -e 's/u/X/' <<<'fubar fuu' 2>&1)
+case $?:$x {
+(0:fXbar\ fuu) ;;
+(*) die your sed is not POSIX compliant ;;
+}
+
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 
 function xml2path {

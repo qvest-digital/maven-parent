@@ -29,6 +29,15 @@ set -e
 set -o pipefail
 cd "$(dirname "$0")"
 
+x=$(sed --posix 's/u\+/x/g' <<<'fubar fuu' 2>&1) && alias 'sed=sed --posix'
+x=$(sed -e 's/u\+/x/g' -e 's/u/X/' <<<'fubar fuu' 2>&1)
+case $?:$x {
+(0:fXbar\ fuu) ;;
+(*)
+	print -ru2 -- '[ERROR] your sed is not POSIX compliant'
+	exit 1 ;;
+}
+
 # get project metadata
 <../../../pom.xml xmlstarlet sel \
     -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
