@@ -22,12 +22,12 @@
 # Build-specific tool to create a tarball of the entire source code.
 
 # initialisation
-LC_ALL=C; export LC_ALL
+export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
 # check that we’re really run from mvn
-if test -z "$MKSRC_RUN_FROM_MAVEN"; then
-	echo >&2 "[ERROR] do not call me directly, I am only used by Maven"
+if [[ -z $MKSRC_RUN_FROM_MAVEN ]]; then
+	print -ru2 -- "[ERROR] do not call me directly, I am only used by Maven"
 	export -p
 	exit 1
 fi
@@ -36,9 +36,9 @@ unset GZIP
 set -e
 set -o pipefail
 cd "$(dirname "$0")/../../.."
-if test -e failed; then
-	echo >&2 "[ERROR] do not build from incomplete/dirty tree"
-	echo >&2 "[INFO] a previous mksrc failed and you used its result"
+if [[ -e failed ]]; then
+	print -ru2 -- "[ERROR] do not build from incomplete/dirty tree"
+	print -ru2 -- "[INFO] a previous mksrc failed and you used its result"
 	exit 1
 fi
 # get project metadata
@@ -59,26 +59,26 @@ rm -rf "$tgname"
 mkdir -p "$tgname"
 
 # performing a release?
-if test x"$IS_M2RELEASEBUILD" = x"true"; then
+if [[ $IS_M2RELEASEBUILD = true ]]; then
 	# fail the build if dependency licence review has a to-do item:
 	# src/main/ancillary/ckdep.sh will fail the build when the list
 	# was not up-to-date, so we check only the current list
 	if grep -e ' TO''DO$' -e ' FA''IL$' src/main/ancillary/ckdep.lst; then
-		echo >&2 "[ERROR] licence review incomplete"
+		print -ru2 -- "[ERROR] licence review incomplete"
 		exit 1
 	fi
 fi
 
 # check for source cleanliness
 x=$(git status --porcelain)
-if test -n "$x"; then
-	echo >&2 "[ERROR] source tree not clean"
-	echo >&2 "[INFO] git status output follows:"
+if [[ -n $x ]]; then
+	print -ru2 -- "[ERROR] source tree not clean"
+	print -ru2 -- "[INFO] git status output follows:"
 	print -r -- "$x" | sed 's/^/[INFO]   /' >&2
-	if test x"$IS_M2RELEASEBUILD" = x"true"; then
+	if [[ $IS_M2RELEASEBUILD = true ]]; then
 		:>"$tgname"/failed
 		:>"$tbname"/failed
-		echo >&2 "[WARNING] maven-release-plugin prepare, continuing anyway"
+		print -ru2 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
 		exit 0
 	fi
 	exit 1
