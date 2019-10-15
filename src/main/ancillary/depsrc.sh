@@ -19,7 +19,9 @@
 # damage or existence of a defect, except proven that it results out
 # of said person’s immediate fault when using the work as intended.
 #-
-# Build tarball containing source JARs of dependencies.
+# Build tarball containing source JARs of dependencies. Assume those
+# without suitable source in Maven Central have distfiles copied and
+# placed under src/dist/extra-depsrc/ as courtesy copy.
 
 # initialisation
 LC_ALL=C; export LC_ALL
@@ -38,9 +40,9 @@ cd "$(dirname "$0")/../../.."
 mkdir -p target
 rm -rf target/dep-srcs*
 
-#if [[ ! -d release/depsrc/. ]]; then
+#if [[ ! -d src/dist/extra-depsrc/. ]]; then
 #	# look at this script further below for a list of files
-#	print -ru2 -- "[ERROR] add release/depsrc/ from deps-src.zip"
+#	print -ru2 -- "[ERROR] add src/dist/extra-depsrc/ from deps-src.zip"
 #	exit 1
 #fi
 
@@ -125,7 +127,7 @@ mvn -B -f target/pom-srcs.xml \
 set +x
 
 function doit {
-	local f=release/depsrc/$1 g=${2//./'/'} a=$3 v=$4
+	local f=src/dist/extra-depsrc/$1 g=${2//./'/'} a=$3 v=$4
 
 	if [[ -d target/dep-srcs/$g/$a ]]; then
 		print -ru2 -- "[ERROR] missing dependency sources unexpectedly found"
