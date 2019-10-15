@@ -34,7 +34,7 @@ fi
 # initialisation
 set -e
 set -o pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../../.."
 mkdir -p target
 rm -rf target/dep-srcs*
 
@@ -44,18 +44,25 @@ rm -rf target/dep-srcs*
 #	exit 1
 #fi
 
-vsn=$(<pom.xml xmlstarlet sel \
-    -N pom=http://maven.apache.org/POM/4.0.0 \
-    -T -t -c /pom:project/pom:version)
+# get project metadata
+<../../../pom.xml xmlstarlet sel \
+    -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
+    -c /pom:project/pom:groupId -n \
+    -c /pom:project/pom:artifactId -n \
+    -c /pom:project/pom:version -n \
+    |&
+IFS= read -pr pgID
+IFS= read -pr paID
+IFS= read -pr pVSN
 
 exec >target/pom-srcs.xml
 cat <<EOF
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.evolvis.veraweb</groupId>
-		<artifactId>veraweb-parent</artifactId>
-		<version>$vsn</version>
+		<groupId>$pgID</groupId>
+		<artifactId>$paID</artifactId>
+		<version>$pVSN</version>
 		<relativePath>../</relativePath>
 	</parent>
 	<artifactId>release-sources</artifactId>
@@ -81,7 +88,7 @@ EOF
 	cat <<EOF
 			</dependency>
 EOF
-done <release/ckdep.mvn
+done <src/main/ancillary/ckdep.mvn
 cat <<\EOF
 		</dependencies>
 	</dependencyManagement>
@@ -100,7 +107,7 @@ while read g a v; do
 			<version>$v</version>
 		</dependency>
 EOF
-done <release/ckdep.mvn
+done <src/main/ancillary/ckdep.mvn
 cat <<\EOF
 	</dependencies>
 </project>
@@ -148,7 +155,8 @@ find target/dep-srcs/ -type f | \
 		x=${x%/*}
 		print -r -- ${x//'/'/.} $p $v
 done | sort | grep -v "${exclusions[@]}" >target/dep-srcs.actual
-grep -v "${inclusions[@]}" <release/ckdep.mvn >target/dep-srcs.expected
+grep -v "${inclusions[@]}" <src/main/ancillary/ckdep.mvn \
+    >target/dep-srcs.expected
 diff -u target/dep-srcs.actual target/dep-srcs.expected
-print -r -- "[INFO] release/depsrc.sh finished"
+print -r -- "[INFO] src/main/ancillary/depsrc.sh finished"
 # leave the rest to the maven-assembly-plugin
