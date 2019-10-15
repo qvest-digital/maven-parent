@@ -142,12 +142,20 @@ function doit {
 #doit antlr-2.7.7.tar.gz \
 #    antlr antlr 2.7.7
 
+set_e_grep() (
+	set +e
+	grep "$@"
+	rv=$?
+	(( rv == 1 )) && rv=0  # no match ≠ error
+	exit $rv
+)
+
 set -A exclusions
 set -A inclusions
 inclusions+=(-e '^# dummy, only needed if this array is empty otherwise$')
 exclusions+=(-e '^# dummy$')
 find target/dep-srcs/ -type f | \
-    fgrep -v -e _remote.repositories -e maven-metadata-local.xml | \
+    set_e_grep -F -v -e _remote.repositories -e maven-metadata-local.xml | \
     while IFS= read -r x; do
 		x=${x#target/dep-srcs/}
 		x=${x%/*}
@@ -156,8 +164,8 @@ find target/dep-srcs/ -type f | \
 		p=${x##*/}
 		x=${x%/*}
 		print -r -- ${x//'/'/.} $p $v
-done | sort | grep -v "${exclusions[@]}" >target/dep-srcs.actual
-grep -v "${inclusions[@]}" <src/main/ancillary/ckdep.mvn \
+done | sort | set_e_grep -v "${exclusions[@]}" >target/dep-srcs.actual
+set_e_grep -v "${inclusions[@]}" <src/main/ancillary/ckdep.mvn \
     >target/dep-srcs.expected
 diff -u target/dep-srcs.actual target/dep-srcs.expected
 print -r -- "[INFO] src/main/ancillary/depsrc.sh finished"
