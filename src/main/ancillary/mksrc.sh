@@ -91,7 +91,6 @@ git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0dlu "$tgname/"
 
 # create source tarball
 cd "$tbname"
-find "$tzname/" -type f -o -type l -print0 | \
-    sort -z | paxcpio -oC512 -Hustar -Mnorm | \
-    gzip -n9 >"../$tzname.tgz"
+find "$tzname/" \( -type f -o -type l \) -print0 | sort -z | \
+    paxcpio -oC512 -Hustar -Mnorm | gzip -n9 >"../$tzname.tgz"
 rm -rf "$tzname"  # to save space
