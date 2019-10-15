@@ -203,7 +203,7 @@
 								<configuration>
 									<attach>false</attach>
 									<descriptors>
-										<descriptor>release/depsrc.xml</descriptor>
+										<descriptor>src/main/ancillary/depsrc.xml</descriptor>
 									</descriptors>
 								</configuration>
 							</execution>
