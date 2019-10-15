@@ -58,7 +58,7 @@ else
 	abend=1
 fi
 # analyse Maven dependencies
-(cd ../../.. && mvn -B -Dskip-test-only-dependencies dependency:list) 2>&1 | \
+(cd ../../.. && mvn -B dependency:list) 2>&1 | \
     tee /dev/stderr | sed -n \
     -e 's/ -- module .*$//' \
     -e '/^\[INFO]    '$pgID:$paID'/d' \
