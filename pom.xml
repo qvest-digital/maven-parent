@@ -207,18 +207,6 @@
 									</descriptors>
 								</configuration>
 							</execution>
-							<execution>
-								<id>mksrc-mvnparent-package</id>
-								<phase>package</phase>
-								<goals>
-									<goal>single</goal>
-								</goals>
-								<configuration>
-									<descriptors>
-										<descriptor>src/main/ancillary/mksrc.xml</descriptor>
-									</descriptors>
-								</configuration>
-							</execution>
 						</executions>
 						<inherited>false</inherited>
 					</plugin>
