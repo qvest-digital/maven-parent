@@ -51,7 +51,9 @@ IFS= read -pr pgID
 IFS= read -pr paID
 IFS= read -pr pVSN
 # create base directory
-tgname=target/mksrc/"$paID-$pVSN-source"
+tbname=target/mksrc
+tzname=$paID-$pVSN-source
+tgname=$tbname/$tzname
 rm -rf "$tgname"
 mkdir -p "$tgname"
 
@@ -74,7 +76,7 @@ if test -n "$x"; then
 	print -r -- "$x" | sed 's/^/[INFO]   /' >&2
 	if test x"$IS_M2RELEASEBUILD" = x"true"; then
 		:>"$tgname"/failed
-		:>target/mksrc/failed
+		:>"$tbname"/failed
 		echo >&2 "[WARNING] maven-release-plugin prepare, continuing anyway"
 		exit 0
 	fi
@@ -88,8 +90,8 @@ set -x
 git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0dlu "$tgname/"
 
 # create source tarball
-cd target/mksrc
-find "${tgname##target/mksrc/}" -type f -o -type l -print0 | \
+cd "$tbname"
+find "$tzname/" -type f -o -type l -print0 | \
     sort -z | paxcpio -oC512 -Hustar -Mnorm | \
-    gzip -n9 >"${tgname##target/mksrc/}.tgz"
-rm -rf "${tgname##target/mksrc/}" # to save space
+    gzip -n9 >"../$tzname.tgz"
+rm -rf "$tzname"  # to save space
