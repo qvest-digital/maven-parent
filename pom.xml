@@ -152,6 +152,16 @@
 						<artifactId>exec-maven-plugin</artifactId>
 						<executions>
 							<execution>
+								<id>dep-check</id>
+								<phase>install</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>src/main/ancillary/ckdep.sh</executable>
+								</configuration>
+							</execution>
+							<execution>
 								<id>mksrc-mvnparent-build</id>
 								<phase>compile</phase>
 								<goals>
