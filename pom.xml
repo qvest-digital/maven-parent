@@ -273,6 +273,7 @@
 					<version>${gmavenplus.plugin.version}</version>
 					<executions>
 						<execution>
+							<id>gmavenplus-compile-tests</id>
 							<goals>
 								<goal>compileTests</goal>
 							</goals>
