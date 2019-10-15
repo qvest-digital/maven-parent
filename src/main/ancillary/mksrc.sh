@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016, 2018
+# Copyright © 2016, 2018, 2019
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -35,15 +35,31 @@ fi
 set -e
 set -o pipefail
 cd "$(dirname "$0")/../../.."
-rm -rf target/mksrc
-mkdir -p target/mksrc
+if test -e failed; then
+	echo >&2 "[ERROR] do not build from incomplete/dirty tree"
+	echo >&2 "[INFO] a previous mksrc failed and you used its result"
+	exit 1
+fi
+# get project metadata
+<pom.xml xmlstarlet sel \
+    -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
+    -c /pom:project/pom:groupId -n \
+    -c /pom:project/pom:artifactId -n \
+    -c /pom:project/pom:version -n \
+    |&
+IFS= read -pr pgID
+IFS= read -pr paID
+IFS= read -pr pVSN
+# create base directory
+tgname=target/mksrc/"$paID-$pVSN-source"
+rm -rf "$tgname"
+mkdir -p "$tgname"
 
 # performing a release?
 if test x"$IS_M2RELEASEBUILD" = x"true"; then
 	# fail the build if dependency licence review has a to-do item:
 	# src/main/ancillary/ckdep.sh will fail the build when the list
-	# was not up-to-date, so we only need to care about the current
-	# state of the list (by default commented out):
+	# was not up-to-date, so we check only the current list
 	if grep -e ' TO''DO$' -e ' FA''IL$' src/main/ancillary/ckdep.lst; then
 		echo >&2 "[ERROR] licence review incomplete"
 		exit 1
@@ -57,6 +73,7 @@ if test -n "$x"; then
 	echo >&2 "[INFO] git status output follows:"
 	print -r -- "$x" | sed 's/^/[INFO]   /' >&2
 	if test x"$IS_M2RELEASEBUILD" = x"true"; then
+		:>"$tgname"/failed
 		:>target/mksrc/failed
 		echo >&2 "[WARNING] maven-release-plugin prepare, continuing anyway"
 		exit 0
@@ -68,6 +85,11 @@ fi
 set -x
 
 # copy git HEAD state
-git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu target/mksrc/
+git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0dlu "$tgname/"
 
-# leave the rest to the maven-assembly-plugin
+# create source tarball
+cd target/mksrc
+find "${tgname##target/mksrc/}" -type f -o -type l -print0 | \
+    sort -z | paxcpio -oC512 -Hustar -Mnorm | \
+    gzip -n9 >"${tgname##target/mksrc/}.tgz"
+rm -rf "${tgname##target/mksrc/}" # to save space
