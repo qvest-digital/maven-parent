@@ -96,7 +96,7 @@ ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
 
 # create source tarball
 cd "$tbname"
-find "$tzname" -print0 | xargs -0r touch -h -t "$ts" --
+find "$tzname" -print0 | TZ=UTC xargs -0r touch -h -t "$ts" --
 find "$tzname" \( -type f -o -type l \) -print0 | sort -z | \
     paxcpio -oC512 -0 -Hustar -Mdist | gzip -n9 >"../$tzname.tgz"
 rm -rf "$tzname"  # to save space
