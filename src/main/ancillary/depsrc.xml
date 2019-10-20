@@ -9,6 +9,10 @@
 		<fileSet>
 			<directory>target/dep-srcs</directory>
 			<outputDirectory/>
+			<excludes>
+				<exclude>**/_remote.repositories</exclude>
+				<exclude>**/maven-metadata-local.xml</exclude>
+			</excludes>
 		</fileSet>
 	</fileSets>
 </assembly>
