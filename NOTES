@@ -23,7 +23,7 @@ Children still need to define:
   ‣ …
   ‣ properties (e.g. override some defaults)
     – archiver.copyright (Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: cf. version_vendor)
-    – javaRelease (8)
+    – javaRelease (8) and possibly gmavenplus.javaRelease (1.8 (default) or 11)
     – maven.minimum.version (3.2)
     – doclint.optappend (-Xdoclint:all)
     – sonar.sources, sonar.tests (both unset)
