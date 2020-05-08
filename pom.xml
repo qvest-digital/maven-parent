@@ -55,7 +55,7 @@
 		<doclint.optappend>-Xdoclint:all</doclint.optappend>
 		<!-- maven plugins -->
 		<gmavenplus.plugin.version>1.9.0</gmavenplus.plugin.version>
-		<maven.assembly.version>3.2.0</maven.assembly.version>
+		<maven.assembly.version>3.3.0</maven.assembly.version>
 		<maven.buildhelper.version>3.1.0</maven.buildhelper.version>
 		<maven.compiler.version>3.8.1</maven.compiler.version>
 		<maven.dependency.version>3.1.2</maven.dependency.version>
