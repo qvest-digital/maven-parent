@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2018
+# Copyright © 2018, 2020
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -172,7 +172,7 @@ Lxe=$((Lxp * 3 / 2))
 Lop=$((Lxp / 3))
 Loe=300 # outrageous, I know, but it makes things smoother
 set +e
-init_progress_bar $((2*Lxp + 2 + 2*Lxe + 1 + Lop + 1 + Lop + Loe))
+init_progress_bar $((2*Lxp + 2 + 2*Lxe + Lop + Lop + Loe))
 set -e
 
 LN=$_cur_progress_bar
@@ -187,13 +187,13 @@ set -e
 xml2path target/effective-pom.xml
 
 Lxe=$(wc -l <target/pom.xp)
+draw_progress_bar
 # re-estimate
 Loe=$(( (Lxe-Lxp) / 3 ))
 set +e
 asso_loadk plines
 Lop=${#asso_y[*]}
-_cnt_progress_bar=$((Lxpr + 2 + 2*Lxe + 1 + Lop + 1 + Lop + Loe))
-draw_progress_bar
+redo_progress_bar $((Lxpr + 2 + 2*Lxe + Lop + Lop + Loe))
 set -e
 
 LN=$_cur_progress_bar
@@ -205,8 +205,7 @@ rm -f target/effective-pom.xml target/pom.xp
 set +e
 asso_loadk elines
 Loe=${#asso_y[*]}
-_cnt_progress_bar=$((Lxpr + 2 + Lxer + 1 + Lop + 1 + Lop + Loe))
-draw_progress_bar
+redo_progress_bar $((Lxpr + 2 + Lxer + Lop + Lop + Loe))
 set -e
 
 drop plines elines
@@ -214,8 +213,7 @@ drop plines elines
 set +e
 asso_loadk elines
 Loe=${#asso_y[*]}
-_cnt_progress_bar=$((Lxpr + 2 + Lxer + 1 + Lop + 1 + Lop + Loe))
-draw_progress_bar
+redo_progress_bar $((Lxpr + 2 + Lxer + Lop + Lop + Loe))
 set -e
 
 output plines
