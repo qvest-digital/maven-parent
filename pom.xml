@@ -360,6 +360,10 @@
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>${maven.assembly.version}</version>
 					<configuration>
+						<overrideUid>0</overrideUid>
+						<overrideUserName>root</overrideUserName>
+						<overrideGid>0</overrideGid>
+						<overrideGroupName>wheel</overrideGroupName>
 						<tarLongFileMode>posix</tarLongFileMode>
 					</configuration>
 				</plugin>
