@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016, 2018, 2019
+# Copyright © 2016, 2018, 2019, 2020
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -25,22 +25,35 @@
 export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
-# check that we’re really run from mvn
-if [[ -z $MKSRC_RUN_FROM_MAVEN ]]; then
-	print -ru2 -- "[ERROR] do not call me directly, I am only used by Maven"
-	export -p
-	exit 1
-fi
-# initialisation
 unset GZIP
 set -e
 set -o pipefail
-cd "$(dirname "$0")/../../.."
-if [[ -e failed ]]; then
-	print -ru2 -- "[ERROR] do not build from incomplete/dirty tree"
-	print -ru2 -- "[INFO] a previous mksrc failed and you used its result"
+
+errmsg() (
+	print -ru2 -- "[ERROR] $1"
+	shift
+	IFS=$'\n'
+	set -o noglob
+	set -- $*
+	for x in "$@"; do
+		print -ru2 -- "[INFO] $x"
+	done
+)
+function die {
+	errmsg "$@"
 	exit 1
-fi
+}
+
+# check that we’re really run from mvn
+[[ -n $MKSRC_RUN_FROM_MAVEN ]] || die \
+    'do not call me directly, I am only used by Maven' \
+    "$(export -p)"
+# initialisation
+cd "$(dirname "$0")/../../.."
+[[ ! -e failed ]] || die \
+    'do not build from incomplete/dirty tree' \
+    'a previous mksrc failed and you used its result'
+
 # get project metadata
 <pom.xml xmlstarlet sel \
     -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
@@ -64,17 +77,14 @@ if [[ $IS_M2RELEASEBUILD = true ]]; then
 	# src/main/ancillary/ckdep.sh will fail the build when the list
 	# was not up-to-date, so we check only the current list
 	if grep -e ' TO''DO$' -e ' FA''IL$' src/main/ancillary/ckdep.lst; then
-		print -ru2 -- "[ERROR] licence review incomplete"
-		exit 1
+		die 'licence review incomplete'
 	fi
 fi
 
 # check for source cleanliness
 x=$(git status --porcelain)
 if [[ -n $x ]]; then
-	print -ru2 -- "[ERROR] source tree not clean"
-	print -ru2 -- "[INFO] git status output follows:"
-	print -r -- "$x" | sed 's/^/[INFO]   /' >&2
+	errmsg 'source tree not clean; “git status” output follows:' "$x"
 	if [[ $IS_M2RELEASEBUILD = true ]]; then
 		:>"$tgname"/failed
 		:>"$tbname"/failed
