@@ -363,7 +363,7 @@
 						<overrideUid>0</overrideUid>
 						<overrideUserName>root</overrideUserName>
 						<overrideGid>0</overrideGid>
-						<overrideGroupName>wheel</overrideGroupName>
+						<overrideGroupName>root</overrideGroupName>
 						<tarLongFileMode>posix</tarLongFileMode>
 					</configuration>
 				</plugin>
