@@ -49,6 +49,10 @@ Warning: resource filtering eats ${foo}, @foo@, plus ⚠ new: \$ and \@
 Do diff all resources between their source and filtered form, not just
 main/ but test/ as well, after adopting this parent POM!
 
+Note: maven.antrun.version is only present because this is inherited
+from the Super POM and never used and untested; similarily, we do not
+use or test maven.site.version which is injected somehow.
+
 Using the Mycila licence plugin, you first run
 	mvn com.mycila:license-maven-plugin:3.0:remove
 and check files for remnants, update the header if necessary, run
