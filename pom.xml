@@ -225,7 +225,7 @@
 							</execution>
 							<execution>
 								<id>mksrc-mvnparent-build</id>
-								<phase>compile</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>exec</goal>
 								</goals>
