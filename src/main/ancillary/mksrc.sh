@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016, 2018, 2019, 2020
+# Copyright © 2016, 2017, 2018, 2019, 2020
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -28,6 +28,7 @@ PS4='++ '
 unset GZIP
 set -e
 set -o pipefail
+parentpompath=../../..
 
 errmsg() (
 	print -ru2 -- "[ERROR] $1"
@@ -49,7 +50,7 @@ function die {
     'do not call me directly, I am only used by Maven' \
     "$(export -p)"
 # initialisation
-cd "$(dirname "$0")/../../.."
+cd "$(dirname "$0")/$parentpompath"
 [[ ! -e failed ]] || die \
     'do not build from incomplete/dirty tree' \
     'a previous mksrc failed and you used its result'
@@ -91,6 +92,8 @@ if [[ -n $x ]]; then
 		print -ru2 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
 		cd "$tbname"
 		paxtar -M dist -cf - "$tzname"/f* | gzip -n9 >"../$tzname.tgz"
+		rm -f src.tgz
+		ln "../$tzname.tgz" src.tgz
 		exit 0
 	fi
 	exit 1
@@ -104,9 +107,30 @@ git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0du "$tgname/"
 ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
     --date=format-local:%Y%m%d%H%M.%S)
 
+# omit what will end up in depsrcs anyway
+#rm -rf "$tgname/src/dist/extra-depsrc"
+
 # create source tarball
 cd "$tbname"
 find "$tzname" -print0 | TZ=UTC xargs -0r touch -h -t "$ts" --
 find "$tzname" \( -type f -o -type l \) -print0 | sort -z | \
     paxcpio -oC512 -0 -Hustar -Mdist | gzip -n9 >"../$tzname.tgz"
 rm -rf "$tzname"  # to save space
+rm -f src.tgz
+ln "../$tzname.tgz" src.tgz
+
+# shove dependencies’ sources into place
+rm -f deps-src.zip
+cd ..
+found=0
+for x in *-sources-of-dependencies.zip; do
+	[[ -e $x && -f $x && ! -h $x && -s $x ]] || continue
+	if (( found++ )); then
+		errmsg 'multiple depsrcs archives found:' \
+		    "$(ls -l *-sources-of-dependencies.zip)"
+		break
+	fi
+	fn=$x
+done
+(( found == 1 )) || die 'could not link dependency sources'
+ln "$fn" mksrc/deps-src.zip
