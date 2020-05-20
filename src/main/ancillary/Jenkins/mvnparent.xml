@@ -10,7 +10,8 @@
   &lt;li&gt;tsutc&lt;/li&gt;&#xd;
  &lt;/ul&gt;&lt;/li&gt;&#xd;
 &lt;li&gt;VerA.web&lt;/li&gt;&#xd;
-&lt;/ul&gt;</description>
+&lt;/ul&gt;&#xd;
+&lt;p&gt;External projects may also use this, so take care!&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
