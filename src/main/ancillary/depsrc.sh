@@ -162,6 +162,7 @@ done
 set -x
 mkdir target/dep-srcs
 for pom in target/pom-srcs-*.xml; do
+	[[ -e $pom ]] || break # no dependencies case
 	mvn -B -f $pom -Dwithout-implicit-dependencies \
 	    -DexcludeTransitive=true -DoutputDirectory="$PWD/target/dep-srcs" \
 	    -Dclassifier=sources -Dmdep.useRepositoryLayout=true \
