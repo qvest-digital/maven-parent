@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.evolvis.tartools</groupId>
+		<artifactId>maven-parent</artifactId>
+		<version>1.24-SNAPSHOT</version>
+	</parent>
+	<artifactId>maven-parent-lib</artifactId>
+	<packaging>jar</packaging>
+	<description>Parent POM for Maven projects — Library</description>
+	<licenses>
+		<license>
+			<!-- short name: MirBSD -->
+			<name>The MirOS Licence</name>
+			<url>http://www.mirbsd.org/MirOS-Licence.htm</url>
+		</license>
+	</licenses>
+	<properties>
+		<!-- dependency management -->
+		<junit.version>5.6.2</junit.version>
+		<trajano.version>2.1.0</trajano.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>net.trajano.commons</groupId>
+			<artifactId>commons-testing</artifactId>
+			<version>${trajano.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.tartools</groupId>
+			<artifactId>maven-parent</artifactId>
+			<version>${org.evolvis.tartools.maven-parent.version}</version>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>analyse-dependency-usage</id>
+						<configuration>
+							<ignoredUnusedDeclaredDependencies combine.children="append">
+								<!-- must be on the classpath -->
+								<ignoredUnusedDeclaredDependency>org.junit.jupiter:junit-jupiter-engine</ignoredUnusedDeclaredDependency>
+							</ignoredUnusedDeclaredDependencies>
+							<usedDependencies>
+								<!-- must be on the classpath -->
+								<usedDependency>org.evolvis.tartools:maven-parent</usedDependency>
+							</usedDependencies>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>org.evolvis.tartools.mvnparent.examples.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

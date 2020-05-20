@@ -38,6 +38,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class InitialiseLoggingTest {
 
+public static final String TESTFILE_CLASSPATH = "simplelogger.properties";
+public static final String TESTFILE_LOCALPATH = "../src/test/resources/" +
+    TESTFILE_CLASSPATH;
+
 @Test
 public void testUtilityClass() throws ReflectiveOperationException
 {
@@ -65,14 +69,21 @@ public void testPos() throws IOException
 	assertNotNull(InitialiseLogging.LOGGER, "LOGGER could not be initialised");
 	Logger.getLogger(InitialiseLoggingTest.class.getName()).info("meow");
 
-	InputStream ls = InitialiseLogging.getResourceAsStream("simplelogger.properties");
+	InputStream ls = InitialiseLogging.getResourceAsStream("miau");
 	byte[] lb = bytesFrominputStream(ls);
-	byte[] tb = Files.readAllBytes(Paths.get("src/test/resources/simplelogger.properties"));
-	assertArrayEquals(tb, lb, "cannot load a properties file");
+	byte[] tb = new byte[] {
+	    (byte)0xF0, (byte)0x9F, (byte)0x90, (byte)0x88, (byte)0x0A
+	};
+	assertArrayEquals(tb, lb, "cannot load a binary local file");
+
+	ls = InitialiseLogging.getResourceAsStream(TESTFILE_CLASSPATH);
+	lb = bytesFrominputStream(ls);
+	tb = Files.readAllBytes(Paths.get(TESTFILE_LOCALPATH));
+	assertArrayEquals(tb, lb, "cannot load a properties file from classpath");
 
 	ls = InitialiseLogging.getResourceAsStream("META-INF/Messages.properties");
 	String lS = new String(bytesFrominputStream(ls), StandardCharsets.ISO_8859_1);
-	assertTrue(lS.contains("UtilityClassTestUtil"), "cannot load properties from classpath");
+	assertTrue(lS.contains("UtilityClassTestUtil"), "cannot load lib properties");
 }
 
 }
