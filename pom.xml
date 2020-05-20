@@ -718,7 +718,7 @@
 	</build>
 	<dependencyManagement>
 		<dependencies>
-			<!-- use this in plugin[].dependencies to make it log sanely -->
+			<!-- use this in e.g. plugin[].dependencies to make it log sanely -->
 			<dependency>
 				<groupId>org.evolvis.tartools</groupId>
 				<artifactId>maven-parent</artifactId>
