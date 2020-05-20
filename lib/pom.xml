@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>1.24-SNAPSHOT</version>
+		<version>1.24</version>
 	</parent>
 	<artifactId>maven-parent-lib</artifactId>
 	<packaging>jar</packaging>
