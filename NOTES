@@ -36,7 +36,9 @@ Children still need to define:
     ⇒ predefined:
       – jdk8orolder (auto-activated)
 	→ mockito.version := 2.10.0
+	→ older maven-{compiler,javadoc}-plugin
       – jdk9ornewer (auto-activated)
+      - jre-not-below-jdk (auto-activated), workaround for Debian bug #893388
       – gpg
 • build: settings/resources, pluginManagement and plugins not listed above
 • (dependencyManagement)
@@ -52,6 +54,9 @@ main/ but test/ as well, after adopting this parent POM!
 Note: maven.antrun.version is only present because this is inherited
 from the Super POM and never used and untested; similarily, we do not
 use or test maven.site.version which is injected somehow.
+
+Include org.evolvis.tartools:maven-parent-lib for java.util.logging
+(jdk14 jul) initialisation using logger.properties from the classpath.
 
 Using the Mycila licence plugin, you first run
 	mvn com.mycila:license-maven-plugin:3.0:remove
