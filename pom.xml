@@ -77,7 +77,7 @@
 		<maven.release.version>2.5.3</maven.release.version>
 		<!-- due to MRESOURCES-237 and MSHARED-325 -->
 		<maven.resources.version>2.6</maven.resources.version>
-		<maven.shade.version>3.2.3</maven.shade.version>
+		<maven.shade.version>3.2.4</maven.shade.version>
 		<maven.site.version>3.9.0</maven.site.version>
 		<maven.source.version>3.2.1</maven.source.version>
 		<maven.surefire.version>2.22.2</maven.surefire.version>
