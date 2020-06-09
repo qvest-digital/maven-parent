@@ -222,7 +222,7 @@
 								</goals>
 								<configuration>
 									<executable>src/main/ancillary/ckdep.sh</executable>
-									<useMavenLogger>true</useMavenLogger>
+									<useMavenLogger>false</useMavenLogger>
 								</configuration>
 							</execution>
 							<execution>
@@ -236,7 +236,7 @@
 									<environmentVariables>
 										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
 									</environmentVariables>
-									<useMavenLogger>true</useMavenLogger>
+									<useMavenLogger>false</useMavenLogger>
 								</configuration>
 							</execution>
 						</executions>
