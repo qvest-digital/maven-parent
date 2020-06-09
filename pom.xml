@@ -211,7 +211,7 @@
 									<environmentVariables>
 										<DEPSRC_RUN_FROM_MAVEN>true</DEPSRC_RUN_FROM_MAVEN>
 									</environmentVariables>
-									<useMavenLogger>true</useMavenLogger>
+									<useMavenLogger>false</useMavenLogger>
 								</configuration>
 							</execution>
 							<execution>
