@@ -66,7 +66,7 @@
 		<maven.ear.version>2.10.1</maven.ear.version>
 		<maven.eclipse.version>2.10</maven.eclipse.version>
 		<maven.enforcer.version>1.4.1</maven.enforcer.version>
-		<maven.exec.version>1.6.0</maven.exec.version>
+		<maven.exec.version>3.0.0</maven.exec.version>
 		<maven.gpg.version>1.6</maven.gpg.version>
 		<maven.install.version>2.5.2</maven.install.version>
 		<maven.jacoco.version>0.8.5</maven.jacoco.version>
@@ -211,6 +211,7 @@
 									<environmentVariables>
 										<DEPSRC_RUN_FROM_MAVEN>true</DEPSRC_RUN_FROM_MAVEN>
 									</environmentVariables>
+									<useMavenLogger>true</useMavenLogger>
 								</configuration>
 							</execution>
 							<execution>
@@ -221,6 +222,7 @@
 								</goals>
 								<configuration>
 									<executable>src/main/ancillary/ckdep.sh</executable>
+									<useMavenLogger>true</useMavenLogger>
 								</configuration>
 							</execution>
 							<execution>
@@ -234,6 +236,7 @@
 									<environmentVariables>
 										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
 									</environmentVariables>
+									<useMavenLogger>true</useMavenLogger>
 								</configuration>
 							</execution>
 						</executions>
