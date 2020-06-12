@@ -162,23 +162,15 @@ while [[ -s target/pom-srcs.in ]]; do
 	dopom
 done
 
-# enable verbosity
-exec 2>&1
-set +o inherit-xtrace
-set -x
-exec 2>&9
-
 mkdir target/dep-srcs
 for pom in target/pom-srcs-*.xml; do
 	[[ -e $pom ]] || break # no dependencies case
+	print -ru8 -- "downloading dependencies #${pom//[!0-9]}"
 	mvn -B -f $pom -Dwithout-implicit-dependencies \
 	    -DexcludeTransitive=true -DoutputDirectory="$PWD/target/dep-srcs" \
 	    -Dclassifier=sources -Dmdep.useRepositoryLayout=true \
 	    dependency:copy-dependencies
 done
-
-: diff between actual and expected list
-set +x
 
 function doit {
 	local f=$depsrcpath/$1 g=${2//./'/'} a=$3 v=$4
