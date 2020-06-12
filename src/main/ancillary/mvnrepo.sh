@@ -20,7 +20,9 @@
 # of said person’s immediate fault when using the work as intended.
 #-
 # Create mvnrepository.com URLs for all dependencies, extensions and
-# Maven plugins, sorted and categorised, for up-to-date checks.
+# Maven plugins, sorted and categorised, for up-to-date checks. With
+# -r, raw undecorated output for easier concatenation is shown (only
+# an empty line to separate parent POM extras).
 
 export LC_ALL=C
 unset LANGUAGE
@@ -42,6 +44,16 @@ case $?:$x {
 (0:fXbar\ fuu) ;;
 (*) die your sed is not POSIX compliant ;;
 }
+
+rawout=0
+while getopts "r" ch; do
+	case $ch {
+	(r) rawout=1 ;;
+	(+r) rawout=0 ;;
+	(*) die syntax error ;;
+	}
+done
+shift $((OPTIND - 1))
 
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 
@@ -136,7 +148,7 @@ function output {
 		[[ -n $vsn ]] && line+=/$vsn
 		typ=${line::1}
 		line=${line:2}
-		if (( typ < 2 )); then
+		(( rawout )) || if (( typ < 2 )); then
 			print -nr -- "${grouping[typ]}: "
 		elif (( typ != last )); then
 			print
@@ -218,7 +230,7 @@ set -e
 
 output plines
 print
-print Effective POM extras:
+(( rawout )) || print Effective POM extras:
 output elines
 set +e
 done_progress_bar
