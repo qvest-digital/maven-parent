@@ -28,7 +28,6 @@ PS4='++ '
 unset GZIP
 set -e
 set -o pipefail
-parentpompath=../../..
 
 errmsg() (
 	print -ru2 -- "[ERROR] $1"
@@ -51,6 +50,7 @@ function die {
     "$(export -p)"
 # initialisation
 cd "$(dirname "$0")"
+. ./cksrc.sh
 ancdir=$PWD
 cd "./$parentpompath"
 ancdir=${ancdir#"$PWD"/}
@@ -110,8 +110,10 @@ git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0du "$tgname/"
 ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
     --date=format-local:%Y%m%d%H%M.%S)
 
-# omit what will end up in depsrcs anyway
-#rm -rf "$tgname/src/dist/extra-depsrc"
+# omit what will anyway end up in depsrcs
+if [[ $drop_depsrc_from_mksrc != 0 ]]; then
+	rm -rf "$tgname/$depsrcpath"
+fi
 
 # create source tarball
 cd "$tbname"

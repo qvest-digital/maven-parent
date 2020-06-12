@@ -27,9 +27,8 @@ unset LANGUAGE
 PS4='++ '
 set -e
 set -o pipefail
-parentpompath=../../..
-mvnprofiles='-Pbuild-mvnparent'
 cd "$(dirname "$0")"
+. ./cksrc.sh
 saveIFS=$' \t\n'
 print -ru2 -- '[INFO] ckdep.sh starting'
 abend=0
@@ -64,10 +63,15 @@ fi
 function domvn {
 	mvn -B "$@" dependency:list 2>&1 | scanmvn
 }
+set -A scanmvn_excludes -- \
+    -e '/^\[INFO]    '$pgID:$paID':/d'
+for x in "${depexcludes[@]}"; do
+	scanmvn_excludes+=(-e '/^\[INFO]    '"$x/d")
+done
 function scanmvn {
 	tee /dev/stderr | sed -n \
 	    -e 's/ -- module .*$//' \
-	    -e '/^\[INFO]    '$pgID:$paID':/d' \
+	    "${scanmvn_excludes[@]}" \
 	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4/p'
 }
 function doscopes {

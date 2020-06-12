@@ -11,15 +11,16 @@ mvnprofiles='-Pbuild-mvnparent'
 
 # dependencies to exclude, other than $pgID:$paID: (sorry can’t use them here)
 # may be groupId:artifactId: or just groupId: to catch all
-set -A depexcludes --
-#set -A depexcludes -- \
-#	-e org.evolvis.veraweb:
+set -A depexcludes -- \
+#	org.evolvis.veraweb: \
+#	org.evolvis.veraweb.middleware: \
 
 # path to extra sources for dependencies
 # whose Maven Central presence is deficient
 depsrcpath=src/dist/extra-depsrc
 #depsrcpath=release/depsrc
 require_depsrcpath_present=0 # or 1
+drop_depsrc_from_mksrc=0 # or 1
 
 # exclusions for dependencyManagement ($g:$a:$v)
 depsrc_exclusions() {
@@ -46,7 +47,7 @@ depsrc_nosrc() {
 	return 1
 }
 
-# add from depsrcpath
+# add from depsrcpath; the first argument is the filename under $depsrcpath
 depsrc_add() {
 #	doit antlr-2.7.7.tar.gz \
 #	    antlr antlr 2.7.7

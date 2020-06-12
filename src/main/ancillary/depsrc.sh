@@ -36,8 +36,6 @@ unset LANGUAGE
 PS4='++ '
 set -e
 set -o pipefail
-parentpompath=../../..
-depsrcpath=src/dist/extra-depsrc
 
 errmsg() (
 	print -ru2 -- "[ERROR] $1"
@@ -61,12 +59,15 @@ function die {
 # initialisation
 cd "$(dirname "$0")"
 ancillarypath=$PWD
+. ./cksrc.sh
 cd "$parentpompath"
 mkdir -p target
 rm -rf target/dep-srcs*
 
-# look at this script further below for a list of files
-#[[ -d $depsrcpath/. ]] || die "add $depsrcpath/ from deps-src.zip"
+# look at depsrc_add() in cksrc.sh to see the files in that directory
+if [[ $require_depsrcpath_present != 0 ]]; then
+	[[ -d $depsrcpath/. ]] || die "add $depsrcpath/ from deps-src.zip"
+fi
 
 # get project metadata
 <pom.xml xmlstarlet sel \
@@ -105,31 +106,25 @@ function dopom {
 		fi
 		has+="$g:$a "
 
-		# <dependencyManagement><dependencies>
+		# <dependencyManagement>
+		#	<dependencies>
 		cat <<-EOF
 				<dependency>
 					<groupId>$g</groupId>
 					<artifactId>$a</artifactId>
 					<version>$v</version>
 		EOF
-		#[[ $g:$a = org.evolvis.tartools.example:example-dependency ]] && cat <<-EOF
-		#			<exclusions>
-		#				<exclusion>
-		#					<groupId>org.evolvis.tartools.example</groupId>
-		#					<artifactId>unwanted-recursive-dependency</artifactId>
-		#				</exclusion>
-		#			</exclusions>
-		#EOF
+		depsrc_exclusions
 		cat <<-EOF
 				</dependency>
 		EOF
-		# </dependencies></dependencyManagement>
+		#	</dependencies>
+		# </dependencyManagement>
 
-		# here: exclude webjars without meaningful sources
-		#if [[ $g = org.webjars.@(bower|bowergithub|npm)?(.*) ]]; then
-		#	# comment here on where to find the source
-		#	continue
-		#fi
+		if depsrc_nosrc; then
+			# see cksrc.sh for where to get sources
+			continue
+		fi
 
 		# <dependencies>
 		cat >&4 <<-EOF
@@ -182,9 +177,7 @@ function doit {
 	cp $f target/dep-srcs/$g/$a/$v/
 }
 
-# this is the list of files
-#doit antlr-2.7.7.tar.gz \
-#    antlr antlr 2.7.7
+depsrc_add
 
 set_e_grep() (
 	set +e
@@ -194,10 +187,6 @@ set_e_grep() (
 	exit $rv
 )
 
-set -A exclusions
-set -A inclusions
-inclusions+=(-e '^# dummy, only needed if this array is empty otherwise$')
-exclusions+=(-e '^# dummy$')
 find target/dep-srcs/ -type f | \
     set_e_grep -F -v -e _remote.repositories -e maven-metadata-local.xml | \
     while IFS= read -r x; do
@@ -208,8 +197,9 @@ find target/dep-srcs/ -type f | \
 		p=${x##*/}
 		x=${x%/*}
 		print -r -- ${x//'/'/.} $p $v
-done | sort | set_e_grep -v "${exclusions[@]}" >target/dep-srcs.actual
-set_e_grep -v "${inclusions[@]}" <"$ancillarypath"/ckdep.mvn \
+done | sort | set_e_grep -v "${depsrc_grep_exclusions[@]}" \
+    >target/dep-srcs.actual
+set_e_grep -v "${depsrc_grep_inclusions[@]}" <"$ancillarypath"/ckdep.mvn \
     >target/dep-srcs.expected
 diff -u target/dep-srcs.actual target/dep-srcs.expected
 print -r -- "[INFO] depsrc.sh finished"
