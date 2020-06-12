@@ -144,7 +144,7 @@ function dopom {
 			<version>$pVSN</version>
 			<relativePath>$parentpompath/</relativePath>
 		</parent>
-		<artifactId>embedded-code-copy-insert-$1</artifactId>
+		<artifactId>embedded-code-copy-$1-insert</artifactId>
 		<packaging>jar</packaging>
 		<dependencies>
 	EOF
@@ -173,7 +173,7 @@ function dopom {
 }
 function dodoc_! {
 	local scope=$1; shift
-	print -ru8 -- "resolving embedded-code-copy-document-$1 [$scope]"
+	print -ru8 -- "resolving embedded-code-copy-$1-document [$scope]"
 	shift
 	set -o noglob
 	for gav in "$@"; do
@@ -186,7 +186,7 @@ function dodoc_! {
 }
 function dodoc_+ {
 	local scope=$1; shift
-	print -ru8 -- "resolving embedded-code-copy-insert-$1 [$scope]"
+	print -ru8 -- "resolving embedded-code-copy-$1-insert [$scope]"
 	shift
 	set -o noglob
 	for gav in "$@"; do
