@@ -71,12 +71,11 @@ case $?:$x {
 }
 set -e
 
-function teefd {
+function logline {
 	# tee /dev/fd/$1 # not reliable
-	local line
 	while IFS= read -r line; do
 		print -r -- "$line"
-		print -ru"$1" -- "$line"
+		print -ru8 -- "${line/#'[INFO] '/\| }"
 	done
 }
 
@@ -115,7 +114,7 @@ for x in "${depexcludes[@]}"; do
 	scanmvn_excludes+=(-e '/^\[INFO]    '"$x/d")
 done
 function scanmvn {
-	teefd 8 | sed -n \
+	logline | sed -n \
 	    -e 's/ -- module .*$//' \
 	    "${scanmvn_excludes[@]}" \
 	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4/p'
