@@ -33,7 +33,6 @@
 # initialisation
 export LC_ALL=C
 unset LANGUAGE
-PS4='++ '
 set -e
 set -o pipefail
 exec 8>&1 9>&2
@@ -207,5 +206,5 @@ done | sort | set_e_grep -v "${depsrc_grep_exclusions[@]}" \
 set_e_grep -v "${depsrc_grep_inclusions[@]}" <"$ancillarypath"/ckdep.mvn \
     >target/dep-srcs.expected
 diff -u target/dep-srcs.actual target/dep-srcs.expected >&9
-print -ru8 -- "depsrc.sh finished"
+print -ru8 -- "depsrc.sh finished successfully"
 # leave the rest to the maven-assembly-plugin

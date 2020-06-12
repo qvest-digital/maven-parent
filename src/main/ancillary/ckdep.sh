@@ -24,7 +24,6 @@
 # initialisation
 export LC_ALL=C
 unset LANGUAGE
-PS4='++ '
 set -e
 set -o pipefail
 exec 8>&1 9>&2

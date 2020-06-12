@@ -24,7 +24,6 @@
 # initialisation
 export LC_ALL=C
 unset LANGUAGE
-PS4='++ '
 set -e
 set -o pipefail
 unset GZIP
@@ -109,16 +108,10 @@ if [[ -n $x ]]; then
 	exit 1
 fi
 
-# enable verbosity
-exec 2>&1
-set +o inherit-xtrace
-set -x
-exec 2>&9
-
 # copy git HEAD state
+print -ru8 -- "copying source tree"
 git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0du "$tgname/"
-ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
-    --date=format-local:%Y%m%d%H%M.%S)
+print -ru8 -- "trimming source tree"
 
 # omit what will anyway end up in depsrcs
 if [[ $drop_depsrc_from_mksrc != 0 ]]; then
@@ -126,10 +119,14 @@ if [[ $drop_depsrc_from_mksrc != 0 ]]; then
 fi
 
 # create source tarball
+ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
+    --date=format-local:%Y%m%d%H%M.%S)
 cd "$tbname"
 find "$tzname" -print0 | TZ=UTC xargs -0r touch -h -t "$ts" --
+print -ru8 -- "archiving source"
 find "$tzname" \( -type f -o -type l \) -print0 | sort -z | \
     paxcpio -oC512 -0 -Hustar -Mdist | gzip -n9 >"../$tzname.tgz"
+print -ru8 -- "moving source tarballs into place"
 rm -rf "$tzname"  # to save space
 rm -f src.tgz
 ln "../$tzname.tgz" src.tgz
@@ -149,3 +146,4 @@ for x in *-sources-of-dependencies.zip; do
 done
 (( found == 1 )) || die 'could not link dependency sources'
 ln "$fn" mksrc/deps-src.zip
+print -ru8 -- "mksrc.sh finished successfully"
