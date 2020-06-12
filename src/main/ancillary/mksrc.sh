@@ -25,9 +25,9 @@
 export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
-unset GZIP
 set -e
 set -o pipefail
+unset GZIP
 
 errmsg() (
 	print -ru2 -- "[ERROR] $1"
@@ -50,10 +50,10 @@ function die {
     "$(export -p)"
 # initialisation
 cd "$(dirname "$0")"
+ancillarypath=$PWD
 . ./cksrc.sh
-ancdir=$PWD
-cd "./$parentpompath"
-ancdir=${ancdir#"$PWD"/}
+cd "$parentpompath"
+
 [[ ! -e failed ]] || die \
     'do not build from incomplete/dirty tree' \
     'a previous mksrc failed and you used its result'
@@ -65,9 +65,13 @@ ancdir=${ancdir#"$PWD"/}
     -c /pom:project/pom:artifactId -n \
     -c /pom:project/pom:version -n \
     |&
-IFS= read -pr pgID
-IFS= read -pr paID
-IFS= read -pr pVSN
+e=0
+IFS= read -pr pgID || e=1
+IFS= read -pr paID || e=1
+IFS= read -pr pVSN || e=1
+[[ $e = 0 && -n $pgID && -n $paID && -n $pVSN ]] || die \
+    'could not get project metadata' \
+    "pgID=$pgID" "paID=$paID" "pVSN=$pVSN"
 # create base directory
 tbname=target/mksrc
 tzname=$paID-$pVSN-source
@@ -80,7 +84,7 @@ if [[ $IS_M2RELEASEBUILD = true ]]; then
 	# if the dependency list for licence review still has a to-do or
 	# fail item, fail the build (we can handle the current list sin‐
 	# ce ./ckdep.sh already fails the build for not up-to-date list)
-	if grep -e ' TO''DO$' -e ' FA''IL$' "$ancdir"/ckdep.lst; then
+	if grep -e ' TO''DO$' -e ' FA''IL$' "$ancillarypath"/ckdep.lst; then
 		die 'licence review incomplete'
 	fi
 fi

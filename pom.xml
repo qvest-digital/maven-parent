@@ -222,6 +222,9 @@
 								</goals>
 								<configuration>
 									<executable>src/main/ancillary/ckdep.sh</executable>
+									<environmentVariables>
+										<CKDEP_RUN_FROM_MAVEN>true</CKDEP_RUN_FROM_MAVEN>
+									</environmentVariables>
 									<useMavenLogger>false</useMavenLogger>
 								</configuration>
 							</execution>

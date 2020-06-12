@@ -27,20 +27,49 @@ unset LANGUAGE
 PS4='++ '
 set -e
 set -o pipefail
-cd "$(dirname "$0")"
-. ./cksrc.sh
-saveIFS=$' \t\n'
-print -ru2 -- '[INFO] ckdep.sh starting'
-abend=0
 
+errmsg() (
+	print -ru2 -- "[ERROR] $1"
+	shift
+	IFS=$'\n'
+	set -o noglob
+	set -- $*
+	for x in "$@"; do
+		print -ru2 -- "[INFO] $x"
+	done
+)
+function die {
+	errmsg "$@"
+	exit 1
+}
+
+# check that we’re really run from mvn
+[[ -n $CKDEP_RUN_FROM_MAVEN ]] || {
+	(
+		(
+			CKDEP_RUN_FROM_MAVEN=no "$0" "$@" | \
+			    cat #sed 's/^/[INFO] /g'
+		) 2>&1 >&3 | \
+		    cat #sed 's/^/[ERROR] /g'
+	) 3>&1
+	exit $?
+}
+# initialisation
+cd "$(dirname "$0")"
+ancillarypath=$PWD
+. ./cksrc.sh
+
+set +e
 x=$(sed --posix 's/u\+/x/g' <<<'fubar fuu' 2>&1) && alias 'sed=sed --posix'
 x=$(sed -e 's/u\+/x/g' -e 's/u/X/' <<<'fubar fuu' 2>&1)
 case $?:$x {
 (0:fXbar\ fuu) ;;
-(*)
-	print -ru2 -- '[ERROR] your sed is not POSIX compliant'
-	exit 1 ;;
+(*) die 'your sed is not POSIX compliant' ;;
 }
+set -e
+
+print -ru2 -- '[INFO] ckdep.sh starting'
+abend=0
 
 # get project metadata
 <"$parentpompath/pom.xml" xmlstarlet sel \
@@ -49,13 +78,18 @@ case $?:$x {
     -c /pom:project/pom:artifactId -n \
     -c /pom:project/pom:version -n \
     |&
-IFS= read -pr pgID
-IFS= read -pr paID
-IFS= read -pr pVSN
+e=0
+IFS= read -pr pgID || e=1
+IFS= read -pr paID || e=1
+IFS= read -pr pVSN || e=1
+[[ $e = 0 && -n $pgID && -n $paID && -n $pVSN ]] || die \
+    'could not get project metadata' \
+    "pgID=$pgID" "paID=$paID" "pVSN=$pVSN"
+
 # check old file is sorted
 sort -uo ckdep.tmp ckdep.lst
 if ! cmp -s ckdep.lst ckdep.tmp; then
-	print -ru2 -- '[WARNING] list of dependencies was not sorted!'
+	errmsg 'list of dependencies was not sorted!'
 	cat ckdep.tmp >ckdep.lst
 	(( abend |= 1 ))
 fi
@@ -77,7 +111,7 @@ function scanmvn {
 function doscopes {
 	local lastgav lastscope ga v scope rest
 
-	sort -u | while read ga v scope rest; do
+	while read -r ga v scope rest; do
 		# compile scope supersets provided scope, either supersets test
 		case "$lastgav $lastscope:$scope" {
 		("$ga:$v "compile:provided|"$ga:$v "@(compile|provided):test) ;;
@@ -86,7 +120,8 @@ function doscopes {
 		lastgav=$ga:$v lastscope=$scope
 	done
 }
-(cd "$parentpompath" && domvn $mvnprofiles) | doscopes | sort -u >ckdep.mvn.tmp
+(cd "$parentpompath" && domvn $mvnprofiles) | \
+    sort -u | doscopes | sort -u >ckdep.mvn.tmp
 # deal with embedded copies
 function dopom {
 	local scope=$1; shift
@@ -108,7 +143,7 @@ function dopom {
 	for gav in "$@"; do
 		IFS=:
 		set -- $gav
-		IFS=$saveIFS
+		IFS=$' \t\n'
 		cat <<-EOF
 			<dependency>
 				<groupId>$1</groupId>
@@ -134,7 +169,7 @@ function dodoc_! {
 	for gav in "$@"; do
 		IFS=:
 		set -- $gav
-		IFS=$saveIFS
+		IFS=$' \t\n'
 		print -r -- "[INFO]    $1:$2:jar:$3:doc-only"
 	done | scanmvn >>ckdep.pom.tmp
 	set +o noglob
@@ -147,7 +182,7 @@ function dodoc_+ {
 	for gav in "$@"; do
 		IFS=:
 		set -- $gav
-		IFS=$saveIFS
+		IFS=$' \t\n'
 		print -r -- "[INFO]    $1:$2:jar:$3:unreleased"
 	done | scanmvn >>ckdep.pom.tmp
 	set +o noglob
@@ -157,7 +192,7 @@ set -A cc_where
 set -A cc_which
 set -A cc_nomvn
 ncc=0
-[[ ! -s ckdep.ins ]] || while read first rest; do
+[[ ! -s ckdep.ins ]] || while read -r first rest; do
 	[[ $first != ?('#'*) ]] || continue
 	if [[ $first = [+!]* ]]; then
 		cc_nomvn[ncc]=${first::1}
@@ -176,9 +211,7 @@ function depround {
 		if [[ ${cc_where[i]} = "$rest" ]]; then
 			# insert embedded dependencies
 			if [[ -n ${cc_found[i]} ]]; then
-				print -ru2 -- "[ERROR]" matched \
-				    ${cc_where[i]} ${cc_which[i]} \
-				    multiple times
+				errmsg "matched ${cc_where[i]} ${cc_which[i]} multiple times"
 				(( abend |= 2 ))
 			fi
 			cc_found[i]=x
@@ -197,17 +230,16 @@ function depround {
 		fi
 	done
 	if [[ -n $vf ]]; then
-		print -ru2 -- "[ERROR]" version mismatch: $vf
+		errmsg "version mismatch: $vf"
 		(( abend |= 2 ))
 	fi
 	if [[ -s ckdep.pom.tmp ]]; then
 		local recurse
 		set -A recurse
-		doscopes <ckdep.pom.tmp |&
-		while read -p ga v x; do
+		<ckdep.pom.tmp sort -u | doscopes |&
+		while read -pr ga v x; do
 			if [[ $x != @(doc-only|unreleased|"$scope") ]]; then
-				print -ru2 -- "[ERROR]" unexpected scope \
-				    $ga $v "${x@Q}" for $rest $scope
+				errmsg "unexpected scope $ga $v ${x@Q} for $rest $scope"
 				(( abend |= 2 ))
 			fi
 			[[ $x = doc-only ]] || print -ru4 -- $ga $v $scope
@@ -219,7 +251,7 @@ function depround {
 		done
 	fi
 }
-while read first v scope; do
+while read -r first v scope; do
 	print -ru4 -- $first $v $scope
 	print -ru5 -- $first $v $scope ok
 	depround $first $v $scope
@@ -227,20 +259,19 @@ done <ckdep.mvn.tmp 4>ckdep.mvp.tmp 5>ckdep.audit.tmp
 i=-1
 while (( ++i < ncc )); do
 	if [[ -z ${cc_found[i]} ]]; then
-		print -ru2 -- "[ERROR]" did not match \
-		    ${cc_where[i]} ${cc_which[i]}
+		errmsg "did not match ${cc_where[i]} ${cc_which[i]}"
 		(( abend |= 2 ))
 	fi
 done
 # ship source only for some scopes
-doscopes <ckdep.mvp.tmp | while read ga v scope rest; do
+<ckdep.mvp.tmp sort -u | doscopes | while read -r ga v scope rest; do
 	[[ $scope != @(compile|runtime) ]] || print -r -- ${ga/:/ } $v
 done | sort -u >ckdep.mvn.tmp
 # add static dependencies from embedded files, for SecurityWatch
 [[ ! -s ckdep.inc ]] || cat ckdep.inc >>ckdep.audit.tmp
 # generate file with changed dependencies set to be a to-do item
 # except we don’t licence-analyse test-only dependencies
-doscopes <ckdep.audit.tmp | sort -u >ckdep.tmp
+<ckdep.audit.tmp sort -u | doscopes | sort -u >ckdep.tmp
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
 	comm -12 ckdep.lst ckdep.tmp
@@ -255,19 +286,19 @@ else
 	mv -f ckdep.mvn.tmp ckdep.mvn
 	mv -f ckdep.tmp ckdep.lst
 	# inform the user
-	print -ru2 -- '[WARNING] list of dependencies changed!'
+	errmsg 'list of dependencies changed!'
 	(( abend |= 1 ))
 fi
 rm -f ckdep.pom ckdep.tmp ckdep.*.tmp
 # check if anything needs to be committed
 if (( abend & 1 )); then
-	print -ru2 -- '[ERROR] please commit the changed ckdep.{lst,mvn} files!'
+	errmsg 'please commit the changed ckdep.{lst,mvn} files!'
 fi
 
 # fail a release build if dependency licence review has a to-do item
 [[ $IS_M2RELEASEBUILD != true ]] || \
     if grep -e ' TO''DO$' -e ' FA''IL$' ckdep.lst; then
-	print -ru2 -- '[ERROR] licence review incomplete'
+	errmsg 'licence review incomplete'
 	(( abend |= 4 ))
 fi
 

@@ -61,8 +61,6 @@ cd "$(dirname "$0")"
 ancillarypath=$PWD
 . ./cksrc.sh
 cd "$parentpompath"
-mkdir -p target
-rm -rf target/dep-srcs*
 
 # look at depsrc_add() in cksrc.sh to see the files in that directory
 if [[ $require_depsrcpath_present != 0 ]]; then
@@ -76,9 +74,16 @@ fi
     -c /pom:project/pom:artifactId -n \
     -c /pom:project/pom:version -n \
     |&
-IFS= read -pr pgID
-IFS= read -pr paID
-IFS= read -pr pVSN
+e=0
+IFS= read -pr pgID || e=1
+IFS= read -pr paID || e=1
+IFS= read -pr pVSN || e=1
+[[ $e = 0 && -n $pgID && -n $paID && -n $pVSN ]] || die \
+    'could not get project metadata' \
+    "pgID=$pgID" "paID=$paID" "pVSN=$pVSN"
+# create base directory
+mkdir -p target
+rm -rf target/dep-srcs*
 
 npoms=0
 function dopom {
@@ -98,7 +103,7 @@ function dopom {
 		<dependencyManagement>
 			<dependencies>
 	EOF
-	while read g a v; do
+	while read -r g a v; do
 		# check for multiple versions of same artefact
 		if [[ $has = *" $g:$a "* ]]; then
 			print -ru5 -- $g $a $v
