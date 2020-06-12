@@ -50,7 +50,10 @@ function die {
     'do not call me directly, I am only used by Maven' \
     "$(export -p)"
 # initialisation
-cd "$(dirname "$0")/$parentpompath"
+cd "$(dirname "$0")"
+ancdir=$PWD
+cd "./$parentpompath"
+ancdir=${ancdir#"$PWD"/}
 [[ ! -e failed ]] || die \
     'do not build from incomplete/dirty tree' \
     'a previous mksrc failed and you used its result'
@@ -74,10 +77,10 @@ mkdir -p "$tgname"
 
 # performing a release?
 if [[ $IS_M2RELEASEBUILD = true ]]; then
-	# fail the build if dependency licence review has a to-do item:
-	# src/main/ancillary/ckdep.sh will fail the build when the list
-	# was not up-to-date, so we check only the current list
-	if grep -e ' TO''DO$' -e ' FA''IL$' src/main/ancillary/ckdep.lst; then
+	# if the dependency list for licence review still has a to-do or
+	# fail item, fail the build (we can handle the current list sin‐
+	# ce ./ckdep.sh already fails the build for not up-to-date list)
+	if grep -e ' TO''DO$' -e ' FA''IL$' "$ancdir"/ckdep.lst; then
 		die 'licence review incomplete'
 	fi
 fi
