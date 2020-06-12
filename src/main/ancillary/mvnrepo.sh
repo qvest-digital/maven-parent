@@ -140,7 +140,7 @@ function output {
 	set +e
 	asso_loadk $lines
 	nlines=${#asso_y[*]}
-	(( nlines )) || print -r -- "(none)"
+	(( nlines )) || (( rawout )) || print -r -- "(none)"
 	while (( ++lineno < nlines )); do
 		draw_progress_bar
 		line=${asso_y[lineno]}
