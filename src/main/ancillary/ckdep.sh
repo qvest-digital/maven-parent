@@ -202,7 +202,7 @@ set -A cc_where
 set -A cc_which
 set -A cc_nomvn
 ncc=0
-[[ ! -s ckdep.ins ]] || while read -r first rest; do
+[[ ! -s ckdep.ins ]] || while read first rest; do
 	[[ $first != ?('#'*) ]] || continue
 	if [[ $first = [+!]* ]]; then
 		cc_nomvn[ncc]=${first::1}
