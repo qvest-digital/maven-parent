@@ -229,7 +229,7 @@
 								</configuration>
 							</execution>
 							<execution>
-								<id>mksrc-mvnparent-build</id>
+								<id>mksrc-run</id>
 								<phase>package</phase>
 								<goals>
 									<goal>exec</goal>
