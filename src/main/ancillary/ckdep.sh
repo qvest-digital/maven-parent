@@ -27,17 +27,20 @@ unset LANGUAGE
 PS4='++ '
 set -e
 set -o pipefail
+exec 8>&1 9>&2
 
-errmsg() (
-	print -ru2 -- "[ERROR] $1"
+function errmsg {
+	set -o noglob
+	local x
+
+	print -ru9 -- "$1"
 	shift
 	IFS=$'\n'
-	set -o noglob
 	set -- $*
 	for x in "$@"; do
-		print -ru2 -- "[INFO] $x"
+		print -ru9 -- "| $x"
 	done
-)
+}
 function die {
 	errmsg "$@"
 	exit 1
@@ -48,9 +51,9 @@ function die {
 	(
 		(
 			CKDEP_RUN_FROM_MAVEN=no "$0" "$@" | \
-			    cat #sed 's/^/[INFO] /g'
+			    sed 's/^/[INFO] /g'
 		) 2>&1 >&3 | \
-		    cat #sed 's/^/[ERROR] /g'
+		    sed 's/^/[ERROR] /g'
 	) 3>&1
 	exit $?
 }
@@ -68,7 +71,16 @@ case $?:$x {
 }
 set -e
 
-print -ru2 -- '[INFO] ckdep.sh starting'
+function teefd {
+	# tee /dev/fd/$1 # not reliable
+	local line
+	while IFS= read -r line; do
+		print -r -- "$line"
+		print -ru"$1" -- "$line"
+	done
+}
+
+print -ru8 -- 'ckdep.sh starting'
 abend=0
 
 # get project metadata
@@ -103,7 +115,7 @@ for x in "${depexcludes[@]}"; do
 	scanmvn_excludes+=(-e '/^\[INFO]    '"$x/d")
 done
 function scanmvn {
-	tee /dev/stderr | sed -n \
+	teefd 8 | sed -n \
 	    -e 's/ -- module .*$//' \
 	    "${scanmvn_excludes[@]}" \
 	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4/p'
@@ -120,7 +132,7 @@ function doscopes {
 		lastgav=$ga:$v lastscope=$scope
 	done
 }
-(cd "$parentpompath" && domvn $mvnprofiles) | \
+{ cd "$parentpompath" && domvn $mvnprofiles; } | \
     sort -u | doscopes | sort -u >ckdep.mvn.tmp
 # deal with embedded copies
 function dopom {
@@ -163,7 +175,7 @@ function dopom {
 }
 function dodoc_! {
 	local scope=$1; shift
-	print -ru2 -- "[INFO] resolving embedded-code-copy-document-$1 [$scope]"
+	print -ru8 -- "resolving embedded-code-copy-document-$1 [$scope]"
 	shift
 	set -o noglob
 	for gav in "$@"; do
@@ -176,7 +188,7 @@ function dodoc_! {
 }
 function dodoc_+ {
 	local scope=$1; shift
-	print -ru2 -- "[INFO] resolving embedded-code-copy-insert-$1 [$scope]"
+	print -ru8 -- "resolving embedded-code-copy-insert-$1 [$scope]"
 	shift
 	set -o noglob
 	for gav in "$@"; do
@@ -216,11 +228,11 @@ function depround {
 			fi
 			cc_found[i]=x
 			if [[ -n ${cc_nomvn[i]} ]]; then
-				print -ru2 -- "[INFO]" documentation-only \
+				print -ru8 -- documentation-only \
 				    dependencies for ${cc_where[i]}
 				dodoc_"${cc_nomvn[i]}" $scope $i ${cc_which[i]}
 			else
-				print -ru2 -- "[INFO]" analysing embedded \
+				print -ru8 -- analysing embedded \
 				    code copies found inside ${cc_where[i]}
 				dopom $scope $i ${cc_which[i]}
 			fi
@@ -279,7 +291,7 @@ done | sort -u >ckdep.mvn.tmp
 
 # check if the list changed
 if cmp -s ckdep.lst ckdep.tmp && cmp -s ckdep.mvn ckdep.mvn.tmp; then
-	print -ru2 -- '[INFO] list of dependencies did not change'
+	print -ru8 -- 'list of dependencies did not change'
 else
 	(diff -u ckdep.lst ckdep.tmp || :)
 	# make the new list active
@@ -302,5 +314,5 @@ fi
 	(( abend |= 4 ))
 fi
 
-print -ru2 -- '[INFO] ckdep.sh finished with errorlevel' $((#abend))
+print -ru8 -- 'ckdep.sh finished with errorlevel' $((#abend))
 exit $abend

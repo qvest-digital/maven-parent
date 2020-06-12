@@ -36,17 +36,20 @@ unset LANGUAGE
 PS4='++ '
 set -e
 set -o pipefail
+exec 8>&1 9>&2
 
-errmsg() (
-	print -ru2 -- "[ERROR] $1"
+function errmsg {
+	set -o noglob
+	local x
+
+	print -ru9 -- "$1"
 	shift
 	IFS=$'\n'
-	set -o noglob
 	set -- $*
 	for x in "$@"; do
-		print -ru2 -- "[INFO] $x"
+		print -ru9 -- "| $x"
 	done
-)
+}
 function die {
 	errmsg "$@"
 	exit 1
@@ -150,7 +153,7 @@ function dopom {
 		</dependencies>
 	</project>
 	EOF
-	exec >&2
+	exec >&8
 	let ++npoms
 	mv target/pom-srcs.out target/pom-srcs.in
 }
@@ -159,7 +162,12 @@ while [[ -s target/pom-srcs.in ]]; do
 	dopom
 done
 
+# enable verbosity
+exec 2>&1
+set +o inherit-xtrace
 set -x
+exec 2>&9
+
 mkdir target/dep-srcs
 for pom in target/pom-srcs-*.xml; do
 	[[ -e $pom ]] || break # no dependencies case
@@ -206,6 +214,6 @@ done | sort | set_e_grep -v "${depsrc_grep_exclusions[@]}" \
     >target/dep-srcs.actual
 set_e_grep -v "${depsrc_grep_inclusions[@]}" <"$ancillarypath"/ckdep.mvn \
     >target/dep-srcs.expected
-diff -u target/dep-srcs.actual target/dep-srcs.expected
-print -r -- "[INFO] depsrc.sh finished"
+diff -u target/dep-srcs.actual target/dep-srcs.expected >&9
+print -ru8 -- "depsrc.sh finished"
 # leave the rest to the maven-assembly-plugin

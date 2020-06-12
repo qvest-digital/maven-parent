@@ -211,7 +211,7 @@
 									<environmentVariables>
 										<DEPSRC_RUN_FROM_MAVEN>true</DEPSRC_RUN_FROM_MAVEN>
 									</environmentVariables>
-									<useMavenLogger>false</useMavenLogger>
+									<useMavenLogger>true</useMavenLogger>
 								</configuration>
 							</execution>
 							<execution>
@@ -225,7 +225,7 @@
 									<environmentVariables>
 										<CKDEP_RUN_FROM_MAVEN>true</CKDEP_RUN_FROM_MAVEN>
 									</environmentVariables>
-									<useMavenLogger>false</useMavenLogger>
+									<useMavenLogger>true</useMavenLogger>
 								</configuration>
 							</execution>
 							<execution>
@@ -239,7 +239,7 @@
 									<environmentVariables>
 										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
 									</environmentVariables>
-									<useMavenLogger>false</useMavenLogger>
+									<useMavenLogger>true</useMavenLogger>
 								</configuration>
 							</execution>
 						</executions>

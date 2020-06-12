@@ -28,17 +28,20 @@ PS4='++ '
 set -e
 set -o pipefail
 unset GZIP
+exec 8>&1 9>&2
 
-errmsg() (
-	print -ru2 -- "[ERROR] $1"
+function errmsg {
+	set -o noglob
+	local x
+
+	print -ru9 -- "$1"
 	shift
 	IFS=$'\n'
-	set -o noglob
 	set -- $*
 	for x in "$@"; do
-		print -ru2 -- "[INFO] $x"
+		print -ru9 -- "| $x"
 	done
-)
+}
 function die {
 	errmsg "$@"
 	exit 1
@@ -96,7 +99,7 @@ if [[ -n $x ]]; then
 	if [[ $IS_M2RELEASEBUILD = true ]]; then
 		:>"$tgname"/failed
 		:>"$tbname"/failed
-		print -ru2 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
+		print -ru8 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
 		cd "$tbname"
 		paxtar -M dist -cf - "$tzname"/f* | gzip -n9 >"../$tzname.tgz"
 		rm -f src.tgz
@@ -107,7 +110,10 @@ if [[ -n $x ]]; then
 fi
 
 # enable verbosity
+exec 2>&1
+set +o inherit-xtrace
 set -x
+exec 2>&9
 
 # copy git HEAD state
 git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0du "$tgname/"
