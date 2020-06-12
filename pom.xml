@@ -297,6 +297,14 @@
 			</build>
 		</profile>
 		<profile>
+			<id>with-implicit-dependencies</id>
+			<activation>
+				<property>
+					<name>!without-implicit-dependencies</name>
+				</property>
+			</activation>
+		</profile>
+		<profile>
 			<id>dstrepo-central</id>
 			<distributionManagement>
 				<repository>
