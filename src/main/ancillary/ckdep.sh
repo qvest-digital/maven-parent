@@ -281,7 +281,9 @@ while (( ++i < ncc )); do
 done
 # ship source only for some scopes
 <ckdep.mvp.tmp sort -u | doscopes | while read -r ga v scope rest; do
-	[[ $scope != @(compile|runtime) ]] || print -r -- ${ga/:/ } $v
+	[[ "!${ckdep_excludes}!" != *"!$ga!"* ]] || continue
+	[[ "!${ckdep_includes}!" != *"!$ga!"* && \
+	    $scope != @(compile|runtime) ]] || print -r -- ${ga/:/ } $v
 done | sort -u >ckdep.mvn.tmp
 # add static dependencies from embedded files, for SecurityWatch
 [[ ! -s ckdep.inc ]] || cat ckdep.inc >>ckdep.audit.tmp

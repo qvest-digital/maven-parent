@@ -9,6 +9,12 @@ parentpompath=../../..	# src/main/ancillary/
 mvnprofiles='-Pbuild-mvnparent'
 #mvnprofiles=''
 
+# groupId:artifactId vectors to include (from scopes provided, test, etc.)
+# or exclude (from scopes compile/runtime by ckdep, so depsrc has them;
+# exclamation mark-separated
+ckdep_excludes=
+ckdep_includes=
+
 # dependencies to exclude, other than $pgID:$paID: (sorry can’t use them here)
 # may be groupId:artifactId: or just groupId: to catch all
 set -A depexcludes -- \
