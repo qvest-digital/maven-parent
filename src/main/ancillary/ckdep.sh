@@ -95,6 +95,11 @@ IFS= read -pr pVSN || e=1
 [[ $e = 0 && -n $pgID && -n $paID && -n $pVSN ]] || die \
     'could not get project metadata' \
     "pgID=$pgID" "paID=$paID" "pVSN=$pVSN"
+# create base directory
+rm -rf "$parentpompath/target/dep-srcs-parent"
+mkdir -p "$parentpompath/target/dep-srcs-parent"
+sed 's!<packaging>[^<>]*</packaging>!<packaging>pom</packaging>!g' \
+    <"$parentpompath/pom.xml" >"$parentpompath/target/dep-srcs-parent/pom.xml"
 
 # check old file is sorted
 sort -uo ckdep.tmp ckdep.lst
@@ -142,7 +147,7 @@ function dopom {
 			<groupId>$pgID</groupId>
 			<artifactId>$paID</artifactId>
 			<version>$pVSN</version>
-			<relativePath>$parentpompath/</relativePath>
+			<relativePath>$parentpompath/target/dep-srcs-parent/</relativePath>
 		</parent>
 		<artifactId>embedded-code-copy-$1-insert</artifactId>
 		<packaging>jar</packaging>
