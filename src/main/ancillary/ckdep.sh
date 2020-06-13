@@ -36,6 +36,7 @@ function errmsg {
 	shift
 	IFS=$'\n'
 	set -- $*
+	IFS=$' \t\n'
 	for x in "$@"; do
 		print -ru9 -- "| $x"
 	done
