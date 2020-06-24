@@ -40,9 +40,18 @@ Children still need to define:
       – jdk9ornewer (auto-activated)
       - jre-not-below-jdk (auto-activated), workaround for Debian bug #893388
       – gpg
+      – with-implicit-dependencies (auto-activated), see below
 • build: settings/resources, pluginManagement and plugins not listed above
 • (dependencyManagement)
 • (dependencies)
+
+Your top-level POM may not use <dependencies> if you use the dependency
+tooling (ckdep.sh and depsrc.sh) because these scripts need to be able
+to use the POM, in some circumstances, as parent POM. They take care of
+adjusting the <packaging>, but you’ll have to place dependencies into a
+profile (with-implicit-dependencies) so they are not picked up by these
+subtasks accidentally. For a simple example (a one-JAR library) see:
+https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=useful-scripts/rfc822.git;a=blob;f=pom.xml;hb=HEAD
 
 Model: https://maven.apache.org/ref/current/maven-model/maven.html
 Full POM reference: https://maven.apache.org/pom.html
