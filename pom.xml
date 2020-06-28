@@ -58,7 +58,7 @@
 		<gmavenplus.plugin.version>1.9.0</gmavenplus.plugin.version>
 		<maven.antrun.version>3.0.0</maven.antrun.version>
 		<maven.assembly.version>3.3.0</maven.assembly.version>
-		<maven.buildhelper.version>3.1.0</maven.buildhelper.version>
+		<maven.buildhelper.version>3.2.0</maven.buildhelper.version>
 		<maven.clean.version>3.1.0</maven.clean.version>
 		<maven.compiler.version>3.8.1</maven.compiler.version>
 		<maven.dependency.version>3.1.2</maven.dependency.version>
@@ -78,7 +78,7 @@
 		<!-- due to MRESOURCES-237 and MSHARED-325 -->
 		<maven.resources.version>2.6</maven.resources.version>
 		<maven.shade.version>3.2.4</maven.shade.version>
-		<maven.site.version>3.9.0</maven.site.version>
+		<maven.site.version>3.9.1</maven.site.version>
 		<maven.source.version>3.2.1</maven.source.version>
 		<maven.surefire.version>2.22.2</maven.surefire.version>
 		<maven.war.version>2.6</maven.war.version>
