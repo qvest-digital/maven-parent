@@ -553,6 +553,13 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>${maven.source.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.evolvis.tartools.forked</groupId>
+							<artifactId>plexus-archiver</artifactId>
+							<version>4.2.1</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
