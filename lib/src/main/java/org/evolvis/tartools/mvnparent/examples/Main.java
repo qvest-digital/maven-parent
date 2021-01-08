@@ -1,7 +1,8 @@
 package org.evolvis.tartools.mvnparent.examples;
 
 /*-
- * Copyright © 2016, 2018, 2019, 2020 mirabilos (t.glaser@tarent.de)
+ * Copyright © 2016, 2018, 2019, 2020, 2021
+ *      mirabilos (t.glaser@tarent.de)
  * Licensor: tarent solutions GmbH, Bonn
  *
  * Provided that these terms and disclaimer and all copyright notices
