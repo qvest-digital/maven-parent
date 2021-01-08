@@ -45,7 +45,7 @@
 		<releaseVersion>${project.version}</releaseVersion>
 		<org.evolvis.tartools.maven-parent.version>1.29-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
-		<archiver.copyright.lastyear>2020</archiver.copyright.lastyear>
+		<archiver.copyright.lastyear>2021</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
 		<javaRelease>8</javaRelease>
 		<maven.compiler.source>${javaRelease}</maven.compiler.source>
