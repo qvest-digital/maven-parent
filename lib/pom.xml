@@ -18,7 +18,7 @@
 	</licenses>
 	<properties>
 		<!-- dependency management -->
-		<junit.version>5.6.2</junit.version>
+		<junit.version>5.7.0</junit.version>
 		<trajano.version>2.1.0</trajano.version>
 	</properties>
 	<dependencies>

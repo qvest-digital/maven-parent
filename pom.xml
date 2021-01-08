@@ -55,7 +55,7 @@
 		<maven.minimum.version>3.2</maven.minimum.version>
 		<doclint.optappend>-Xdoclint:all</doclint.optappend>
 		<!-- maven plugins -->
-		<gmavenplus.plugin.version>1.9.0</gmavenplus.plugin.version>
+		<gmavenplus.plugin.version>1.12.1</gmavenplus.plugin.version>
 		<maven.antrun.version>3.0.0</maven.antrun.version>
 		<maven.assembly.version>3.3.0</maven.assembly.version>
 		<maven.buildhelper.version>3.2.0</maven.buildhelper.version>
@@ -69,7 +69,7 @@
 		<maven.exec.version>3.0.0</maven.exec.version>
 		<maven.gpg.version>1.6</maven.gpg.version>
 		<maven.install.version>2.5.2</maven.install.version>
-		<maven.jacoco.version>0.8.5</maven.jacoco.version>
+		<maven.jacoco.version>0.8.6</maven.jacoco.version>
 		<maven.jar.version>3.2.0</maven.jar.version>
 		<maven.javadoc.version>3.2.0</maven.javadoc.version>
 		<maven.latex.version>1.4.4</maven.latex.version>
@@ -82,7 +82,7 @@
 		<maven.source.version>3.2.1</maven.source.version>
 		<maven.surefire.version>2.22.2</maven.surefire.version>
 		<maven.war.version>2.6</maven.war.version>
-		<pitest.plugin.version>1.5.2</pitest.plugin.version>
+		<pitest.plugin.version>1.6.2</pitest.plugin.version>
 	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
