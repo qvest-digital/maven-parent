@@ -555,6 +555,7 @@
 					<version>${maven.source.version}</version>
 					<dependencies>
 						<dependency>
+							<!-- https://github.com/codehaus-plexus/plexus-archiver/issues/160 -->
 							<groupId>org.evolvis.tartools.forked</groupId>
 							<artifactId>plexus-archiver</artifactId>
 							<version>4.2.1</version>
