@@ -48,7 +48,7 @@ static {
 public static void
 main(String[] args)
 {
-	LOGGER.info("hi");
+	LOGGER.info("Hello, world!");
 }
 
 }
