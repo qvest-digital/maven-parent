@@ -27,10 +27,10 @@ import java.util.logging.Logger;
 /**
  * Example “Main” class showing how to use InitialiseJDK14Logging
  *
- * Call with:
+ * <p>Call with…</p><pre>
  * $ java -cp /path/to/maven-parent-*-tests.jar:maven-parent-lib-*.jar \
- *     org.evolvis.tartools.mvnparent.examples.Main
- * or put “.” or another directory with logging.properties on the classpath
+ *     org.evolvis.tartools.mvnparent.examples.Main</pre>
+ * … or put “.” or another directory with logging.properties on the classpath.
  *
  * @author mirabilos (t.glaser@tarent.de)
  */
