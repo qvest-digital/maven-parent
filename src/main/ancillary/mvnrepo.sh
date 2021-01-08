@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2018, 2020
+# Copyright © 2018, 2020, 2021
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -50,7 +50,7 @@ while getopts "r" ch; do
 	case $ch {
 	(r) rawout=1 ;;
 	(+r) rawout=0 ;;
-	(*) die syntax error ;;
+	(*) die 'usage: mvnrepo.sh [-r]' ;;
 	}
 done
 shift $((OPTIND - 1))
