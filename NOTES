@@ -14,18 +14,19 @@ Children still need to define:
   ‣ name: either just ${project.artifactId} or unset, except when
     targetting Central, then: ${project.groupId}:${project.artifactId}
 • url
-• licenses: at least one license (name, url)
-• developers: at least one developer (name, email, organization{,Url}, …)
+• licenses: at least one <license>: name, url, (comments)
+• developers: at least one <developer>: name, email, organization{,Url}, …
 • organization (if not tarent): name, url
 • (optionally)
   ‣ (inceptionYear)
-  ‣ (mailingLists: mailingList: name)
+  ‣ (mailingLists: mailingList: name, …)
   ‣ …
   ‣ properties (e.g. override some defaults)
     – archiver.copyright (Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: cf. version_vendor)
-    – javaRelease (8) and possibly gmavenplus.javaRelease (1.8 (default) or 11)
-    – maven.minimum.version (3.2)
     – doclint.optappend (-Xdoclint:all)
+    – javaRelease (8 (default) or 11)
+      and possibly gmavenplus.javaRelease (1.8 (default) or 11)
+    – maven.minimum.version (3.2)
     – sonar.sources, sonar.tests (both unset)
 • scm: connection, developerConnection, url, tag (HEAD)
 • distributionManagement: repository(, snapshotRepository): id, (name), url
@@ -34,12 +35,13 @@ Children still need to define:
   ‣ (modules)
   ‣ (profiles)
     ⇒ predefined:
+      – dstrepo-central, dstrepo-tarent (for distributionManagement as above)
+      – gpg
       – jdk8orolder (auto-activated)
 	→ mockito.version := 2.10.0
 	→ older maven-{compiler,javadoc}-plugin
       – jdk9ornewer (auto-activated)
       - jre-not-below-jdk (auto-activated), workaround for Debian bug #893388
-      – gpg
       – with-implicit-dependencies (auto-activated), see below
 • build: settings/resources, pluginManagement and plugins not listed above
 • (dependencyManagement)
@@ -58,7 +60,8 @@ Full POM reference: https://maven.apache.org/pom.html
 
 Warning: resource filtering eats ${foo}, @foo@, plus ⚠ new: \$ and \@
 Do diff all resources between their source and filtered form, not just
-main/ but test/ as well, after adopting this parent POM!
+main/ but test/ as well, after adopting this parent POM! In resources,
+filtered or not, symbolic links are followed, not copied.
 
 Note: maven.antrun.version is only present because this is inherited
 from the Super POM and never used and untested; similarily, we do not
@@ -85,6 +88,21 @@ pipe those files through “cat -s” or “perl -00pe0” to drop those
 double empty lines as files without a header may get them added.
 
 Some description on ancillary tools:
+• ckdep.sh determines dependencies and keeps them in ckdep.lst
+  (used for manual licence analysis) and ckdep.mvn (used by
+  depsrc.sh), based on scoping implication, reading ckdep.ins
+  for shaded embedded code copies (such as ASM in byte-buddy,
+  lombok, Spring), ckdep.inc for free-format dependencies such
+  as JS files; must be manually enabled and maintained
+• cksrc.sh is a configuration file for ckdep.sh, depsrc.sh and
+  mksrc.sh, needed if any of them is used; well-commented but
+  when reusing DON’T forget to toggle mvnprofiles
+• depsrc.sh uses ckdep.mvn with depsrc.xml to create a PKZIP
+  archive containing the sources (usually source JARs from
+  Central, cksrc.sh can override) of dependencies shipped
+• mksrc.sh, which also must be manually enabled as the above,
+  archives the source code as present in git (and moves the
+  result from depsrc.xml maven-assembly-plugin into place)
 • mvnrepo.sh lists dependencies and plugins from the POM in the
   current working directory as links to mvnrepository.com for
   manual up-to-dateness checking in a browser
@@ -93,8 +111,9 @@ Some description on ancillary tools:
   the individual dependency/exclusion tags); postprocess the
   entire POM afterwards with: xmlstarlet fo -e UTF-8 -t -
 • sortplug.sh does the same for <plugins> sorting any listed
-  dependencies with the above script internally
+  dependencies with the sortdeps script internally
 
-You’ll need coreutils, xmlstarlet and a recent enough mksh for
-most tools although they should be pretty portable even though
-tested on Debian only.
+You’ll need reasonably recent versions of coreutils, git, maven,
+mksh, pax and xmlstarlet for most tools; although they have only
+been tested on Debian, they should be pretty portable to similar
+operating systems.

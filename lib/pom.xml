@@ -18,7 +18,7 @@
 		<!-- see https://issues.apache.org/jira/browse/MJAVADOC-669 for the javadoc JAR -->
 	</licenses>
 	<properties>
-		<!-- dependency management -->
+		<!-- ‣ dependency management -->
 		<junit.version>5.7.0</junit.version>
 		<trajano.version>2.1.0</trajano.version>
 	</properties>
@@ -58,11 +58,11 @@
 						<id>analyse-dependency-usage</id>
 						<configuration>
 							<ignoredUnusedDeclaredDependencies combine.children="append">
-								<!-- must be on the classpath -->
+								<!-- must be on the test classpath -->
 								<ignoredUnusedDeclaredDependency>org.junit.jupiter:junit-jupiter-engine</ignoredUnusedDeclaredDependency>
 							</ignoredUnusedDeclaredDependencies>
 							<usedDependencies>
-								<!-- must be on the classpath -->
+								<!-- must be on the test classpath -->
 								<usedDependency>org.evolvis.tartools:maven-parent</usedDependency>
 							</usedDependencies>
 						</configuration>
