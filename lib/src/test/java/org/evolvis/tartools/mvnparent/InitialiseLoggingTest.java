@@ -1,7 +1,8 @@
 package org.evolvis.tartools.mvnparent;
 
 /*-
- * Copyright © 2016, 2018, 2019, 2020 mirabilos (t.glaser@tarent.de)
+ * Copyright © 2016, 2018, 2019, 2020
+ *      mirabilos (t.glaser@tarent.de)
  * Licensor: tarent solutions GmbH, Bonn
  *
  * Provided that these terms and disclaimer and all copyright notices
@@ -31,10 +32,7 @@ import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InitialiseLoggingTest {
 
@@ -43,7 +41,8 @@ public static final String TESTFILE_LOCALPATH = "../src/test/resources/" +
     TESTFILE_CLASSPATH;
 
 @Test
-public void testUtilityClass() throws ReflectiveOperationException
+public void
+testUtilityClass() throws ReflectiveOperationException
 {
 	assertUtilityClassWellDefined(InitialiseLogging.class);
 }
@@ -62,7 +61,8 @@ bytesFrominputStream(final InputStream is) throws IOException
 }
 
 @Test
-public void testPos() throws IOException
+public void
+testPos() throws IOException
 {
 	assertNull(InitialiseLogging.LOGGER, "LOGGER was not initialised yet");
 	InitialiseLogging.InitialiseJDK14Logging();
