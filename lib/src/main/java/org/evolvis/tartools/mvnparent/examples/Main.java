@@ -26,7 +26,7 @@ import org.evolvis.tartools.mvnparent.InitialiseLogging;
 import java.util.logging.Logger;
 
 /**
- * Example “Main” class showing how to use InitialiseJDK14Logging
+ * <p>Example “Main” class showing how to use InitialiseJDK14Logging</p>
  *
  * <p>Call with…</p><pre>
  * $ java -cp /path/to/maven-parent-*-tests.jar:maven-parent-lib-*.jar \
@@ -37,7 +37,7 @@ import java.util.logging.Logger;
  */
 public final class Main {
 
-// note this MUST NOT be replaced by @Log in this class ONLY
+// note this MUST NOT be replaced by Lombok @Log in this class ONLY
 private static final Logger LOGGER;
 
 /* initialise logging subsystem (must be done before creating a LOGGER) */
