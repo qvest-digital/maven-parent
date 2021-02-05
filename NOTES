@@ -28,7 +28,8 @@ Children still need to define:
     – javaRelease (8 (default) or 11)
       and possibly gmavenplus.javaRelease (1.8 (default) or 11)
     – maven.minimum.version (3.2)
-    – sonar.sources, sonar.tests (both unset)
+    – <sonar.sources>src/main</sonar.sources> (not set by default)
+    – <sonar.tests>src/test</sonar.tests> (dito)
 • scm: connection, developerConnection, url, tag (HEAD)
 • distributionManagement: repository(, snapshotRepository): id, (name), url
   only if neither dstrepo-{central,tarent} profile are used
@@ -62,7 +63,8 @@ Full POM reference: https://maven.apache.org/pom.html
 Warning: resource filtering eats ${foo}, @foo@, plus ⚠ new: \$ and \@
 Do diff all resources between their source and filtered form, not just
 main/ but test/ as well, after adopting this parent POM! In resources,
-filtered or not, symbolic links are followed, not copied.
+filtered or not, symbolic links are followed, not copied. Both main and
+test as of mvnparent 2.0 also operate on resources-filtered by default.
 
 Note: maven.antrun.version is only present because this is inherited
 from the Super POM and never used and untested; similarily, we do not
