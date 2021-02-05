@@ -82,7 +82,7 @@ Only relevant when performing a release.</description>
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
     <groupId>org.evolvis.tartools</groupId>
-    <artifactId>maven-parent</artifactId>
+    <artifactId>maven-parent-bs</artifactId>
   </rootModule>
   <goals>-Pdstrepo-$DSTREPO_PROFILE -e clean install</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
