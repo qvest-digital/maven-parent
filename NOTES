@@ -1,3 +1,8 @@
+API warning: the *.cp (classpath) files are NOT currently attached
+when deploying: https://issues.sonatype.org/browse/MVNCENTRAL-6515
+fails with these. They are currently only used (locally) by run.sh
+and whether the filename will stay depends on how OSSRH is fixing.
+
 Default plugins:
 
 • build-helper-maven-plugin
