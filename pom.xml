@@ -220,7 +220,7 @@
 						<artifactId>build-helper-maven-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>attach-artifacts</id>
+								<id>attach-classpath.properties</id>
 								<phase>package</phase>
 								<goals>
 									<goal>attach-artifact</goal>
@@ -228,7 +228,23 @@
 								<configuration>
 									<artifacts>
 										<artifact>
-											<file>target/${project.artifactId}-${project.version}-source.tgz</file>
+											<file>${project.build.directory}/${project.artifactId}-${project.version}-classpath.properties</file>
+											<type>properties</type>
+											<classifier>classpath</classifier>
+										</artifact>
+									</artifacts>
+								</configuration>
+							</execution>
+							<execution>
+								<id>attach-source.tgz</id>
+								<phase>package</phase>
+								<goals>
+									<goal>attach-artifact</goal>
+								</goals>
+								<configuration>
+									<artifacts>
+										<artifact>
+											<file>${project.build.directory}/${project.artifactId}-${project.version}-source.tgz</file>
 											<type>tgz</type>
 											<classifier>source</classifier>
 										</artifact>
@@ -680,17 +696,16 @@
 					</execution>
 					<execution>
 						<id>generate-classpath-artefact</id>
-						<phase>package</phase>
+						<phase>compile</phase>
 						<goals>
 							<goal>build-classpath</goal>
 						</goals>
 						<configuration>
-							<attach>true</attach>
+							<attach>false</attach>
 							<fileSeparator>/</fileSeparator>
 							<includeScope>runtime</includeScope>
 							<localRepoProperty>${M2_REPO}</localRepoProperty>
-							<!-- this filename is stupid but matches the one it’s attached as -->
-							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}-classpath.${project.packaging}</outputFile>
+							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}-classpath.properties</outputFile>
 							<outputFilterFile>true</outputFilterFile>
 							<outputProperty>runtime.classpath</outputProperty>
 							<pathSeparator>:</pathSeparator>
