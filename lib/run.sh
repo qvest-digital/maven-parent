@@ -22,6 +22,18 @@
 #-
 # Run executable JAR.
 
+jarinfo11() { java --source 11 /dev/stdin "$@" <<\EOF
+	class JEP330Extractor {
+		public static void main(String[] args) throws Exception {
+			System.out.println(new java.util.jar.JarFile(args[1])
+			    .getManifest().getMainAttributes()
+			    .getValue(args[0]));
+			System.exit(0);
+		}
+	}
+EOF
+}
+
 function makecmdline {
 	# configure this to match the POM
 	local mainclass=org.evolvis.tartools.mvnparent.examples.Main
@@ -80,12 +92,16 @@ ${runtime.jarname}
 	# determine JAR classpath, either from above or from the manifest
 	set -U
 	if [[ $cp = '$'* ]]; then
+if false; then
 		if ! whence jjs >/dev/null 2>&1; then
 			print -ru2 -- '[ERROR] jjs (from JRE) not installed.'
 			exit 255
 		fi
 		cp=$(print -r -- 'echo(new java.util.jar.JarFile($ARG[1]).getManifest().getMainAttributes().getValue($ARG[0]));' | \
 		    jjs -scripting - -- x-tartools-cp "$exe" 2>/dev/null) || cp=
+else
+		cp=$(jarinfo11 x-tartools-cp "$exe") || cp=
+fi
 		if [[ $cp != $'\u0086'* ]]; then
 			print -ru2 -- '[ERROR] Could not retrieve classpath' \
 			    "from $exe"
