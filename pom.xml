@@ -679,7 +679,7 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>generate-classpath.jar</id>
+						<id>generate-classpath-artefact</id>
 						<phase>package</phase>
 						<goals>
 							<goal>build-classpath</goal>
@@ -690,7 +690,7 @@
 							<includeScope>runtime</includeScope>
 							<localRepoProperty>${M2_REPO}</localRepoProperty>
 							<!-- this filename is stupid but matches the one it’s attached as -->
-							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}-classpath.jar</outputFile>
+							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}-classpath.${project.packaging}</outputFile>
 							<outputProperty>runtime.classpath</outputProperty>
 							<pathSeparator>:</pathSeparator>
 							<regenerateFile>true</regenerateFile>
