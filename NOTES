@@ -118,3 +118,9 @@ You’ll need reasonably recent versions of coreutils, git, maven,
 mksh, pax and xmlstarlet for most tools; although they have only
 been tested on Debian, they should be pretty portable to similar
 operating systems.
+
+Have a look at lib/run.sh as an example of how to execute a JAR
+using the newly-created classpath file (allowing extra files to
+be added to the classpath — unlike with -cp — and multiple Main
+classes to be used instead of the one in the manifest only) and
+adding to LD_LIBRARY_PATH (for JNI, commented out by default).
