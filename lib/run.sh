@@ -21,9 +21,6 @@
 # of said person’s immediate fault when using the work as intended.
 #-
 # Run executable JAR.
-#
-# runtime.classpath=<${runtime.classpath}>
-# runtime.jarname=<${runtime.jarname}>
 
 function makecmdline {
 	# configure this to match the POM
@@ -31,7 +28,7 @@ function makecmdline {
 
 	# define local variables first
 	set +U
-	local top exe cp m2repo=~/.m2/repository x
+	local top exe cp x m2repo=~/.m2/repository
 
 	# check mainclass begins with package or class
 	if [[ -z $1 || $mainclass != [a-zA-Z]* ]]; then
@@ -45,39 +42,62 @@ function makecmdline {
 		exit 255
 	fi
 	shift
-	# determine executable by finding classpath metadata
-	exe=
-	for x in "$top"/target/*.cp; do
+	# determine Maven repository path
+	[[ -n $M2_REPO && -d $M2_REPO/. ]] && m2repo=$M2_REPO
+
+	# figure out whether Maven resource filtering has gifted us with info
+	cp=<<'	end-of-cp'
+${runtime.classpath}
+	end-of-cp
+	exe=<<'	end-of-exe'
+${runtime.jarname}
+	end-of-exe
+
+	# determine executable, either from above or by finding marker file
+	exe=${exe%%*($'\n'|$'\r')}
+	[[ $exe = [!\$]* ]] || exe=
+	if [[ -n $exe && ! -e $exe ]]; then
+		print -ru2 -- "[WARNING] $exe not found, looking around..."
+		exe=
+	fi
+	[[ -n $exe ]] || for x in "$top"/target/*.cp; do
 		if [[ -n $exe ]]; then
 			print -ru2 -- '[ERROR] Found more than one JAR to run.'
 			exit 255
 		fi
 		[[ -s $x ]] || break
-		exe=$x
+		exe=${x%.cp}.jar
 	done
 	if [[ -z $exe ]]; then
 		print -ru2 -- '[ERROR] Found no JAR to run.'
 		exit 255
 	fi
-	# determine Maven repository path
-	[[ -n $M2_REPO && -d $M2_REPO/. ]] && m2repo=$M2_REPO
-	# determine JAR classpath
-	if ! cp=$(<"$exe"); then
-		print -ru2 -- '[ERROR] Could not read classpath metadata.'
-		exit 255
-	fi
-	cp=${cp#classpath=}
-	set -U
-	cp=${cp//$'\u0095'/"/"}
-	cp=${cp//$'\u009C'/":"}
-	cp=${cp//$'\u0096'M2REPO$'\u0097'/"$m2repo"}
-	set +U
-	# determine JAR to run
-	exe=${exe%cp}jar
 	if [[ ! -s $exe ]]; then
 		print -ru2 -- "[ERROR] $exe not found."
 		exit 255
 	fi
+
+	# determine JAR classpath, either from above or from the manifest
+	set -U
+	if [[ $cp = '$'* ]]; then
+		if ! whence jjs >/dev/null 2>&1; then
+			print -ru2 -- '[ERROR] jjs (from JRE) not installed.'
+			exit 255
+		fi
+		cp=$(print -r -- 'echo(new java.util.jar.JarFile($ARG[1]).getManifest().getMainAttributes().getValue($ARG[0]));' | \
+		    jjs -scripting - -- x-tartools-cp "$exe" 2>/dev/null) || cp=
+		if [[ $cp != $'\u0086'* ]]; then
+			print -ru2 -- '[ERROR] Could not retrieve classpath' \
+			    "from $exe"
+			exit 255
+		fi
+		cp=${cp#$'\u0086'}
+	fi
+	cp=${cp%%*($'\n'|$'\r'|$'\u0087')}
+	cp=${cp//$'\u0095'/"/"}
+	cp=${cp//$'\u009C'/":"}
+	cp=${cp//$'\u0096'M2REPO$'\u0097'/"$m2repo"}
+	set +U
 	# determine run CLASSPATH
 	cp=$exe${cp:+:$cp}${CLASSPATH:+:$CLASSPATH}
 	# put together command line
