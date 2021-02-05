@@ -592,7 +592,7 @@
 							<!-- use control characters to separate OS-independently -->
 							<fileSeparator>&#x95;</fileSeparator>
 							<!-- include runtime scopes only; provided may also be needed -->
-							<!-- includeScope>runtime</includeScope -->
+							<includeScope>runtime</includeScope>
 							<!-- use marker to præfix paths OS-independently -->
 							<localRepoProperty>&#x96;M2REPO&#x97;</localRepoProperty>
 							<!-- match filename this is deployed as -->
