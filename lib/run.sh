@@ -21,6 +21,9 @@
 # of said person’s immediate fault when using the work as intended.
 #-
 # Run executable JAR.
+#
+# runtime.classpath=<${runtime.classpath}>
+# runtime.jarname=<${runtime.jarname}>
 
 function makecmdline {
 	# configure this to match the POM

@@ -36,6 +36,7 @@
 	</organization>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<runtime.jarname>${project.artifactId}-${project.version}.jar</runtime.jarname>
 		<!-- ‣ configurable settings -->
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
 		<archiver.copyright.lastyear>2021</archiver.copyright.lastyear>
@@ -408,6 +409,7 @@
 								<version_copyright>${archiver.copyright}</version_copyright>
 								<version_vendor>${project.organization.name} (${project.organization.url})</version_vendor>
 								<version_version>${project.version}</version_version>
+								<x-tartools-cp>&#x86;${runtime.classpath}&#x87;</x-tartools-cp>
 							</manifestEntries>
 						</archive>
 					</configuration>
@@ -510,27 +512,6 @@
 		</pluginManagement>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-classpath-file</id>
-						<phase>package</phase>
-						<goals>
-							<goal>attach-artifact</goal>
-						</goals>
-						<configuration>
-							<artifacts>
-								<artifact>
-									<file>${project.build.directory}/${project.artifactId}-${project.version}.cp</file>
-									<type>cp</type>
-								</artifact>
-							</artifacts>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<executions>
@@ -587,7 +568,7 @@
 							<goal>build-classpath</goal>
 						</goals>
 						<configuration>
-							<!-- attached manually; automatic attach filename is wrong -->
+							<!-- do not attach, causes OSSRH validation errors -->
 							<attach>false</attach>
 							<!-- use control characters to separate OS-independently -->
 							<fileSeparator>&#x95;</fileSeparator>
@@ -595,9 +576,8 @@
 							<!-- includeScope>runtime</includeScope -->
 							<!-- use marker to præfix paths OS-independently -->
 							<localRepoProperty>&#x96;M2REPO&#x97;</localRepoProperty>
+							<!-- use name only so run.sh knows which JAR to run -->
 							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.cp</outputFile>
-							<!-- avoid zero-length files; these are better reusable anyway -->
-							<outputFilterFile>true</outputFilterFile>
 							<!-- also make this available in the ${runtime.classpath} property -->
 							<outputProperty>runtime.classpath</outputProperty>
 							<!-- use control characters to separate OS-independently -->

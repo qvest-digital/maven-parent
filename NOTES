@@ -1,6 +1,5 @@
 Default plugins:
 
-• build-helper-maven-plugin
 • jacoco-maven-plugin
 • maven-compiler-plugin
 • maven-dependency-plugin
