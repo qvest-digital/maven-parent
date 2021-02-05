@@ -594,7 +594,7 @@
 							<!-- include runtime scopes only; provided may also be needed -->
 							<includeScope>runtime</includeScope>
 							<!-- use marker to præfix paths OS-independently -->
-							<localRepoProperty>@M2REPO@</localRepoProperty>
+							<localRepoProperty>&#x96;M2REPO&#x97;</localRepoProperty>
 							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.cp</outputFile>
 							<!-- avoid zero-length files; these are better reusable anyway -->
 							<outputFilterFile>true</outputFilterFile>
