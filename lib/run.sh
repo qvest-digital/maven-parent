@@ -22,6 +22,7 @@
 #-
 # Run executable JAR.
 
+# this must, indeed, use a here document
 jarinfo11() { java --source 11 /dev/stdin "$@" <<\EOF
 	class JEP330Extractor {
 		public static void main(String[] args) throws Exception {
@@ -92,19 +93,23 @@ ${runtime.jarname}
 	# determine JAR classpath, either from above or from the manifest
 	set -U
 	if [[ $cp = '$'* ]]; then
-if false; then
-		if ! whence jjs >/dev/null 2>&1; then
+		if java --source 11 /dev/stdin \
+		    <<<'class x { public static void main(String[] args) { System.exit(0); } }' \
+		    >/dev/null 2>&1; then
+			cp=$(jarinfo11 x-tartools-cp "$exe") || cp=
+		elif ! whence jjs >/dev/null 2>&1; then
 			print -ru2 -- '[ERROR] jjs (from JRE) not installed.'
 			exit 255
+		elif ! cp=$(jjs -scripting - -- \
+		    <<<'echo(new java.util.jar.JarFile($ARG[1]).getManifest().getMainAttributes().getValue($ARG[0]));' \
+		    x-tartools-cp "$exe" 2>/dev/null) || \
+		    [[ $cp = *'jjs>'* ]]; then
+			print -ru2 -- '[ERROR] Neither JEP 330 nor jjs work.'
+			exit 255
 		fi
-		cp=$(print -r -- 'echo(new java.util.jar.JarFile($ARG[1]).getManifest().getMainAttributes().getValue($ARG[0]));' | \
-		    jjs -scripting - -- x-tartools-cp "$exe" 2>/dev/null) || cp=
-else
-		cp=$(jarinfo11 x-tartools-cp "$exe") || cp=
-fi
 		if [[ $cp != $'\u0086'* ]]; then
 			print -ru2 -- '[ERROR] Could not retrieve classpath' \
-			    "from $exe"
+			    "from $exe manifest."
 			exit 255
 		fi
 		cp=${cp#$'\u0086'}
