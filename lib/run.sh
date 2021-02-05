@@ -64,6 +64,8 @@ function makecmdline {
 		exit 255
 	fi
 	cp=${cp#classpath=}
+	cp=${cp//$'\x95'//}
+	cp=${cp//$'\x9C'/:}
 	cp=${cp//'${M2_REPO}'/$m2repo}
 	# determine JAR to run
 	exe=${exe%cp}jar

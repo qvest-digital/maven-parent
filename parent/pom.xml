@@ -589,8 +589,8 @@
 						<configuration>
 							<!-- attached manually; automatic attach filename is wrong -->
 							<attach>false</attach>
-							<!-- configure to consistently use Unix path -->
-							<fileSeparator>/</fileSeparator>
+							<!-- use control characters to separate OS-independently -->
+							<fileSeparator>&#x95;</fileSeparator>
 							<!-- include runtime scopes only; provided may also be needed -->
 							<includeScope>runtime</includeScope>
 							<!-- consistence -->
@@ -600,8 +600,8 @@
 							<outputFilterFile>true</outputFilterFile>
 							<!-- also make this available in the ${runtime.classpath} property -->
 							<outputProperty>runtime.classpath</outputProperty>
-							<!-- configure to consistently use Unix path -->
-							<pathSeparator>:</pathSeparator>
+							<!-- use control characters to separate OS-independently -->
+							<pathSeparator>&#x9C;</pathSeparator>
 							<!-- consistence -->
 							<regenerateFile>true</regenerateFile>
 						</configuration>
