@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+	To retrieve the latest source code, useful instructions and other aids:
+
+	$ mvn -U -Dartifact=org.evolvis.tartools:maven-parent-bs:RELEASE:tgz:source -DoutputDirectory=. dependency:copy #
+
+	Replace RELEASE with the <version> number below to get the artefact corresponding to that release.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>1.33-SNAPSHOT</version>
+		<version>1.900-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>maven-parent-lib</artifactId>
 	<packaging>jar</packaging>
@@ -31,7 +39,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.tartools</groupId>
-			<artifactId>maven-parent</artifactId>
+			<artifactId>maven-parent-bs</artifactId>
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
@@ -63,7 +71,7 @@
 							</ignoredUnusedDeclaredDependencies>
 							<usedDependencies>
 								<!-- must be on the test classpath -->
-								<usedDependency>org.evolvis.tartools:maven-parent</usedDependency>
+								<usedDependency>org.evolvis.tartools:maven-parent-bs</usedDependency>
 							</usedDependencies>
 						</configuration>
 					</execution>

@@ -1,7 +1,7 @@
 Default plugins:
 
+• build-helper-maven-plugin
 • jacoco-maven-plugin
-• license-maven-plugin (inherited=false)
 • maven-compiler-plugin
 • maven-dependency-plugin
 • maven-enforcer-plugin
@@ -70,6 +70,9 @@ use or test maven.site.version which is injected somehow.
 
 Include org.evolvis.tartools:maven-parent-lib for java.util.logging
 (jdk14 jul) initialisation using logger.properties from the classpath.
+The org.evolvis.tartools:maven-parent:jar:tests file was renamed to
+org.evolvis.tartools:maven-parent-bs:jar:tests for the maven-parent
+2.0 release.
 
 Using the Mycila licence plugin, you first run
 	mvn com.mycila:license-maven-plugin:3.0:remove
@@ -96,8 +99,7 @@ Some description on ancillary tools:
   lombok, Spring), ckdep.inc for free-format dependencies such
   as JS files; must be manually enabled and maintained
 • cksrc.sh is a configuration file for ckdep.sh, depsrc.sh and
-  mksrc.sh, needed if any of them is used; well-commented but
-  when reusing DON’T forget to toggle mvnprofiles
+  mksrc.sh, needed if any of them is used; well-commented
 • depsrc.sh uses ckdep.mvn with depsrc.xml to create a PKZIP
   archive containing the sources (usually source JARs from
   Central, cksrc.sh can override) of dependencies shipped
