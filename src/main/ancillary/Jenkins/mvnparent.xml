@@ -10,7 +10,7 @@
   &lt;li&gt;tsutc&lt;/li&gt;&#xd;
   &lt;li&gt;useful-scripts/rfc822&lt;/li&gt;&#xd;
  &lt;/ul&gt;&lt;/li&gt;&#xd;
-&lt;li&gt;VerA.web&lt;/li&gt;&#xd;
+&lt;li&gt;some other/older projects&lt;/li&gt;&#xd;
 &lt;/ul&gt;&#xd;
 &lt;p&gt;External projects may also use this, so take care!&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -84,7 +84,7 @@ Only relevant when performing a release.</description>
     <groupId>org.evolvis.tartools</groupId>
     <artifactId>maven-parent</artifactId>
   </rootModule>
-  <goals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -e clean install</goals>
+  <goals>-Pdstrepo-$DSTREPO_PROFILE -e clean install</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <ignoreUpstremChanges>false</ignoreUpstremChanges>
@@ -101,7 +101,7 @@ Only relevant when performing a release.</description>
   <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
   <reporters>
     <hudson.maven.reporters.MavenMailer>
-      <recipients>tartools-commits@lists.evolvis.org</recipients>
+      <recipients>t.glaser@tarent.de</recipients>
       <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
       <perModuleEmail>false</perModuleEmail>
@@ -113,8 +113,8 @@ Only relevant when performing a release.</description>
       <scmUserEnvVar></scmUserEnvVar>
       <scmPasswordEnvVar></scmPasswordEnvVar>
       <releaseEnvVar>IS_M2RELEASEBUILD</releaseEnvVar>
-      <releaseGoals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -Darguments=&#34;-Dgpg.passphrase=<SECRET/> -Pgpg -Pbuild-mvnparent&#34; -e</releaseGoals>
-      <dryRunGoals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
+      <releaseGoals>-Pdstrepo-$DSTREPO_PROFILE -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -Darguments=&#34;-Dgpg.passphrase=<SECRET/> -Pgpg&#34; -e</releaseGoals>
+      <dryRunGoals>-Pdstrepo-$DSTREPO_PROFILE -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
       <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
       <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
       <selectScmCredentials>false</selectScmCredentials>
