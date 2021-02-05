@@ -127,7 +127,6 @@
 							<goal>single</goal>
 						</goals>
 						<configuration>
-							<attach>false</attach>
 							<descriptors>
 								<descriptor>src/main/ancillary/depsrc.xml</descriptor>
 							</descriptors>
