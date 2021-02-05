@@ -523,8 +523,8 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>${project.build.directory}/${project.artifactId}-${project.version}.cp</file>
-									<type>cp</type>
+									<file>${project.build.directory}/${project.artifactId}-${project.version}.txt</file>
+									<type>txt</type>
 								</artifact>
 							</artifacts>
 						</configuration>
@@ -590,19 +590,20 @@
 						<configuration>
 							<!-- attached manually; automatic attach filename is wrong -->
 							<attach>false</attach>
-							<!-- configure to consistently use Unix path -->
-							<fileSeparator>/</fileSeparator>
+							<!-- use control characters to separate OS-independently -->
+							<fileSeparator>&#x95;</fileSeparator>
 							<!-- include runtime scopes only; provided may also be needed -->
 							<includeScope>runtime</includeScope>
-							<!-- consistence -->
-							<localRepoProperty>${M2_REPO}</localRepoProperty>
-							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.cp</outputFile>
+							<!-- use marker to præfix paths OS-independently -->
+							<localRepoProperty>&#x96;M2REPO&#x97;</localRepoProperty>
+							<!-- match filename this is deployed as -->
+							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.txt</outputFile>
 							<!-- avoid zero-length files; these are better reusable anyway -->
 							<outputFilterFile>true</outputFilterFile>
 							<!-- also make this available in the ${runtime.classpath} property -->
 							<outputProperty>runtime.classpath</outputProperty>
-							<!-- configure to consistently use Unix path -->
-							<pathSeparator>:</pathSeparator>
+							<!-- use control characters to separate OS-independently -->
+							<pathSeparator>&#x9C;</pathSeparator>
 							<!-- consistence -->
 							<regenerateFile>true</regenerateFile>
 						</configuration>

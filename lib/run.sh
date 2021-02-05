@@ -44,7 +44,7 @@ function makecmdline {
 	shift
 	# determine executable by finding classpath metadata
 	exe=
-	for x in "$top"/target/*.cp; do
+	for x in "$top"/target/*.txt; do
 		if [[ -n $exe ]]; then
 			print -ru2 -- '[ERROR] Found more than one JAR to run.'
 			exit 255
@@ -64,9 +64,13 @@ function makecmdline {
 		exit 255
 	fi
 	cp=${cp#classpath=}
-	cp=${cp//'${M2_REPO}'/$m2repo}
+	set -U
+	cp=${cp//$'\u0095'/"/"}
+	cp=${cp//$'\u009C'/":"}
+	cp=${cp//$'\u0096'M2REPO$'\u0097'/"$m2repo"}
+	set +U
 	# determine JAR to run
-	exe=${exe%cp}jar
+	exe=${exe%txt}jar
 	if [[ ! -s $exe ]]; then
 		print -ru2 -- "[ERROR] $exe not found."
 		exit 255
