@@ -561,14 +561,22 @@
 							<goal>build-classpath</goal>
 						</goals>
 						<configuration>
+							<!-- attached manually; automatic attach filename is wrong -->
 							<attach>false</attach>
+							<!-- configure to consistently use Unix path -->
 							<fileSeparator>/</fileSeparator>
+							<!-- include runtime scopes only; provided may also be needed -->
 							<includeScope>runtime</includeScope>
+							<!-- consistence -->
 							<localRepoProperty>${M2_REPO}</localRepoProperty>
 							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.cp</outputFile>
+							<!-- avoid zero-length files; these are better reusable anyway -->
 							<outputFilterFile>true</outputFilterFile>
+							<!-- also make this available in the ${runtime.classpath} property -->
 							<outputProperty>runtime.classpath</outputProperty>
+							<!-- configure to consistently use Unix path -->
 							<pathSeparator>:</pathSeparator>
+							<!-- consistence -->
 							<regenerateFile>true</regenerateFile>
 						</configuration>
 					</execution>
