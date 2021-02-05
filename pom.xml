@@ -32,6 +32,12 @@
 			<comments>only for: src/main/ancillary/mvnrepo.xsl</comments>
 		</license>
 	</licenses>
+	<scm>
+		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
+		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/tartools/mvnparent.git</developerConnection>
+		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=tartools/mvnparent.git</url>
+		<tag>HEAD</tag>
+	</scm>
 	<modules>
 		<module>parent</module>
 		<module>lib</module>
