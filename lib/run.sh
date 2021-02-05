@@ -49,7 +49,7 @@ function makecmdline {
 			print -ru2 -- '[ERROR] Found more than one JAR to run.'
 			exit 255
 		fi
-		[[ -f $x ]] || break
+		[[ -s $x ]] || break
 		exe=$x
 	done
 	if [[ -z $exe ]]; then
@@ -63,6 +63,7 @@ function makecmdline {
 		print -ru2 -- '[ERROR] Could not read classpath metadata.'
 		exit 255
 	fi
+	cp=${cp#classpath=}
 	cp=${cp//'${M2_REPO}'/$m2repo}
 	# determine JAR to run
 	exe=${exe%-classpath.jar}.jar
