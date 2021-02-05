@@ -523,8 +523,8 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>${project.build.directory}/${project.artifactId}-${project.version}.txt</file>
-									<type>txt</type>
+									<file>${project.build.directory}/${project.artifactId}-${project.version}.cp</file>
+									<type>cp</type>
 								</artifact>
 							</artifacts>
 						</configuration>
@@ -596,8 +596,7 @@
 							<includeScope>runtime</includeScope>
 							<!-- use marker to præfix paths OS-independently -->
 							<localRepoProperty>&#x96;M2REPO&#x97;</localRepoProperty>
-							<!-- match filename this is deployed as -->
-							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.txt</outputFile>
+							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.cp</outputFile>
 							<!-- avoid zero-length files; these are better reusable anyway -->
 							<outputFilterFile>true</outputFilterFile>
 							<!-- also make this available in the ${runtime.classpath} property -->
