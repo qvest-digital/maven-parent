@@ -220,22 +220,6 @@
 						<artifactId>build-helper-maven-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>attach-classpath.properties</id>
-								<phase>package</phase>
-								<goals>
-									<goal>attach-artifact</goal>
-								</goals>
-								<configuration>
-									<artifacts>
-										<artifact>
-											<file>${project.build.directory}/${project.artifactId}-${project.version}-classpath.properties</file>
-											<type>properties</type>
-											<classifier>classpath</classifier>
-										</artifact>
-									</artifacts>
-								</configuration>
-							</execution>
-							<execution>
 								<id>attach-source.tgz</id>
 								<phase>package</phase>
 								<goals>
@@ -635,6 +619,28 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-classpath.properties</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>${project.build.directory}/${project.artifactId}-${project.version}-classpath.properties</file>
+									<type>properties</type>
+									<classifier>classpath</classifier>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
