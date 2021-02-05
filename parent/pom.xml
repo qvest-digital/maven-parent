@@ -563,7 +563,7 @@
 					</execution>
 					<execution>
 						<id>generate-classpath-artefact</id>
-						<phase>compile</phase>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>build-classpath</goal>
 						</goals>
