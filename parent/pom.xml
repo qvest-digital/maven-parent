@@ -573,7 +573,7 @@
 							<!-- use control characters to separate OS-independently -->
 							<fileSeparator></fileSeparator>
 							<!-- include runtime scopes only; provided may also be needed -->
-							<!-- includeScope>runtime</includeScope -->
+							<includeScope>runtime</includeScope>
 							<!-- use marker to præfix paths OS-independently -->
 							<localRepoProperty>M2REPO</localRepoProperty>
 							<!-- use name only so run.sh knows which JAR to run -->
