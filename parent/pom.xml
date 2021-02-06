@@ -576,7 +576,7 @@
 							<includeScope>runtime</includeScope>
 							<!-- use marker to præfix paths OS-independently -->
 							<localRepoProperty>M2REPO</localRepoProperty>
-							<!-- use name only so run.sh knows which JAR to run -->
+							<!-- so run.sh knows which JAR to run and for speedup -->
 							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.cp</outputFile>
 							<!-- also make this available in the ${runtime.classpath} property -->
 							<outputProperty>runtime.classpath</outputProperty>

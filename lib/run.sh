@@ -99,8 +99,13 @@ ${runtime.jarname}
 		exit 255
 	fi
 
-	# determine JAR classpath, either from above or from the manifest
+	# determine JAR classpath, either from above or a .cp file or JAR manifest
 	set -U
+	if [[ $cp = '$'* && -s ${exe%.jar}.cp ]]; then
+		cp=$(<"${exe%.jar}.cp")
+		# use only if content or “end” marker is present
+		[[ $cp = *[$'\u0095\u0086']* ]] || cp='$'
+	fi
 	if [[ $cp = '$'* ]]; then
 		if java --source 11 /dev/stdin \
 		    <<<'class x { public static void main(String[] args) { System.exit(0); } }' \
