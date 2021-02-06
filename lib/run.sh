@@ -22,6 +22,16 @@
 #-
 # Run executable JAR.
 
+function config {
+	# make sure this matches the POM
+	mainclass=org.evolvis.tartools.mvnparent.examples.Main
+}
+function frobenv {
+	set -x
+	# extra environment setup, only export commands allowed, for example:
+	#export LD_LIBRARY_PATH=$top/target/native${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+}
+
 # this must, indeed, use a here document
 jarinfo11() { java --source 11 /dev/stdin "$@" <<\EOF
 	class JEP330Extractor {
@@ -36,12 +46,11 @@ EOF
 }
 
 function makecmdline {
-	# configure this to match the POM
-	local mainclass=org.evolvis.tartools.mvnparent.examples.Main
-
+	local mainclass
+	config
 	# define local variables first
-	set +U
 	local top exe cp x m2repo=~/.m2/repository
+	set +U
 
 	# check mainclass begins with package or class
 	if [[ -z $1 || $mainclass != [a-zA-Z]* ]]; then
@@ -124,7 +133,7 @@ ${runtime.jarname}
 	# put together command line
 	set -x -A _ java -cp "$cp" "$mainclass" "$@"
 	# additional environment setup
-	#export LD_LIBRARY_PATH=$top/target/native${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+	frobenv
 }
 makecmdline "$0" "$@"
 set -x
