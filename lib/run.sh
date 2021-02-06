@@ -78,9 +78,11 @@ ${runtime.jarname}
 	# determine executable, either from above or by finding marker file
 	exe=${exe%%*($'\n'|$'\r')}
 	[[ $exe = [!\$]* ]] || exe=
-	if [[ -n $exe && ! -e $exe ]]; then
+	if [[ -n $exe && ! -e $top/$exe ]]; then
 		print -ru2 -- "[WARNING] $exe not found, looking around..."
 		exe=
+	else
+		exe=$top/$exe
 	fi
 	[[ -n $exe ]] || for x in "$top"/target/*.cp; do
 		if [[ -n $exe ]]; then
