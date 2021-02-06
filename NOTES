@@ -126,4 +126,10 @@ Have a look at lib/run.sh as an example of how to execute a JAR
 using the newly-created classpath file (allowing extra files to
 be added to the classpath — unlike with -cp — and multiple Main
 classes to be used instead of the one in the manifest only) and
-adding to LD_LIBRARY_PATH (for JNI, commented out by default).
+adding to LD_LIBRARY_PATH (commented out; e.g. for JNI), linked
+into lib/src/main/resources-filtered/ so it can also be used to
+run the JAR once installed, using dependencies from a Maven re‐
+pository, listing the JAR filename and its runtime dependencies
+inside the resource-filtered script. The JAR manifest also con‐
+tains the list of dependencies, which the script falls back to.
+The mainClass manifest entry thus is no longer necessary.

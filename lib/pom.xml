@@ -83,6 +83,7 @@
 				<configuration>
 					<archive>
 						<manifest>
+							<!-- with run.sh this is no longer necessary -->
 							<mainClass>org.evolvis.tartools.mvnparent.examples.Main</mainClass>
 						</manifest>
 					</archive>
