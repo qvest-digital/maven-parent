@@ -578,6 +578,8 @@
 							<localRepoProperty>M2REPO</localRepoProperty>
 							<!-- so run.sh knows which JAR to run and for speedup -->
 							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.cp</outputFile>
+							<!-- avoid zero-length files; these are better reusable anyway -->
+							<outputFilterFile>true</outputFilterFile>
 							<!-- also make this available in the ${runtime.classpath} property -->
 							<outputProperty>runtime.classpath</outputProperty>
 							<!-- use control characters to separate OS-independently -->

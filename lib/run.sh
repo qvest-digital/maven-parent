@@ -105,6 +105,7 @@ ${runtime.jarname}
 		cp=$(<"${exe%.jar}.cp")
 		# use only if content or “end” marker is present
 		[[ $cp = *[$'\u0095\u0086']* ]] || cp='$'
+		cp=${cp#classpath=}
 	fi
 	if [[ $cp = '$'* ]]; then
 		if java --source 11 /dev/stdin \
