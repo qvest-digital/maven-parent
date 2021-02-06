@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.evolvis.tartools</groupId>
 	<artifactId>maven-parent</artifactId>
-	<version>1.902-SNAPSHOT</version>
+	<version>1.903-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Parent POM for Maven projects — POM</description>
@@ -53,7 +53,7 @@
 		<maven.compiler.release>${javaRelease}</maven.compiler.release>
 		<releaseVersion>${project.version}</releaseVersion>
 		<!-- dependency management for the “tests” classifier and library JARs we provide -->
-		<org.evolvis.tartools.maven-parent.version>1.902-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
+		<org.evolvis.tartools.maven-parent.version>1.903-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
 		<!-- ‣ maven plugins -->
 		<gmavenplus.plugin.version>1.12.1</gmavenplus.plugin.version>
 		<maven.antrun.version>3.0.0</maven.antrun.version>
@@ -571,7 +571,7 @@
 							<!-- do not attach, causes OSSRH validation errors -->
 							<attach>false</attach>
 							<!-- use control characters to separate OS-independently -->
-							<fileSeparator>&#x95;</fileSeparator>
+							<fileSeparator></fileSeparator>
 							<!-- include runtime scopes only; provided may also be needed -->
 							<!-- includeScope>runtime</includeScope -->
 							<!-- use marker to præfix paths OS-independently -->
@@ -581,7 +581,7 @@
 							<!-- also make this available in the ${runtime.classpath} property -->
 							<outputProperty>runtime.classpath</outputProperty>
 							<!-- use control characters to separate OS-independently -->
-							<pathSeparator>&#x9C;</pathSeparator>
+							<pathSeparator></pathSeparator>
 							<!-- consistence -->
 							<regenerateFile>true</regenerateFile>
 						</configuration>
