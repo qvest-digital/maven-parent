@@ -27,7 +27,6 @@ function config {
 	mainclass=org.evolvis.tartools.mvnparent.examples.Main
 }
 function frobenv {
-	set -x
 	# extra environment setup, only export commands allowed, for example:
 	#export LD_LIBRARY_PATH=$top/target/native${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 }
@@ -48,6 +47,7 @@ EOF
 function makecmdline {
 	local mainclass
 	config
+	typeset -ft frobenv
 	# define local variables first
 	local top exe cp x m2repo=~/.m2/repository
 	set +U
@@ -131,7 +131,7 @@ ${runtime.jarname}
 	# determine run CLASSPATH
 	cp=$exe${cp:+:$cp}${CLASSPATH:+:$CLASSPATH}
 	# put together command line
-	set -x -A _ java -cp "$cp" "$mainclass" "$@"
+	set -A _ java -cp "$cp" "$mainclass" "$@"
 	# additional environment setup
 	frobenv
 }
