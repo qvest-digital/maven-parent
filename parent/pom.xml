@@ -409,7 +409,7 @@
 								<version_copyright>${archiver.copyright}</version_copyright>
 								<version_vendor>${project.organization.name} (${project.organization.url})</version_vendor>
 								<version_version>${project.version}</version_version>
-								<x-tartools-cp>&#x86;${runtime.classpath}&#x87;</x-tartools-cp>
+								<x-tartools-cp>${runtime.classpath}</x-tartools-cp>
 							</manifestEntries>
 						</archive>
 					</configuration>
@@ -575,7 +575,7 @@
 							<!-- include runtime scopes only; provided may also be needed -->
 							<!-- includeScope>runtime</includeScope -->
 							<!-- use marker to præfix paths OS-independently -->
-							<localRepoProperty>&#x96;M2REPO&#x97;</localRepoProperty>
+							<localRepoProperty>M2REPO</localRepoProperty>
 							<!-- use name only so run.sh knows which JAR to run -->
 							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}.cp</outputFile>
 							<!-- also make this available in the ${runtime.classpath} property -->
