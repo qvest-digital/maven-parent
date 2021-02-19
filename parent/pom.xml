@@ -82,7 +82,6 @@
 		<maven.source.version>3.2.1</maven.source.version>
 		<maven.surefire.version>2.22.2</maven.surefire.version>
 		<maven.war.version>2.6</maven.war.version>
-		<pitest.plugin.version>1.6.2</pitest.plugin.version>
 		<!-- ‣ dependency management -->
 	</properties>
 	<scm>
@@ -502,11 +501,6 @@
 							</resource>
 						</webResources>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.pitest</groupId>
-					<artifactId>pitest-maven</artifactId>
-					<version>${pitest.plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
