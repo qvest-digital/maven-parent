@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO for next version: stop shipping com.mycila:license-maven-plugin, no current users -->
 <!--
 	To retrieve the latest source code, useful instructions and other aids:
 
