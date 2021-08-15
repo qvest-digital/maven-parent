@@ -133,3 +133,10 @@ pository, listing the JAR filename and its runtime dependencies
 inside the resource-filtered script. The JAR manifest also con‐
 tains the list of dependencies, which the script falls back to.
 The mainClass manifest entry thus is no longer necessary.
+
+Fast local rebuilds: add…
+# maven fast
+alias mvnf='mvn -Dmdep.analyze.skip=true -Dmaven.test.skip=true -Djacoco.skip=true -Dmaven.javadoc.skip=true -Dmaven.source.skip=true'
+… to your ~/.mkshrc or similar shell initialisation files, then
+“mvnf package” can be used to quickly locally recompile things,
+so you can test changes more easily.
