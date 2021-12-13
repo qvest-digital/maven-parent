@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- TODO for next version: stop shipping com.mycila:license-maven-plugin, no current users -->
 <!--
 	To retrieve the latest source code, useful instructions and other aids:
 
@@ -114,14 +113,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.mycila</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<configuration>
-					<!-- skipping requires header to be not defined -->
-					<header>${project.basedir}/src/main/ancillary/LICENCE.hdr</header>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

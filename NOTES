@@ -75,22 +75,10 @@ The org.evolvis.tartools:maven-parent:jar:tests file was renamed to
 org.evolvis.tartools:maven-parent-bs:jar:tests for the maven-parent
 2.0 release.
 
-Using the Mycila licence plugin, you first run
-	mvn com.mycila:license-maven-plugin:3.0:remove
-and check files for remnants, update the header if necessary, run
-	mvn com.mycila:license-maven-plugin:3.0:format
-then finally check for files with ≥2 empty lines (either with
-	# not funny-character-in-filename-safe
-	git ls-files | while IFS= read -r name; do
-		test -h "$name" || awk -v n=0 '
-		    $0 == "" { if (++n == 2) { print FILENAME; exit; }; next; }
-		    { n=0 }' "$name"
-	done
-replacing “git ls-files” with find if needed) or “git check-emptylines” from
+You might want “git check-whitespace” and “git check-emptylines” from
 http://www.mirbsd.org/cvs.cgi/contrib/hosted/tg/.gitconfig?rev=HEAD;content-type=text%2Fplain
-(needs https://github.com/mirabilos/git-find and pcregrep), then
-pipe those files through “cat -s” or “perl -00pe0” to drop those
-double empty lines as files without a header may get them added.
+(needs https://github.com/mirabilos/git-find and pcregrep); pipe
+files through “cat -s” or “perl -00pe0” to drop double empty lines.
 
 Some description on ancillary tools:
 • ckdep.sh determines dependencies and keeps them in ckdep.lst

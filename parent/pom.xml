@@ -73,7 +73,6 @@
 		<maven.jar.version>3.2.0</maven.jar.version>
 		<maven.javadoc.version>3.2.0</maven.javadoc.version>
 		<maven.latex.version>1.4.4</maven.latex.version>
-		<maven.mycila.version>3.0</maven.mycila.version>
 		<maven.release.version>2.5.3</maven.release.version>
 		<!-- due to MRESOURCES-237 and MSHARED-325 -->
 		<maven.resources.version>2.6</maven.resources.version>
@@ -267,32 +266,6 @@
 					<groupId>com.github.fracpete</groupId>
 					<artifactId>latex-maven-plugin</artifactId>
 					<version>${maven.latex.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>com.mycila</groupId>
-					<artifactId>license-maven-plugin</artifactId>
-					<version>${maven.mycila.version}</version>
-					<configuration>
-						<basedir>${project.basedir}</basedir>
-						<aggregate>true</aggregate>
-						<encoding>UTF-8</encoding>
-						<failIfMissing>true</failIfMissing>
-						<headerDefinitions>
-							<headerDefinition>${project.basedir}/src/main/ancillary/myc-javapkg.xml</headerDefinition>
-						</headerDefinitions>
-						<includes>
-							<include>**/*.cs</include>
-							<include>**/*.java</include>
-							<include>**/*.js</include>
-						</includes>
-						<mapping combine.children="append">
-							<java>JavaPackage_style</java>
-						</mapping>
-						<quiet>false</quiet>
-						<strictCheck>true</strictCheck>
-						<useDefaultExcludes>true</useDefaultExcludes>
-						<useDefaultMapping>true</useDefaultMapping>
-					</configuration>
 				</plugin>
 				<plugin>
 					<!-- from Super POM, not used by us -->
