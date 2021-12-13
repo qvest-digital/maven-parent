@@ -574,9 +574,8 @@
 										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
 										<exclude>commons-collections:commons-collections:4.0</exclude>
 										<!-- Avoid log4shell -->
-										<!--XXX require 2.16.0 once released -->
-										<exclude>org.apache.logging.log4j:log4j-api:(,2.15.0)</exclude>
-										<exclude>org.apache.logging.log4j:log4j-core:(,2.15.0)</exclude>
+										<exclude>org.apache.logging.log4j:log4j-api:(,2.16.0)</exclude>
+										<exclude>org.apache.logging.log4j:log4j-core:(,2.16.0)</exclude>
 									</excludes>
 								</bannedDependencies>
 								<!-- Require specific Maven version (do *not* use <project.prerequisites /> for this!) -->
