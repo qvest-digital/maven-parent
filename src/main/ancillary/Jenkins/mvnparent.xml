@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<maven2-moduleset plugin="maven-plugin@2.10">
+<maven2-moduleset plugin="maven-plugin@2.10.666">
   <actions/>
   <description>&lt;p&gt;Parent POM for &#x2ba1; Maven projects&lt;/p&gt;&#xd;
 &lt;p&gt;Used by:&lt;/p&gt;&lt;ul&gt;&#xd;
 &lt;li&gt;org.evolvis.tartools&lt;ul&gt;&#xd;
   &lt;li&gt;Background-Jobs&lt;/li&gt;&#xd;
   &lt;li&gt;csvfile&lt;/li&gt;&#xd;
-  &lt;li&gt;Extract-Tool&lt;/li&gt;&#xd;
+  &lt;li&gt;rfc822 (useful-scripts group)&lt;/li&gt;&#xd;
   &lt;li&gt;tsutc&lt;/li&gt;&#xd;
-  &lt;li&gt;useful-scripts/rfc822&lt;/li&gt;&#xd;
+  &lt;li&gt;Extract-Tool (depends on Background-Jobs, csvfile)&lt;/li&gt;&#xd;
  &lt;/ul&gt;&lt;/li&gt;&#xd;
 &lt;li&gt;some other/older projects&lt;/li&gt;&#xd;
 &lt;/ul&gt;&#xd;
