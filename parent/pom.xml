@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.evolvis.tartools</groupId>
 	<artifactId>maven-parent</artifactId>
-	<version>2.2-SNAPSHOT</version>
+	<version>2.2</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Parent POM for Maven projects — POM</description>
@@ -53,7 +53,7 @@
 		<maven.compiler.release>${javaRelease}</maven.compiler.release>
 		<releaseVersion>${project.version}</releaseVersion>
 		<!-- dependency management for the “tests” classifier and library JARs we provide -->
-		<org.evolvis.tartools.maven-parent.version>2.2-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
+		<org.evolvis.tartools.maven-parent.version>2.2</org.evolvis.tartools.maven-parent.version>
 		<!-- ‣ maven plugins -->
 		<gmavenplus.plugin.version>1.13.1</gmavenplus.plugin.version>
 		<maven.antrun.version>3.0.0</maven.antrun.version>
@@ -88,7 +88,7 @@
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/tartools/mvnparent.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=tartools/mvnparent.git</url>
-		<tag>HEAD</tag>
+		<tag>maven-parent-bs-2.2</tag>
 	</scm>
 	<profiles>
 		<profile>
