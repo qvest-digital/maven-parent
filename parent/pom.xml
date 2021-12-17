@@ -148,9 +148,9 @@
 			</activation>
 			<properties>
 				<!-- ‣ maven plugins -->
-				<!-- last version working with JDK 8 -->
+				<!-- https://issues.apache.org/jira/browse/MCOMPILER-477 -->
 				<maven.compiler.version>3.5.1</maven.compiler.version>
-				<!-- because 3.1.0 calls javadoc with -‒release -->
+				<!-- https://issues.apache.org/jira/browse/MJAVADOC-703 -->
 				<maven.javadoc.version>3.0.1</maven.javadoc.version>
 				<!-- ‣ dependency management -->
 			</properties>
