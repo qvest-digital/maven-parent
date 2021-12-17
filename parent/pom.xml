@@ -165,6 +165,13 @@
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<release>${javaRelease}</release>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<source>${javaRelease}</source>
@@ -296,7 +303,6 @@
 					<configuration>
 						<source>${javaRelease}</source>
 						<target>${javaRelease}</target>
-						<release>${javaRelease}</release>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<compilerArgs>
 							<arg>-Xlint</arg>
