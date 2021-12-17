@@ -39,7 +39,6 @@ Children still need to define:
       – dstrepo-central, dstrepo-tarent (for distributionManagement as above)
       – gpg
       – jdk8orolder (auto-activated)
-	→ mockito.version := 2.10.0
 	→ older maven-{compiler,javadoc}-plugin
       – jdk9ornewer (auto-activated)
       - jre-not-below-jdk (auto-activated), workaround for Debian bug #893388

@@ -153,8 +153,6 @@
 				<!-- because 3.1.0 calls javadoc with -‒release -->
 				<maven.javadoc.version>3.0.1</maven.javadoc.version>
 				<!-- ‣ dependency management -->
-				<!-- last version working with JDK 8 -->
-				<mockito.version>2.10.0</mockito.version>
 			</properties>
 		</profile>
 		<profile>
