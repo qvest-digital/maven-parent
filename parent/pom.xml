@@ -581,6 +581,8 @@
 										<!-- Avoid log4shell and related exploits -->
 										<exclude>org.apache.logging.log4j:log4j-api:(,2.17.0)</exclude>
 										<exclude>org.apache.logging.log4j:log4j-core:(,2.17.0)</exclude>
+										<!-- Avoid similar security risks -->
+										<exclude>ch.qos.logback:logback-core:(,1.2.9)</exclude>
 									</excludes>
 								</bannedDependencies>
 								<!-- Require specific Maven version (do *not* use <project.prerequisites /> for this!) -->
