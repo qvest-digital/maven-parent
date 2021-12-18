@@ -578,9 +578,9 @@
 										<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
 										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
 										<exclude>commons-collections:commons-collections:4.0</exclude>
-										<!-- Avoid log4shell -->
-										<exclude>org.apache.logging.log4j:log4j-api:(,2.16.0)</exclude>
-										<exclude>org.apache.logging.log4j:log4j-core:(,2.16.0)</exclude>
+										<!-- Avoid log4shell and related exploits -->
+										<exclude>org.apache.logging.log4j:log4j-api:(,2.17.0)</exclude>
+										<exclude>org.apache.logging.log4j:log4j-core:(,2.17.0)</exclude>
 									</excludes>
 								</bannedDependencies>
 								<!-- Require specific Maven version (do *not* use <project.prerequisites /> for this!) -->
