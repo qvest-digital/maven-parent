@@ -170,6 +170,16 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>jdk12ornewer</id>
+			<!-- only tested with JDK 17 -->
+			<activation>
+				<jdk>[12,)</jdk>
+			</activation>
+			<properties>
+				<javadoc.doclint>all,-missing</javadoc.doclint>
+			</properties>
+		</profile>
+		<profile>
 			<id>jre-not-below-jdk</id>
 			<activation>
 				<file>
