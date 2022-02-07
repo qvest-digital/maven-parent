@@ -42,7 +42,7 @@
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
 		<archiver.copyright.lastyear>2022</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
-		<doclint.optappend>-Xdoclint:all</doclint.optappend>
+		<javadoc.doclint>all</javadoc.doclint>
 		<javaRelease>8</javaRelease>
 		<!-- http://groovy.github.io/GMavenPlus/compileTests-mojo.html#targetBytecode -->
 		<gmavenplus.javaRelease>1.8</gmavenplus.javaRelease>
@@ -406,8 +406,8 @@
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${maven.javadoc.version}</version>
 					<configuration>
-						<additionalOptions>${doclint.optappend}</additionalOptions>
 						<detectOfflineLinks>false</detectOfflineLinks>
+						<doclint>${javadoc.doclint}</doclint>
 						<notimestamp>true</notimestamp>
 						<source>${javaRelease}</source>
 					</configuration>
