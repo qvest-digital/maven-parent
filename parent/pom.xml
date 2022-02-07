@@ -39,7 +39,7 @@
 		<runtime.jarname>${project.artifactId}-${project.version}.jar</runtime.jarname>
 		<!-- ‣ configurable settings -->
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
-		<archiver.copyright.lastyear>2021</archiver.copyright.lastyear>
+		<archiver.copyright.lastyear>2022</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
 		<doclint.optappend>-Xdoclint:all</doclint.optappend>
 		<javaRelease>8</javaRelease>
