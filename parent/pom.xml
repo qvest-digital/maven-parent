@@ -154,7 +154,7 @@
 		</profile>
 		<profile>
 			<id>jdk9ornewer</id>
-			<!-- only tested with JDK 11 -->
+			<!-- only tested with JDK 11 and 17 -->
 			<activation>
 				<jdk>[9,)</jdk>
 			</activation>

@@ -24,8 +24,8 @@ Children still need to define:
   ‣ properties (e.g. override some defaults)
     – archiver.copyright (Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: cf. version_vendor)
     – doclint.optappend (-Xdoclint:all)
-    – javaRelease (8 (default) or 11)
-      and possibly gmavenplus.javaRelease (1.8 (default) or 11)
+    – javaRelease (8 (default), 11 or 17)
+    – (possibly) gmavenplus.javaRelease (1.8 (default), 11 or 17)
     – maven.minimum.version (3.2)
     – project.build.outputTimestamp $(date -u +'%Y-%m-%dT%H:%M:%SZ')
       but needs release plugin beta version to update automatically
