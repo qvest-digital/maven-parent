@@ -149,7 +149,7 @@
 			<properties>
 				<!-- ‣ maven plugins -->
 				<!-- https://issues.apache.org/jira/browse/MCOMPILER-477 -->
-				<maven.compiler.version>3.5.1</maven.compiler.version>
+				<!--maven.compiler.version>3.5.1</maven.compiler.version-->
 				<!-- https://issues.apache.org/jira/browse/MJAVADOC-703 -->
 				<maven.javadoc.version>3.0.1</maven.javadoc.version>
 				<!-- ‣ dependency management -->
