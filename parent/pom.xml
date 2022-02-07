@@ -62,8 +62,8 @@
 		<maven.buildhelper.version>3.3.0</maven.buildhelper.version>
 		<maven.clean.version>3.1.0</maven.clean.version>
 		<maven.compiler.version>3.9.0</maven.compiler.version>
-		<!-- but https://issues.apache.org/jira/browse/MDEP-753 -->
-		<maven.dependency.version>3.2.0</maven.dependency.version>
+		<!-- due to https://issues.apache.org/jira/browse/MDEP-753 -->
+		<maven.dependency.version>3.1.2</maven.dependency.version>
 		<maven.deploy.version>2.8.2</maven.deploy.version>
 		<maven.ear.version>2.10.1</maven.ear.version>
 		<maven.eclipse.version>2.10</maven.eclipse.version>
