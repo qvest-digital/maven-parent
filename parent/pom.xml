@@ -175,7 +175,6 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-							<source>${javaRelease}</source>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -401,6 +400,7 @@
 					<configuration>
 						<additionalOptions>${doclint.optappend}</additionalOptions>
 						<detectOfflineLinks>false</detectOfflineLinks>
+						<source>${javaRelease}</source>
 					</configuration>
 				</plugin>
 				<plugin>
