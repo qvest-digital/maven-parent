@@ -148,10 +148,6 @@
 			</activation>
 			<properties>
 				<!-- ‣ maven plugins -->
-				<!-- https://issues.apache.org/jira/browse/MCOMPILER-477 -->
-				<!--maven.compiler.version>3.5.1</maven.compiler.version-->
-				<!-- https://issues.apache.org/jira/browse/MJAVADOC-703 -->
-				<!--maven.javadoc.version>3.0.1</maven.javadoc.version-->
 				<!-- ‣ dependency management -->
 			</properties>
 		</profile>
@@ -164,24 +160,6 @@
 			<properties>
 				<maven.compiler.release>${javaRelease}</maven.compiler.release>
 			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<configuration>
-							<release>${javaRelease}</release>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<configuration>
-							<source>${javaRelease}</source>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 		<profile>
 			<id>jre-not-below-jdk</id>
@@ -197,6 +175,7 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+							<source>${javaRelease}</source>
 						</configuration>
 					</plugin>
 				</plugins>
