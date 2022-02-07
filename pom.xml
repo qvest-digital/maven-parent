@@ -32,6 +32,11 @@
 			<comments>only for: src/main/ancillary/mvnrepo.xsl</comments>
 		</license>
 	</licenses>
+	<inceptionYear>2016</inceptionYear>
+	<properties>
+		<!-- $(date -u +'%Y-%m-%dT%H:%M:%SZ') -->
+		<project.build.outputTimestamp>2022-02-07T18:13:40Z</project.build.outputTimestamp>
+	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/tartools/mvnparent.git</developerConnection>

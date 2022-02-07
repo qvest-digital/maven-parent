@@ -36,6 +36,7 @@
 	</organization>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<runtime.jarname>${project.artifactId}-${project.version}.jar</runtime.jarname>
 		<!-- ‣ configurable settings -->
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
@@ -400,6 +401,7 @@
 					<configuration>
 						<additionalOptions>${doclint.optappend}</additionalOptions>
 						<detectOfflineLinks>false</detectOfflineLinks>
+						<notimestamp>true</notimestamp>
 						<source>${javaRelease}</source>
 					</configuration>
 				</plugin>
