@@ -1,7 +1,7 @@
 package org.evolvis.tartools.mvnparent.examples;
 
 /*-
- * Copyright © 2016, 2018, 2019, 2020, 2021
+ * Copyright © 2016, 2018, 2019, 2020, 2021, 2022
  *	mirabilos (t.glaser@tarent.de)
  * Licensor: tarent solutions GmbH, Bonn
  *
@@ -54,6 +54,11 @@ static {
 	LOGGER = Logger.getLogger(Main.class.getName());
 }
 
+/**
+ * <p>Example CLI main entry point.</p>
+ *
+ * @param args String[] argv
+ */
 public static void
 main(String[] args)
 {

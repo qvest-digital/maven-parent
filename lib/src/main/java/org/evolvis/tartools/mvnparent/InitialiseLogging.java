@@ -1,7 +1,7 @@
 package org.evolvis.tartools.mvnparent;
 
 /*-
- * Copyright © 2016, 2018, 2019, 2020
+ * Copyright © 2016, 2018, 2019, 2020, 2022
  *	mirabilos (t.glaser@tarent.de)
  * Licensor: tarent solutions GmbH, Bonn
  *
@@ -48,12 +48,25 @@ private InitialiseLogging()
 {
 }
 
+/**
+ * <p>Loads a file from the classpath.</p>
+ *
+ * @param filename String name of a file to look for on the classpath
+ *
+ * @return InputStream (or null)
+ */
 public static InputStream
 getResourceAsStream(final String filename)
 {
 	return Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
 }
 
+/**
+ * <p>Initialises “JDK 1.4 logging”.</p>
+ *
+ * <p>Call this once, early, to load <code>logging.properties</code> from
+ * the classpath, initialising <code>java.util.logging</code> from it.</p>
+ */
 public static void
 InitialiseJDK14Logging()
 {
