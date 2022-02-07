@@ -50,7 +50,7 @@
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<maven.compiler.source>${javaRelease}</maven.compiler.source>
-		<maven.compiler.release>${javaRelease}</maven.compiler.release>
+		<maven.compiler.target>${javaRelease}</maven.compiler.target>
 		<releaseVersion>${project.version}</releaseVersion>
 		<!-- dependency management for the “tests” classifier and library JARs we provide -->
 		<org.evolvis.tartools.maven-parent.version>2.3-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
@@ -161,6 +161,9 @@
 			<activation>
 				<jdk>[9,)</jdk>
 			</activation>
+			<properties>
+				<maven.compiler.release>${javaRelease}</maven.compiler.release>
+			</properties>
 			<build>
 				<plugins>
 					<plugin>
