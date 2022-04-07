@@ -629,15 +629,13 @@
 								<bannedDependencies>
 									<excludes combine.children="append">
 										<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
-										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
-										<exclude>commons-collections:commons-collections:4.0</exclude>
+										<exclude>commons-collections:commons-collections:(,3.2.2)</exclude>
+										<exclude>org.apache.commons:commons-collections4:(,4.1)</exclude>
 										<!-- Avoid log4shell and related exploits -->
-										<exclude>org.apache.logging.log4j:log4j-api:(,2.12.4)</exclude>
-										<exclude>org.apache.logging.log4j:log4j-api:[2.13,2.17.2)</exclude>
-										<exclude>org.apache.logging.log4j:log4j-core:(,2.12.4)</exclude>
-										<exclude>org.apache.logging.log4j:log4j-core:[2.13,2.17.2)</exclude>
+										<exclude>org.apache.logging.log4j:log4j-api:(,2.17.2)</exclude>
+										<exclude>org.apache.logging.log4j:log4j-core:(,2.17.2)</exclude>
 										<!-- Avoid similar security risks -->
-										<exclude>ch.qos.logback:logback-core:(,1.2.10)</exclude>
+										<exclude>ch.qos.logback:logback-core:(,1.2.11)</exclude>
 									</excludes>
 								</bannedDependencies>
 								<!-- Require specific Maven version (do *not* use <project.prerequisites /> for this!) -->
