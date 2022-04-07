@@ -42,6 +42,7 @@ Children still need to define:
       – gpg
       – jdk8orolder (auto-activated)
       – jdk9ornewer (auto-activated)
+      – jdk12ornewer (auto-activated), javadoc.doclint:=all,-missing
       - jre-not-below-jdk (auto-activated), workaround for Debian bug #893388
       – with-implicit-dependencies (auto-activated), see below
 • build: settings/resources, pluginManagement and plugins not listed above
