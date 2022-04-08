@@ -663,9 +663,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<executions>
-					<!--suppress MavenModelInspection -->
 					<execution>
 						<id>attach-sources</id>
+						<!--suppress MavenModelInspection -->
 						<phase>DISABLE_FORKED_LIFECYCLE_MSOURCES-13</phase>
 					</execution>
 					<execution>
