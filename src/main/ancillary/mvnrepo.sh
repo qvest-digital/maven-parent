@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2018, 2020, 2021
+# Copyright © 2018, 2020, 2021, 2022
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -22,7 +22,8 @@
 # Create mvnrepository.com URLs for all dependencies, extensions and
 # Maven plugins, sorted and categorised, for up-to-date checks. With
 # -r, raw undecorated output for easier concatenation is shown (only
-# an empty line to separate parent POM extras).
+# an empty line to separate parent POM extras). With -a do this, two
+# empty lines for separation, for all POMs in the git working tree.
 
 export LC_ALL=C
 unset LANGUAGE
@@ -45,15 +46,43 @@ case $?:$x {
 (*) die your sed is not POSIX compliant ;;
 }
 
+doall=0
 rawout=0
-while getopts "r" ch; do
+while getopts "ar" ch; do
 	case $ch {
+	(a) doall=1 ;;
+	(+a) doall=0 ;;
 	(r) rawout=1 ;;
 	(+r) rawout=0 ;;
-	(*) die 'usage: mvnrepo.sh [-r]' ;;
+	(*) die 'usage: mvnrepo.sh [-ar]' ;;
 	}
 done
 shift $((OPTIND - 1))
+
+if (( doall )); then
+	it=$(realpath "$0")
+	td=$(git rev-parse --show-toplevel)
+	(( !rawout )) || set -- -r "$@"
+	cd "$td"
+	git ls-files -z | \
+	    LC_ALL=C grep -z -e '^pom\.xml$' -e '/pom\.xml$' | \
+	    LC_ALL=C sed -z -e 's!^!./!' -e 's!/pom\.xml$!!' -e 's!^\./!!' | \
+	    LC_ALL=C sort -z | (
+		IFS= read -d '' -r name || {
+			print -ru2 "E: no POM found"
+			exit 1
+		}
+		e=0
+		while :; do
+			print -ru2 -- "I: doing $name/"
+			(cd "$name/" && exec "$it" "$@") || e=1
+			print
+			print
+			IFS= read -d '' -r name || exit $e
+		done
+	)
+	exit $?
+fi
 
 set -A grouping 'Parent' 'Project' 'Dependencies' 'Extensions' 'Plugins' 'Plugin Deps'
 
@@ -172,6 +201,11 @@ function drop {
 	done
 	set -e
 }
+
+if [[ ! -s pom.xml ]]; then
+	print -ru2 E: no pom.xml found in current directory!
+	exit 1
+fi
 
 mkdir -p target
 rm -f target/effective-pom.xml
