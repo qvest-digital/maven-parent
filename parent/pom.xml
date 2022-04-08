@@ -62,6 +62,7 @@
 		<mvnplugindep.xstream>1.4.19</mvnplugindep.xstream>
 		<!-- ‣ maven plugins -->
 		<gmavenplus.plugin.version>1.13.1</gmavenplus.plugin.version>
+		<!-- ↓ not used by us; has insecure ant version -->
 		<maven.antrun.version>3.0.0</maven.antrun.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.assembly.version>3.3.0</maven.assembly.version>
@@ -81,12 +82,14 @@
 		<maven.jar.version>3.2.2</maven.jar.version>
 		<maven.javadoc.version>3.3.2</maven.javadoc.version>
 		<maven.latex.version>1.4.4</maven.latex.version>
+		<!-- ↓ has jdom XXE (billion laughs) -->
 		<maven.release.version>2.5.3</maven.release.version>
 		<!-- due to MRESOURCES-237 and MSHARED-325 -->
 		<maven.resources.version>2.6</maven.resources.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.shade.version>3.3.0</maven.shade.version>
 		<!-- ↓ has dependencies to check on upgrade -->
+		<!-- ↓ not used by us; insecure jetty dependencies -->
 		<maven.site.version>3.11.0</maven.site.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.source.version>3.2.1</maven.source.version>

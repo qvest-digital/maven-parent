@@ -29,6 +29,8 @@ Children still need to define:
     – maven.minimum.version (3.2)
     – project.build.outputTimestamp $(date -u +'%Y-%m-%dT%H:%M:%SZ')
       but needs release plugin beta version to update automatically
+      so perhaps don’t do it yet unless reproducible builds are mandatory
+      (or do it and update the timestamp manually before every build/release)
     – <sonar.sources>src/main</sonar.sources> (not set by default)
     – <sonar.tests>src/test</sonar.tests> (dito)
 • scm: connection, developerConnection, url, tag (HEAD)
@@ -41,7 +43,7 @@ Children still need to define:
       – dstrepo-central, dstrepo-tarent (for distributionManagement as above)
       – gpg
       – jdk8orolder (auto-activated)
-      – jdk9ornewer (auto-activated)
+      – jdk9ornewer (auto-activated), adds --release for javac/javadoc(?)
       – jdk12ornewer (auto-activated), javadoc.doclint:=all,-missing
       - jre-not-below-jdk (auto-activated), workaround for Debian bug #893388
       – with-implicit-dependencies (auto-activated), see below
