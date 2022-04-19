@@ -1,9 +1,9 @@
 To retrieve the latest source code, useful instructions and other aids:
 
-$ mvn -U -Dartifact=org.evolvis.tartools:maven-parent-bs:RELEASE:tgz:source -DoutputDirectory=. dependency:copy #
+$ mvn -U -Dartifact=org.evolvis.tartools.maven-parent:bs:RELEASE:tgz:source -DoutputDirectory=. dependency:copy #
 
 Replace RELEASE with a version number to get the artefact corresponding to that release, for example…
 
-$ mvn -U -Dartifact=org.evolvis.tartools:maven-parent-bs:${org.evolvis.tartools.maven-parent.version}:tgz:source -DoutputDirectory=. dependency:copy #
+$ mvn -U -Dartifact=org.evolvis.tartools.maven-parent:bs:${org.evolvis.tartools.maven-parent.version}:tgz:source -DoutputDirectory=. dependency:copy #
 
 … which will pull the complete corresponding source archive for the release this file is shipped with.

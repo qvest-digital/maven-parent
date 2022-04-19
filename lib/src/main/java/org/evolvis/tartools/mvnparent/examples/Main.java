@@ -31,11 +31,11 @@ import java.util.logging.Logger;
  * <p>Put “.”, another directory with logging.properties, or a JAR file
  * that contains logging.properties, onto the classpath in order to run
  * this, for example:</p><pre>
- * $ CLASSPATH=../target/maven-parent-bs-2.0-tests.jar ./run.sh
+ * $ CLASSPATH=../target/bs-3.0-tests.jar ./run.sh
  * </pre>
  *
  * <p>This will run:</p><pre>
- * java -cp target/maven-parent-lib-2.0.jar:../target/maven-parent-bs-2.0-tests.jar \
+ * java -cp target/lib-3.0.jar:../target/bs-3.0-tests.jar \
  *     org.evolvis.tartools.mvnparent.examples.Main
  * </pre>
  *

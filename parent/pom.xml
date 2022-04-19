@@ -2,14 +2,14 @@
 <!--
 	To retrieve the latest source code, useful instructions and other aids:
 
-	$ mvn -U -Dartifact=org.evolvis.tartools:maven-parent-bs:RELEASE:tgz:source -DoutputDirectory=. dependency:copy #
+	$ mvn -U -Dartifact=org.evolvis.tartools.maven-parent:bs:RELEASE:tgz:source -DoutputDirectory=. dependency:copy #
 
 	Replace RELEASE with the <version> number below to get the artefact corresponding to that release.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.evolvis.tartools</groupId>
-	<artifactId>maven-parent</artifactId>
+	<groupId>org.evolvis.tartools.maven-parent</groupId>
+	<artifactId>pom</artifactId>
 	<version>2.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
@@ -702,15 +702,15 @@
 		<dependencies>
 			<!-- use this in e.g. plugin[].dependencies to make it log sanely -->
 			<dependency>
-				<groupId>org.evolvis.tartools</groupId>
-				<artifactId>maven-parent-bs</artifactId>
+				<groupId>org.evolvis.tartools.maven-parent</groupId>
+				<artifactId>bs</artifactId>
 				<version>${org.evolvis.tartools.maven-parent.version}</version>
 				<classifier>tests</classifier>
 			</dependency>
 			<!-- InitialiseLogging helper to load config from classpath -->
 			<dependency>
-				<groupId>org.evolvis.tartools</groupId>
-				<artifactId>maven-parent-lib</artifactId>
+				<groupId>org.evolvis.tartools.maven-parent</groupId>
+				<artifactId>lib</artifactId>
 				<version>${org.evolvis.tartools.maven-parent.version}</version>
 			</dependency>
 		</dependencies>

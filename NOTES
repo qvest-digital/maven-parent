@@ -72,11 +72,11 @@ Note: maven.antrun.version is only present because this is inherited
 from the Super POM and never used and untested; similarily, we do not
 use or test maven.site.version which is injected somehow.
 
-Include org.evolvis.tartools:maven-parent-lib for java.util.logging
+Include org.evolvis.tartools.maven-parent:lib for java.util.logging
 (jdk14 jul) initialisation using logger.properties from the classpath.
 The org.evolvis.tartools:maven-parent:jar:tests file was renamed to
 org.evolvis.tartools:maven-parent-bs:jar:tests for the maven-parent
-2.0 release.
+2.0 release, org.evolvis.tartools.maven-parent:bs:jar:tests for 3.0.
 
 You might want “git check-whitespace” and “git check-emptylines” from
 http://www.mirbsd.org/cvs.cgi/contrib/hosted/tg/.gitconfig?rev=HEAD;content-type=text%2Fplain
