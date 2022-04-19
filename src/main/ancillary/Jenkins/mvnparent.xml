@@ -89,8 +89,8 @@ H * * * *
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
-    <groupId>org.evolvis.tartools</groupId>
-    <artifactId>maven-parent-bs</artifactId>
+    <groupId>org.evolvis.tartools.maven-parent</groupId>
+    <artifactId>bs</artifactId>
   </rootModule>
   <goals>-Pdstrepo-$DSTREPO_PROFILE -e clean install</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
