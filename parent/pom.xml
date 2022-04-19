@@ -424,6 +424,29 @@
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${maven.javadoc.version}</version>
 					<configuration>
+						<archive>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							</manifest>
+							<manifestEntries>
+								<!--suppress UnresolvedMavenProperty -->
+								<Build-Job>${JOB_NAME}</Build-Job>
+								<!--suppress UnresolvedMavenProperty -->
+								<Build-Id>${BUILD_ID}</Build-Id>
+								<!--suppress UnresolvedMavenProperty -->
+								<Build-Number>${BUILD_NUMBER}</Build-Number>
+								<!--suppress UnresolvedMavenProperty -->
+								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
+								<Build-Time>${maven.build.timestamp}</Build-Time>
+								<Target-JRE>${javaRelease}</Target-JRE>
+								<version_name>${project.groupId}:${project.artifactId}</version_name>
+								<version_description>${project.description}</version_description>
+								<version_copyright>${archiver.copyright}</version_copyright>
+								<version_vendor>${project.organization.name} (${project.organization.url})</version_vendor>
+								<version_version>${project.version}</version_version>
+							</manifestEntries>
+						</archive>
 						<detectOfflineLinks>false</detectOfflineLinks>
 						<doclint>${javadoc.doclint}</doclint>
 						<notimestamp>true</notimestamp>
