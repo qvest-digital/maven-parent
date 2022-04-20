@@ -4,6 +4,7 @@
   <description>&lt;p&gt;Parent POM for Maven projects, by &#x2ba1; tarent, for FOSS projects&lt;/p&gt;&#xd;
 &lt;p&gt;Used by:&lt;/p&gt;&lt;ul&gt;&#xd;
 &lt;li&gt;org.evolvis.tartools&lt;ul&gt;&#xd;
+  &lt;li&gt;jdx&lt;/li&gt;&#xd;
   &lt;li&gt;Background-Jobs&lt;/li&gt;&#xd;
   &lt;li&gt;csvfile&lt;/li&gt;&#xd;
   &lt;li&gt;rfc822 (useful-scripts group)&lt;/li&gt;&#xd;
