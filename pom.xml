@@ -36,7 +36,7 @@
 	<inceptionYear>2016</inceptionYear>
 	<properties>
 		<!-- $(date -u +'%Y-%m-%dT%H:%M:%SZ') or MRELEASE 3.0.0 -->
-		<project.build.outputTimestamp>2022-04-19T22:12:46Z</project.build.outputTimestamp>
+		<project.build.outputTimestamp>2022-04-20T02:13:39Z</project.build.outputTimestamp>
 	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
