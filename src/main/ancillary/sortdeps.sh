@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2018
+# Copyright © 2018, 2022
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -95,7 +95,10 @@ while IFS= read -pr line; do
 	(0:'<exclusion>')
 		el[OTYPE]=1
 		state=1 ;;
-	(1:'</dependency>'|1:'</exclusion>')
+	(0:'<resourcesArtifact>')
+		el[OTYPE]=2
+		state=1 ;;
+	(1:'</dependency>'|1:'</exclusion>'|1:'</resourcesArtifact>')
 		sortlines+=("${el[0]}$cr${el[1]}$cr${el[2]}$cr${el[3]}$cr${el[4]}$cr${el[5]}$cr${el[6]}$cr${el[7]}$cr${el[8]}$cr${el[9]}$cr${el[10]}$cr${el[11]}")
 		set -A el
 		state=0 ;;
@@ -145,8 +148,8 @@ for x in "${sortlines[@]}"; do
 	print -r -- "$x"
 done | sort -u |&
 
-set -A beg -- '<dependency>' '<exclusion>'
-set -A end -- '</dependency>' '</exclusion>'
+set -A beg -- '<dependency>' '<exclusion>' '<resourcesArtifact>'
+set -A end -- '</dependency>' '</exclusion>' '</resourcesArtifact>'
 while IFS="$cr" read -prA el; do
 	[[ -n ${el[OPRECOMMENT]} ]] && print -r -- "${el[OPRECOMMENT]}"
 	print -r -- "${beg[el[OTYPE]]}"
