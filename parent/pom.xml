@@ -55,6 +55,7 @@
 		<releaseVersion>${project.version}</releaseVersion>
 		<!-- dependency management for the “tests” classifier and library JARs we provide -->
 		<org.evolvis.tartools.maven-parent.version>2.4-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
+		<org.evolvis.tartools.maven-parent.jdx>0.1-SNAPSHOT</org.evolvis.tartools.maven-parent.jdx>
 		<!-- dependency management for Maven plugins -->
 		<!-- for many -->
 		<mvnplugindep.commons-io>2.11.0</mvnplugindep.commons-io>
@@ -456,6 +457,13 @@
 						<detectOfflineLinks>false</detectOfflineLinks>
 						<doclint>${javadoc.doclint}</doclint>
 						<notimestamp>true</notimestamp>
+						<resourcesArtifacts>
+							<resourcesArtifact>
+								<groupId>org.evolvis.tartools.maven-parent</groupId>
+								<artifactId>jdx</artifactId>
+								<version>${org.evolvis.tartools.maven-parent.jdx}</version>
+							</resourcesArtifact>
+						</resourcesArtifacts>
 						<source>${javaRelease}</source>
 					</configuration>
 				</plugin>
