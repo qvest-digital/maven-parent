@@ -219,6 +219,8 @@
 		<testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
 		<outputDirectory>${project.build.directory}/classes</outputDirectory>
 		<testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+		<!-- note https://issues.apache.org/jira/browse/MNG-7383 -->
+		<!-- combine.self/combine.children do not work on resources -->
 		<resources>
 			<resource>
 				<directory>${project.basedir}/src/main/resources</directory>
