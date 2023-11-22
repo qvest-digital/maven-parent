@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	This XSLT 1.0 file, converting XML to an XPath string list, is:
-	Copyright © 2018 mirabilos <t.glaser@tarent.de>
-	Licensor: tarent solutions GmbH, Bonn
+	Copyright © 2018 mirabilos <t.glaser@qvest-digital.com>
+	Licensor: Qvest Digital AG, Bonn
 
 	This is a derivative work of an original Work retrieved from the
 	StackOverflow/StackExchange network, whose Original Author is:

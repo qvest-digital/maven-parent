@@ -1,6 +1,6 @@
 # configuration for ckdep.sh, depsrc.sh and mksrc.sh
 # Copyright © 2016, 2017, 2018, 2019, 2020, 2021
-#	mirabilos <t.glaser@tarent.de>
+#	mirabilos <t.glaser@qvest-digital.com>
 # Ⓕ MirBSD
 
 # location of parent POM relative to this directory

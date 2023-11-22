@@ -2,8 +2,8 @@ package org.evolvis.tartools.mvnparent;
 
 /*-
  * Copyright © 2016, 2018, 2019, 2020, 2022
- *	mirabilos (t.glaser@tarent.de)
- * Licensor: tarent solutions GmbH, Bonn
+ *	mirabilos (t.glaser@qvest-digital.com)
+ * Licensor: Qvest Digital AG, Bonn
  *
  * Provided that these terms and disclaimer and all copyright notices
  * are retained or reproduced in an accompanying document, permission
@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  * Utility class with helper functions to load a file from the classpath
  * and initialise JDK14 “jul” ({@link java.util.logging}) logging
  *
- * @author mirabilos (t.glaser@tarent.de)
+ * @author mirabilos (t.glaser@qvest-digital.com)
  */
 public final class InitialiseLogging {
 

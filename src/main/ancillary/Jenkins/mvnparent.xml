@@ -110,7 +110,7 @@ H * * * *
   <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
   <reporters>
     <hudson.maven.reporters.MavenMailer>
-      <recipients>t.glaser@tarent.de</recipients>
+      <recipients>t.glaser@qvest-digital.com</recipients>
       <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
       <perModuleEmail>false</perModuleEmail>

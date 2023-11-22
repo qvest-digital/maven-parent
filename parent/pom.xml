@@ -25,13 +25,13 @@
 	<developers>
 		<developer>
 			<name>mirabilos</name>
-			<email>t.glaser@tarent.de</email>
-			<organization>⮡ tarent</organization>
+			<email>t.glaser@qvest-digital.com</email>
+			<organization>QVEST ⮡ dıgıtal</organization>
 			<organizationUrl>http://www.tarent.de/</organizationUrl>
 		</developer>
 	</developers>
 	<organization>
-		<name>tarent solutions GmbH, Germany</name>
+		<name>Qvest Digital AG, Germany</name>
 		<url>http://www.tarent.de/</url>
 	</organization>
 	<properties>
