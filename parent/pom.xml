@@ -120,16 +120,32 @@
 			</distributionManagement>
 		</profile>
 		<profile>
-			<id>dstrepo-tarent</id>
+			<id>dstrepo-qd</id>
 			<distributionManagement>
 				<repository>
-					<id>tarent-nexus</id>
-					<name>tarent-nexus releases</name>
+					<id>qd-nexus</id>
+					<name>qvest-digital-nexus releases</name>
 					<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
 				</repository>
 				<snapshotRepository>
-					<id>tarent-nexus</id>
-					<name>tarent-nexus snapshots</name>
+					<id>qd-nexus</id>
+					<name>qvest-digital-nexus snapshots</name>
+					<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<!-- legacy, use dstrepo-qd; deprecated -->
+			<id>dstrepo-tarent</id>
+			<distributionManagement>
+				<repository>
+					<id>qd-nexus</id>
+					<name>qvest-digital-nexus releases</name>
+					<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
+				</repository>
+				<snapshotRepository>
+					<id>qd-nexus</id>
+					<name>qvest-digital-nexus snapshots</name>
 					<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
 				</snapshotRepository>
 			</distributionManagement>

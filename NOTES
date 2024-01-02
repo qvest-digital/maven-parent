@@ -35,12 +35,12 @@ Children still need to define:
     – <sonar.tests>src/test</sonar.tests> (dito)
 • scm: connection, developerConnection, url, tag (HEAD)
 • distributionManagement: repository(, snapshotRepository): id, (name), url
-  only if neither dstrepo-{central,tarent} profile are used
+  only if neither dstrepo-central or dstrepo-qd profile are used
 • (optionally)
   ‣ (modules)
   ‣ (profiles)
     ⇒ predefined:
-      – dstrepo-central, dstrepo-tarent (for distributionManagement as above)
+      – dstrepo-central, dstrepo-qd (for distributionManagement as above)
       – gpg
       – jdk8orolder (auto-activated)
       – jdk9ornewer (auto-activated), adds --release for javac/javadoc(?)
