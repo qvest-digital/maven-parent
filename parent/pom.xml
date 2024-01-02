@@ -27,12 +27,12 @@
 			<name>mirabilos</name>
 			<email>t.glaser@qvest-digital.com</email>
 			<organization>QVEST ⮡ dıgıtal</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<organizationUrl>https://qvest-digital.com/</organizationUrl>
 		</developer>
 	</developers>
 	<organization>
 		<name>Qvest Digital AG, Germany</name>
-		<url>http://www.tarent.de/</url>
+		<url>https://qvest-digital.com/</url>
 	</organization>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

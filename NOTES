@@ -16,7 +16,7 @@ Children still need to define:
 • url (per https://central.sonatype.org/pages/requirements.html mandatory)
 • licenses: at least one <license>: name, url, (comments)
 • developers: at least one <developer>: name, email, organization{,Url}, …
-• organization (if not tarent): name, url
+• organization (if not Qvest Digital AG): name, url
 • (optionally)
   ‣ (inceptionYear)
   ‣ (mailingLists: mailingList: name, …)
