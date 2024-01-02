@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset plugin="maven-plugin@2.10.666">
   <actions/>
-  <description>&lt;p&gt;Parent POM for Maven projects, by &#x2ba1; tarent, for FOSS projects&lt;/p&gt;&#xd;
+  <description>&lt;p&gt;Parent POM for Maven projects, by QVEST &#x2ba1; dıgıtal, for FOSS projects&lt;/p&gt;&#xd;
 &lt;p&gt;Used by:&lt;/p&gt;&lt;ul&gt;&#xd;
 &lt;li&gt;org.evolvis.tartools&lt;ul&gt;&#xd;
   &lt;li&gt;jdx&lt;/li&gt;&#xd;
@@ -44,7 +44,7 @@ Maven repository to deploy into.
 Only relevant when performing a release.</description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
-              <string>tarent</string>
+              <string>qd</string>
               <string>central</string>
             </a>
           </choices>
