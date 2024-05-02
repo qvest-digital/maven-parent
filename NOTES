@@ -127,7 +127,7 @@ The mainClass manifest entry thus is no longer necessary.
 
 Fast local rebuilds: add…
 # maven fast
-alias mvnf='mvn -Dmdep.analyze.skip=true -Dmaven.test.skip=true -Djacoco.skip=true -Dmaven.javadoc.skip=true -Dmaven.source.skip=true'
+alias mvnf='mvn -Ddependency-check.skip -Dmdep.analyze.skip=true -Dmaven.test.skip=true -Djacoco.skip=true -Dmaven.javadoc.skip=true -Dmaven.source.skip=true'
 … to your ~/.mkshrc or similar shell initialisation files, then
 “mvnf package” can be used to quickly locally recompile things,
 so you can test changes more easily.
