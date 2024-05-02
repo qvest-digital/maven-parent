@@ -46,7 +46,7 @@
 		<javaRelease>8</javaRelease>
 		<!-- http://groovy.github.io/GMavenPlus/compileTests-mojo.html#targetBytecode -->
 		<gmavenplus.javaRelease>1.8</gmavenplus.javaRelease>
-		<maven.minimum.version>3.2</maven.minimum.version>
+		<maven.minimum.version>3.6.3</maven.minimum.version>
 		<!-- ‣ internal and utility settings -->
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
