@@ -3,7 +3,7 @@ package org.evolvis.tartools.mvnparent;
 /*-
  * Copyright © 2016, 2018, 2019, 2020
  *	mirabilos (t.glaser@qvest-digital.com)
- * Licensor: Qvest Digital AG, Bonn
+ * Licensor: Qvest Digital AG, Bonn, Germany
  *
  * Provided that these terms and disclaimer and all copyright notices
  * are retained or reproduced in an accompanying document, permission

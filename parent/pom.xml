@@ -13,7 +13,7 @@
 	<version>3.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
-	<description>Parent POM for Maven projects — POM</description>
+	<description>Parent POM for Maven projects — Parent POM</description>
 	<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=tartools/mvnparent.git</url>
 	<licenses>
 		<license>
