@@ -184,7 +184,7 @@
 		</profile>
 		<profile>
 			<id>jdk9ornewer</id>
-			<!-- only tested with JDK 11 and 17 -->
+			<!-- only tested with JDK 11, 17 and 21 -->
 			<activation>
 				<jdk>[9,)</jdk>
 			</activation>
@@ -194,7 +194,7 @@
 		</profile>
 		<profile>
 			<id>jdk12ornewer</id>
-			<!-- only tested with JDK 17 -->
+			<!-- only tested with JDK 17 and 21 -->
 			<activation>
 				<jdk>[12,)</jdk>
 			</activation>
