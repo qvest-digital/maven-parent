@@ -39,8 +39,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<runtime.jarname>${project.artifactId}-${project.version}.jar</runtime.jarname>
 		<!-- ‣ configurable settings -->
-		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
-		<archiver.copyright.lastyear>2024</archiver.copyright.lastyear>
+		<archiver.copyright.firstyear>XX(archiver.copyright.firstyear not set)XX</archiver.copyright.firstyear>
+		<archiver.copyright.lastyear>XX(archiver.copyright.lastyear not set)XX</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
 		<javadoc.doclint>all</javadoc.doclint>
 		<!-- default to nōn-JPMS (“legacy”) mode -->
@@ -111,6 +111,13 @@
 		<tag>HEAD</tag>
 	</scm>
 	<profiles>
+		<profile>
+			<id>build-mvnparent</id>
+			<properties>
+				<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
+				<archiver.copyright.lastyear>2024</archiver.copyright.lastyear>
+			</properties>
+		</profile>
 		<profile>
 			<id>dstrepo-central</id>
 			<distributionManagement>

@@ -22,6 +22,7 @@ Children still need to define:
   ‣ (mailingLists: mailingList: name, …)
   ‣ …
   ‣ properties (e.g. override some defaults)
+    – archiver.copyright.firstyear/archiver.copyright.lastyear
     – archiver.copyright (Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: cf. version_vendor)
     – javadoc.doclint (8/11="all" 17/21="all,-missing")
     – javaRelease (8 (default), 11, 17 or 21)
