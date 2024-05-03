@@ -205,6 +205,22 @@
 			<properties>
 				<maven.compiler.release>${javaRelease}</maven.compiler.release>
 			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<compilerArgs>
+								<!-- copy of main configuration -->
+								<arg>-Xlint</arg>
+								<!-- plus: -->
+								<arg>-proc:full</arg>
+							</compilerArgs>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>jdk12ornewer</id>
@@ -617,6 +633,7 @@
 					<source>${javaRelease}</source>
 					<target>${javaRelease}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
+					<!-- sync with jdk9ornewer profile -->
 					<compilerArgs>
 						<arg>-Xlint</arg>
 					</compilerArgs>
