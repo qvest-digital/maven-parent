@@ -57,7 +57,7 @@
 		<releaseVersion>${project.version}</releaseVersion>
 		<!-- dependency management for the “tests” classifier and library JARs we provide -->
 		<org.evolvis.tartools.maven-parent.version>3.1-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
-		<org.evolvis.tartools.maven-parent.jdx>1.1-SNAPSHOT</org.evolvis.tartools.maven-parent.jdx>
+		<org.evolvis.tartools.maven-parent.jdx>1.0</org.evolvis.tartools.maven-parent.jdx>
 		<!-- dependency management for Maven plugins -->
 		<!-- for many -->
 		<mvnplugindep.commons-io>2.16.1</mvnplugindep.commons-io>
