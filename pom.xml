@@ -12,13 +12,13 @@
 	<parent>
 		<groupId>org.evolvis.tartools.maven-parent</groupId>
 		<artifactId>pom</artifactId>
-		<version>3.0.905</version>
+		<version>3.1-SNAPSHOT</version>
 		<relativePath>./parent/pom.xml</relativePath>
 	</parent>
 	<!-- include groupId and version even if redundant for ckdep/depsrc/mksrc.sh -->
 	<groupId>org.evolvis.tartools.maven-parent</groupId>
 	<artifactId>bs</artifactId>
-	<version>3.0.905</version>
+	<version>3.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<description>Parent POM for Maven projects — buildsystem</description>
 	<licenses>
@@ -36,13 +36,13 @@
 	<inceptionYear>2016</inceptionYear>
 	<properties>
 		<!-- $(date -u +'%Y-%m-%dT%H:%M:%SZ') or MRELEASE 3.0.0 -->
-		<project.build.outputTimestamp>2024-05-03T19:42:12Z</project.build.outputTimestamp>
+		<project.build.outputTimestamp>2024-05-03T19:43:06Z</project.build.outputTimestamp>
 	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/tartools/mvnparent.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=tartools/mvnparent.git</url>
-		<tag>mvnparent-3.0.905</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<modules>
 		<module>parent</module>
