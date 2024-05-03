@@ -34,10 +34,6 @@
 		</license>
 	</licenses>
 	<inceptionYear>2016</inceptionYear>
-	<properties>
-		<!-- ‣ release management -->
-		<project.build.outputTimestamp>2024-05-03T19:43:06Z</project.build.outputTimestamp>
-	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/tartools/mvnparent.git</developerConnection>
