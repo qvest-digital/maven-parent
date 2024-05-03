@@ -40,9 +40,11 @@
 		<runtime.jarname>${project.artifactId}-${project.version}.jar</runtime.jarname>
 		<!-- ‣ configurable settings -->
 		<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
-		<archiver.copyright.lastyear>2022</archiver.copyright.lastyear>
+		<archiver.copyright.lastyear>2024</archiver.copyright.lastyear>
 		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
 		<javadoc.doclint>all</javadoc.doclint>
+		<!-- default to nōn-JPMS (“legacy”) mode -->
+		<javadoc.noJ9modules>true</javadoc.noJ9modules>
 		<javaRelease>8</javaRelease>
 		<!-- http://groovy.github.io/GMavenPlus/compileTests-mojo.html#targetBytecode -->
 		<gmavenplus.javaRelease>1.8</gmavenplus.javaRelease>
@@ -52,50 +54,53 @@
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<maven.compiler.source>${javaRelease}</maven.compiler.source>
 		<maven.compiler.target>${javaRelease}</maven.compiler.target>
+		<maven.compiler.release>${javaRelease}</maven.compiler.release>
 		<releaseVersion>${project.version}</releaseVersion>
 		<!-- dependency management for the “tests” classifier and library JARs we provide -->
 		<org.evolvis.tartools.maven-parent.version>3.1-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
 		<org.evolvis.tartools.maven-parent.jdx>1.1-SNAPSHOT</org.evolvis.tartools.maven-parent.jdx>
 		<!-- dependency management for Maven plugins -->
 		<!-- for many -->
-		<mvnplugindep.commons-io>2.11.0</mvnplugindep.commons-io>
+		<mvnplugindep.commons-io>2.16.1</mvnplugindep.commons-io>
+		<!-- retrofitting for older ones -->
+		<mvnplugindep.plexus-utils>3.0.24</mvnplugindep.plexus-utils>
 		<!-- for maven-war-plugin -->
-		<mvnplugindep.xstream>1.4.19</mvnplugindep.xstream>
+		<mvnplugindep.xstream>1.4.20</mvnplugindep.xstream>
 		<!-- ‣ maven plugins -->
-		<gmavenplus.plugin.version>1.13.1</gmavenplus.plugin.version>
-		<!-- ↓ not used by us; has insecure ant version -->
-		<maven.antrun.version>3.0.0</maven.antrun.version>
 		<!-- ↓ has dependencies to check on upgrade -->
-		<maven.assembly.version>3.3.0</maven.assembly.version>
-		<maven.buildhelper.version>3.3.0</maven.buildhelper.version>
-		<maven.clean.version>3.2.0</maven.clean.version>
-		<maven.compiler.version>3.10.1</maven.compiler.version>
-		<maven.dependency.version>3.3.0</maven.dependency.version>
-		<maven.deploy.version>2.8.2</maven.deploy.version>
+		<gmavenplus.plugin.version>3.0.2</gmavenplus.plugin.version>
+		<!-- ↓ not used by us -->
+		<maven.antrun.version>3.1.0</maven.antrun.version>
+		<!-- ↓ has dependencies to check on upgrade -->
+		<maven.assembly.version>3.7.1</maven.assembly.version>
+		<maven.buildhelper.version>3.5.0</maven.buildhelper.version>
+		<maven.clean.version>3.3.2</maven.clean.version>
+		<maven.compiler.version>3.13.0</maven.compiler.version>
+		<maven.dependency.version>3.6.1</maven.dependency.version>
+		<maven.deploy.version>3.1.2</maven.deploy.version>
+		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.ear.version>2.10.1</maven.ear.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.eclipse.version>2.10</maven.eclipse.version>
-		<maven.enforcer.version>3.0.0</maven.enforcer.version>
-		<maven.exec.version>3.1.1</maven.exec.version>
+		<maven.enforcer.version>3.4.1</maven.enforcer.version>
+		<maven.exec.version>3.2.0</maven.exec.version>
 		<maven.gpg.version>3.0.1</maven.gpg.version>
-		<maven.install.version>2.5.2</maven.install.version>
-		<maven.jacoco.version>0.8.8</maven.jacoco.version>
-		<maven.jar.version>3.2.2</maven.jar.version>
-		<maven.javadoc.version>3.3.2</maven.javadoc.version>
+		<maven.install.version>3.1.2</maven.install.version>
+		<maven.jacoco.version>0.8.12</maven.jacoco.version>
+		<maven.jar.version>3.4.1</maven.jar.version>
+		<maven.javadoc.version>3.6.3</maven.javadoc.version>
 		<maven.latex.version>1.4.4</maven.latex.version>
-		<!-- ↓ has jdom XXE (billion laughs) -->
-		<maven.release.version>2.5.3</maven.release.version>
+		<maven.release.version>3.0.1</maven.release.version>
 		<!-- due to MRESOURCES-237 and MSHARED-325 -->
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.resources.version>2.6</maven.resources.version>
 		<!-- ↓ has dependencies to check on upgrade -->
-		<maven.shade.version>3.3.0</maven.shade.version>
-		<!-- ↓ has dependencies to check on upgrade -->
-		<!-- ↓ not used by us; insecure jetty dependencies -->
-		<maven.site.version>3.11.0</maven.site.version>
+		<maven.shade.version>3.5.3</maven.shade.version>
+		<!-- ↓ not used by us; insecure dependencies -->
+		<maven.site.version>3.12.1</maven.site.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.source.version>3.2.1</maven.source.version>
-		<maven.surefire.version>2.22.2</maven.surefire.version>
+		<maven.surefire.version>3.2.5</maven.surefire.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.war.version>2.6</maven.war.version>
 		<!-- ‣ dependency management -->
@@ -171,27 +176,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<id>jdk8orolder</id>
-			<!-- only tested with JDK 8 -->
-			<activation>
-				<jdk>(,9)</jdk>
-			</activation>
-			<properties>
-				<!-- ‣ maven plugins -->
-				<!-- ‣ dependency management -->
-			</properties>
-		</profile>
-		<profile>
-			<id>jdk9ornewer</id>
-			<!-- only tested with JDK 11, 17 and 21 -->
-			<activation>
-				<jdk>[9,)</jdk>
-			</activation>
-			<properties>
-				<maven.compiler.release>${javaRelease}</maven.compiler.release>
-			</properties>
 		</profile>
 		<profile>
 			<id>jdk12ornewer</id>
@@ -284,6 +268,18 @@
 							</goals>
 						</execution>
 					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>com.google.guava</groupId>
+							<artifactId>guava</artifactId>
+							<version>33.1.0-jre</version>
+						</dependency>
+						<dependency>
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-compress</artifactId>
+							<version>1.26.1</version>
+						</dependency>
+					</dependencies>
 					<configuration>
 						<targetBytecode>${gmavenplus.javaRelease}</targetBytecode>
 					</configuration>
@@ -355,6 +351,13 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-ear-plugin</artifactId>
 					<version>${maven.ear.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-utils</artifactId>
+							<version>${mvnplugindep.plexus-utils}</version>
+						</dependency>
+					</dependencies>
 					<configuration>
 						<archive>
 							<addMavenDescriptor>true</addMavenDescriptor>
@@ -392,6 +395,11 @@
 							<groupId>commons-io</groupId>
 							<artifactId>commons-io</artifactId>
 							<version>${mvnplugindep.commons-io}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-utils</artifactId>
+							<version>${mvnplugindep.plexus-utils}</version>
 						</dependency>
 					</dependencies>
 					<configuration>
@@ -475,6 +483,7 @@
 						</archive>
 						<detectOfflineLinks>false</detectOfflineLinks>
 						<doclint>${javadoc.doclint}</doclint>
+						<legacyMode>${javadoc.noJ9modules}</legacyMode>
 						<notimestamp>true</notimestamp>
 						<resourcesArtifacts>
 							<resourcesArtifact>
@@ -499,7 +508,7 @@
 						<dependency>
 							<groupId>org.codehaus.plexus</groupId>
 							<artifactId>plexus-utils</artifactId>
-							<version>3.0.24</version>
+							<version>${mvnplugindep.plexus-utils}</version>
 						</dependency>
 					</dependencies>
 					<configuration>
@@ -519,17 +528,10 @@
 					</dependencies>
 				</plugin>
 				<plugin>
-					<!-- from Super POM, not used any more -->
+					<!-- from Super POM, not used by us -->
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>${maven.site.version}</version>
-					<dependencies>
-						<dependency>
-							<groupId>commons-io</groupId>
-							<artifactId>commons-io</artifactId>
-							<version>${mvnplugindep.commons-io}</version>
-						</dependency>
-					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -563,6 +565,11 @@
 							<groupId>commons-io</groupId>
 							<artifactId>commons-io</artifactId>
 							<version>${mvnplugindep.commons-io}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-utils</artifactId>
+							<version>${mvnplugindep.plexus-utils}</version>
 						</dependency>
 					</dependencies>
 					<configuration>

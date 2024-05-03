@@ -1,0 +1,17 @@
+maven-source-plugin:
+- see plexus-archiver 4.x below;
+  for now, the older version should suffice,
+  dependencies’ CVE entries not applicable
+
+plexus-archiver 2.x used by some:
+- CVEs only relevant when extracting, which
+  all but the Eclipse plugin don’t do, or at
+  least shouldn’t do
+
+plexus-archiver 4.x used by maven-source-plugin:
+- needs upgrade of forked plexus-archiver 4.x
+  in order to be able to upgrade maven-source-plugin
+- might even be worthwhile trying to see whether
+  with the latest version we can also upgrade the
+  maven-resource-plugin and perhaps then the EAR
+  and WAR ones…
