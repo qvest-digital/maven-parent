@@ -357,14 +357,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven.compiler.version}</version>
-					<configuration>
-						<source>${javaRelease}</source>
-						<target>${javaRelease}</target>
-						<encoding>${project.build.sourceEncoding}</encoding>
-						<compilerArgs>
-							<arg>-Xlint</arg>
-						</compilerArgs>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -484,45 +476,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${maven.javadoc.version}</version>
-					<configuration>
-						<archive>
-							<addMavenDescriptor>true</addMavenDescriptor>
-							<manifest>
-								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-								<addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
-							</manifest>
-							<manifestEntries>
-								<!--suppress UnresolvedMavenProperty -->
-								<Build-Job>${JOB_NAME}</Build-Job>
-								<!--suppress UnresolvedMavenProperty -->
-								<Build-Id>${BUILD_ID}</Build-Id>
-								<!--suppress UnresolvedMavenProperty -->
-								<Build-Number>${BUILD_NUMBER}</Build-Number>
-								<!--suppress UnresolvedMavenProperty -->
-								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
-								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<Target-JRE>${javaRelease}</Target-JRE>
-								<version_name>${project.groupId}:${project.artifactId}</version_name>
-								<version_description>${project.description}</version_description>
-								<version_copyright>${archiver.copyright}</version_copyright>
-								<version_vendor>${project.organization.name} (${project.organization.url})</version_vendor>
-								<version_version>${project.version}</version_version>
-							</manifestEntries>
-						</archive>
-						<detectOfflineLinks>false</detectOfflineLinks>
-						<doclint>${javadoc.doclint}</doclint>
-						<legacyMode>${javadoc.noJ9modules}</legacyMode>
-						<notimestamp>true</notimestamp>
-						<resourcesArtifacts>
-							<resourcesArtifact>
-								<groupId>org.evolvis.tartools.maven-parent</groupId>
-								<artifactId>jdx</artifactId>
-								<version>${org.evolvis.tartools.maven-parent.jdx}</version>
-							</resourcesArtifact>
-						</resourcesArtifacts>
-						<source>${javaRelease}</source>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -660,6 +613,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${javaRelease}</source>
+					<target>${javaRelease}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<compilerArgs>
+						<arg>-Xlint</arg>
+					</compilerArgs>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -758,6 +719,45 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							<addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+						</manifest>
+						<manifestEntries>
+							<!--suppress UnresolvedMavenProperty -->
+							<Build-Job>${JOB_NAME}</Build-Job>
+							<!--suppress UnresolvedMavenProperty -->
+							<Build-Id>${BUILD_ID}</Build-Id>
+							<!--suppress UnresolvedMavenProperty -->
+							<Build-Number>${BUILD_NUMBER}</Build-Number>
+							<!--suppress UnresolvedMavenProperty -->
+							<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
+							<Build-Time>${maven.build.timestamp}</Build-Time>
+							<Target-JRE>${javaRelease}</Target-JRE>
+							<version_name>${project.groupId}:${project.artifactId}</version_name>
+							<version_description>${project.description}</version_description>
+							<version_copyright>${archiver.copyright}</version_copyright>
+							<version_vendor>${project.organization.name} (${project.organization.url})</version_vendor>
+							<version_version>${project.version}</version_version>
+						</manifestEntries>
+					</archive>
+					<detectOfflineLinks>false</detectOfflineLinks>
+					<doclint>${javadoc.doclint}</doclint>
+					<legacyMode>${javadoc.noJ9modules}</legacyMode>
+					<notimestamp>true</notimestamp>
+					<resourcesArtifacts>
+						<resourcesArtifact>
+							<groupId>org.evolvis.tartools.maven-parent</groupId>
+							<artifactId>jdx</artifactId>
+							<version>${org.evolvis.tartools.maven-parent.jdx}</version>
+						</resourcesArtifact>
+					</resourcesArtifacts>
+					<source>${javaRelease}</source>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
