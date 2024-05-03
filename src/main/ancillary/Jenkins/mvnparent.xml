@@ -94,7 +94,7 @@ H * * * *
     <groupId>org.evolvis.tartools.maven-parent</groupId>
     <artifactId>bs</artifactId>
   </rootModule>
-  <goals>-Pdstrepo-$DSTREPO_PROFILE -e clean install</goals>
+  <goals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -e clean install</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <ignoreUpstremChanges>true</ignoreUpstremChanges>
@@ -123,8 +123,8 @@ H * * * *
       <scmUserEnvVar></scmUserEnvVar>
       <scmPasswordEnvVar></scmPasswordEnvVar>
       <releaseEnvVar>IS_M2RELEASEBUILD</releaseEnvVar>
-      <releaseGoals>-Pdstrepo-$DSTREPO_PROFILE -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -Darguments=&#34;-Dgpg.passphrase=<SECRET/> -Pgpg&#34; -e</releaseGoals>
-      <dryRunGoals>-Pdstrepo-$DSTREPO_PROFILE -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
+      <releaseGoals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -Darguments=&#34;-Dgpg.passphrase=<SECRET/> -Pgpg&#34; -e</releaseGoals>
+      <dryRunGoals>-Pbuild-mvnparent -Pdstrepo-$DSTREPO_PROFILE -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
       <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
       <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
       <selectScmCredentials>false</selectScmCredentials>
