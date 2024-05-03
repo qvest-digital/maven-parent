@@ -35,7 +35,7 @@
 	</licenses>
 	<inceptionYear>2016</inceptionYear>
 	<properties>
-		<!-- $(date -u +'%Y-%m-%dT%H:%M:%SZ') or MRELEASE 3.0.0 -->
+		<!-- ‣ release management -->
 		<project.build.outputTimestamp>2024-05-03T19:43:06Z</project.build.outputTimestamp>
 	</properties>
 	<scm>

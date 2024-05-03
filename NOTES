@@ -27,7 +27,6 @@ Children still need to define:
     – javadoc.doclint (8/11="all" 17/21="all,-missing")
     – javaRelease (8 (default), 11, 17 or 21)
     – (possibly) gmavenplus.javaRelease (1.8 (default), 11, 17 or 21)
-    – maven.minimum.version (3.6.3)
     – <project.build.outputTimestamp>1970-01-01T00:00:00Z</project.build.outputTimestamp>
       (add it once and let the maven-release-plugin deal with it) or $(date -u +'%Y-%m-%dT%H:%M:%SZ')
     – <sonar.sources>src/main</sonar.sources> (not set by default)
@@ -39,12 +38,13 @@ Children still need to define:
   ‣ (modules)
   ‣ (profiles)
     ⇒ predefined:
+      – build-mvnparent (only set when building the parent POM’s enclosing project)
       – dstrepo-central, dstrepo-qd (for distributionManagement as above)
       – gpg
       – jdk8orolder (auto-activated)
       – jdk9ornewer (auto-activated), adds --release for javac/javadoc
       – jdk12ornewer (auto-activated), javadoc.doclint:=all,-missing
-      - jre-not-below-jdk (auto-activated), workaround for Debian bug #893388
+      – jre-not-below-jdk (auto-activated), workaround for Debian bug #893388
       – with-implicit-dependencies (auto-activated), see below
 • build: settings/resources, pluginManagement and plugins not listed above
 • (dependencyManagement)
