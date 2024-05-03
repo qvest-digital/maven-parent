@@ -40,6 +40,8 @@ Children still need to define:
     ⇒ predefined:
       – dstrepo-central, dstrepo-qd (for distributionManagement as above)
       – gpg
+      – jdk8orolder (auto-activated)
+      – jdk9ornewer (auto-activated), adds --release for javac/javadoc
       – jdk12ornewer (auto-activated), javadoc.doclint:=all,-missing
       - jre-not-below-jdk (auto-activated), workaround for Debian bug #893388
       – with-implicit-dependencies (auto-activated), see below
