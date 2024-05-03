@@ -86,6 +86,7 @@
 		<!-- ↓ has jdom XXE (billion laughs) -->
 		<maven.release.version>2.5.3</maven.release.version>
 		<!-- due to MRESOURCES-237 and MSHARED-325 -->
+		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.resources.version>2.6</maven.resources.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.shade.version>3.3.0</maven.shade.version>
@@ -494,6 +495,13 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>${maven.resources.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-utils</artifactId>
+							<version>3.0.24</version>
+						</dependency>
+					</dependencies>
 					<configuration>
 						<escapeString>\</escapeString>
 					</configuration>
