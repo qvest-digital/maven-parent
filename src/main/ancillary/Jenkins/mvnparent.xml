@@ -52,6 +52,9 @@ Only relevant when performing a release.</description>
         </hudson.model.ChoiceParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.7">
+      <resourceNames>mr_tartools</resourceNames>
+    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
     <configVersion>2</configVersion>
@@ -81,14 +84,7 @@ Only relevant when performing a release.</description>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>(Default)</jdk>
-  <triggers>
-    <hudson.triggers.SCMTrigger>
-      <spec># alle Stunde
-H * * * *
-</spec>
-      <ignorePostCommitHooks>false</ignorePostCommitHooks>
-    </hudson.triggers.SCMTrigger>
-  </triggers>
+  <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
     <groupId>org.evolvis.tartools.maven-parent</groupId>
@@ -109,14 +105,7 @@ H * * * *
   <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
   <settings class="jenkins.mvn.DefaultSettingsProvider"/>
   <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
-  <reporters>
-    <hudson.maven.reporters.MavenMailer>
-      <recipients>t.glaser@qvest-digital.com</recipients>
-      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
-      <sendToIndividuals>false</sendToIndividuals>
-      <perModuleEmail>false</perModuleEmail>
-    </hudson.maven.reporters.MavenMailer>
-  </reporters>
+  <reporters/>
   <publishers/>
   <buildWrappers>
     <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper plugin="m2release@0.14.0">
@@ -134,9 +123,9 @@ H * * * *
   <prebuilders/>
   <postbuilders/>
   <runPostStepsIfResult>
-    <name>FAILURE</name>
-    <ordinal>2</ordinal>
-    <color>RED</color>
+    <name>SUCCESS</name>
+    <ordinal>0</ordinal>
+    <color>BLUE</color>
     <completeBuild>true</completeBuild>
   </runPostStepsIfResult>
 </maven2-moduleset>
