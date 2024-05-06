@@ -88,7 +88,7 @@
 		<maven.jacoco.version>0.8.12</maven.jacoco.version>
 		<maven.jar.version>3.4.1</maven.jar.version>
 		<maven.javadoc.version>3.6.3</maven.javadoc.version>
-		<maven.latex.version>1.4.4</maven.latex.version>
+		<maven.latex.version>1.4.5</maven.latex.version>
 		<maven.release.version>3.0.1</maven.release.version>
 		<!-- due to MRESOURCES-237 and MSHARED-325 -->
 		<!-- ↓ has dependencies to check on upgrade -->
