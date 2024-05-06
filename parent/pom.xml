@@ -83,7 +83,7 @@
 		<maven.eclipse.version>2.10</maven.eclipse.version>
 		<maven.enforcer.version>3.4.1</maven.enforcer.version>
 		<maven.exec.version>3.2.0</maven.exec.version>
-		<maven.gpg.version>3.0.1</maven.gpg.version>
+		<maven.gpg.version>3.2.4</maven.gpg.version>
 		<maven.install.version>3.1.2</maven.install.version>
 		<maven.jacoco.version>0.8.12</maven.jacoco.version>
 		<maven.jar.version>3.4.1</maven.jar.version>
@@ -300,7 +300,7 @@
 						<dependency>
 							<groupId>com.google.guava</groupId>
 							<artifactId>guava</artifactId>
-							<version>33.1.0-jre</version>
+							<version>33.2.0-jre</version>
 						</dependency>
 						<dependency>
 							<groupId>org.apache.commons</groupId>
