@@ -103,6 +103,8 @@
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.war.version>2.6</maven.war.version>
 		<!-- ‣ dependency management -->
+		<!-- ‣ release management -->
+		<project.build.outputTimestamp>2024-05-03T19:43:06Z</project.build.outputTimestamp>
 	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
@@ -116,8 +118,6 @@
 			<properties>
 				<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
 				<archiver.copyright.lastyear>2024</archiver.copyright.lastyear>
-				<!-- ‣ release management -->
-				<project.build.outputTimestamp>2024-05-03T19:43:06Z</project.build.outputTimestamp>
 			</properties>
 		</profile>
 		<profile>
