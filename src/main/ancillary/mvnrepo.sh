@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2018, 2020, 2021, 2022
+# Copyright © 2018, 2020, 2021, 2022, 2024
 #	mirabilos <t.glaser@qvest-digital.com>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -28,8 +28,8 @@
 export LC_ALL=C
 unset LANGUAGE
 
-set -e
-set -o pipefail
+set -eU
+set -o pipefail -o noglob
 me=$(realpath "$0/..")
 . "$me/assockit.ksh"
 . "$me/progress-bar"
@@ -98,7 +98,6 @@ function extract {
 	local line value base path p t x bron=$1 lines=$2
 
 	# thankfully neither ' nor = are valid in XML names
-	set +e
 	while IFS= read -r line; do
 		draw_progress_bar
 		if [[ $line = *''* ]]; then
@@ -107,13 +106,12 @@ function extract {
 		fi
 		value=${line#*=}
 		eval "value=$value" # trust our XSLT escaping code
-		(( $? )) && die "Error reading value from line ${line@Q}"
 		line=${line%%=*}
 		base=${line##*/}
 		line=${line%/*}
-		asso_sets "$value" "$bron" "$line" "$base"
+		asso_sets "$value" "$bron" "$line" "$base" || die asso_sets
 	done <target/pom.xp
-	asso_loadk "$bron"
+	asso_loadk "$bron" || die asso_loadk
 	for path in "${asso_y[@]}"; do
 		draw_progress_bar
 		p=${path//'['+([0-9])']'}
@@ -136,9 +134,9 @@ function extract {
 			print -ru2 -- "W: Unknown XPath: $path"
 			continue
 		fi
-		x=$(asso_getv "$bron" "$path" groupId)
+		x=$(asso_getv "$bron" "$path" groupId) || x=
 		[[ -n $x ]] || case $t {
-		(1)	x=$(asso_getv "$bron" //project/parent groupId)
+		(1)	x=$(asso_getv "$bron" //project/parent groupId) || x=
 			[[ -n $x ]] || die "No groupId for project or parent"
 			;;
 		(4)	x=org.apache.maven.plugins
@@ -147,34 +145,32 @@ function extract {
 		(*)	die "missing groupId for $path"
 			;;
 		}
-		[[ $x = */* ]] && die "wtf, groupId ${x@Q} for $path contains a slash"
+		[[ $x != */* ]] || die "wtf, groupId ${x@Q} for $path contains a slash"
 		t+=/$x
-		x=$(asso_getv "$bron" "$path" artifactId)
+		x=$(asso_getv "$bron" "$path" artifactId) || x=
 		if [[ -n $x ]]; then
 			t+=/$x
-			[[ $x = */* ]] && die "wtf, artifactId ${x@Q} for $path contains a slash"
-			x=$(asso_getv "$bron" "$path" version)
-			[[ $x = *'${'* || $x = *[\\/:\"\<\>\|?*]* ]] && x=
+			[[ $x != */* ]] || die "wtf, artifactId ${x@Q} for $path contains a slash"
+			x=$(asso_getv "$bron" "$path" version) || x=
+			[[ $x != *'${'* && $x != *[\\/:\"\<\>\|?*]* ]] || x=
 		fi
-		[[ -n $x ]] && asso_sets "$x" versions "$t"
-		asso_setnull $lines "$t"
+		[[ -z $x ]] || asso_sets "$x" versions "$t" || die asso_sets
+		asso_setnull $lines "$t" || die asso_setnull
 	done
-	set -e
 }
 
 function output {
 	local lineno=-1 nlines line vsn lines=$1
-	local last=-1 typ
+	integer typ last=-1
 
-	set +e
-	asso_loadk $lines
+	asso_loadk $lines || die asso_loadk
 	nlines=${#asso_y[*]}
 	(( nlines )) || (( rawout )) || print -r -- "(none)"
 	while (( ++lineno < nlines )); do
 		draw_progress_bar
 		line=${asso_y[lineno]}
-		vsn=$(asso_getv versions "$line")
-		[[ -n $vsn ]] && line+=/$vsn
+		vsn=$(asso_getv versions "$line") || vsn=
+		[[ -z $vsn ]] || line+=/$vsn
 		typ=${line::1}
 		line=${line:2}
 		(( rawout )) || if (( typ < 2 )); then
@@ -183,23 +179,20 @@ function output {
 			print
 			print -r -- "${grouping[typ]}:"
 		fi
-		(( last = typ ))
+		(( (last = typ), 1 ))
 		print -r -- "https://mvnrepository.com/artifact/$line"
 	done
-	set -e
 }
 
 function drop {
 	local lineno=-1 nlines line vsn lines=$1 from=$2
 
-	set +e
-	asso_loadk $lines
+	asso_loadk $lines || die asso_loadk
 	nlines=${#asso_y[*]}
 	while (( ++lineno < nlines )); do
 		draw_progress_bar
-		asso_unset $from "${asso_y[lineno]}"
+		asso_unset $from "${asso_y[lineno]}" || die asso_unset
 	done
-	set -e
 }
 
 if [[ ! -s pom.xml ]]; then
@@ -217,18 +210,15 @@ Lxp=$(wc -l <target/pom.xp)
 Lxe=$((Lxp * 3 / 2))
 Lop=$((Lxp / 3))
 Loe=300 # outrageous, I know, but it makes things smoother
-set +e
-init_progress_bar $((2*Lxp + 2 + 2*Lxe + Lop + Lop + Loe))
-set -e
+Lox=20 # similarily
+init_progress_bar $((2*Lxp + 2 + 2*Lxe + Lop + Lop + Loe + Lox))
 
 LN=$_cur_progress_bar
 extract p plines
 Lxpr=$((_cur_progress_bar - LN))
 
 while [[ -n $(jobs) ]]; do wait; done
-set +e
 draw_progress_bar
-set -e
 
 xml2path target/effective-pom.xml
 
@@ -236,35 +226,75 @@ Lxe=$(wc -l <target/pom.xp)
 draw_progress_bar
 # re-estimate
 Loe=$(( (Lxe-Lxp) / 3 ))
-set +e
-asso_loadk plines
+asso_loadk plines || die asso_loadk
 Lop=${#asso_y[*]}
-redo_progress_bar $((Lxpr + 2 + 2*Lxe + Lop + Lop + Loe))
-set -e
+redo_progress_bar $((Lxpr + 2 + 2*Lxe + Lop + Lop + Loe + Lox))
 
 LN=$_cur_progress_bar
 extract e elines
 Lxer=$((_cur_progress_bar - LN))
-rm -f target/effective-pom.xml target/pom.xp
 
 # recalculate
-set +e
-asso_loadk elines
+asso_loadk elines || die asso_loadk
 Loe=${#asso_y[*]}
-redo_progress_bar $((Lxpr + 2 + Lxer + Lop + Lop + Loe))
-set -e
+redo_progress_bar $((Lxpr + 2 + Lxer + Lop + Lop + Loe + Lox))
 
 drop plines elines
 
-set +e
-asso_loadk elines
+Lox=0
+if [[ -s src/main/ancillary/ckdep.ins ]] && grep \
+    -F -q '<executable>src/main/ancillary/ckdep.sh</executable>' \
+    target/effective-pom.xml; then
+	while read first rest; do
+		[[ $first != ?('#'*) ]] || continue
+		first=${first#[+!]}
+		first=${first/:/'/'}
+		asso_loadv ins "$first" || asso_x=
+		for rest in $rest; do
+			asso_x+=" ${rest/:/'/'}"
+		done
+		asso_sets "$asso_x" ins "$first" || die asso_sets
+	done <src/main/ancillary/ckdep.ins
+	function enrich_lines {
+		local lines=$1 line vsn typ inds ind
+
+		asso_loadk $lines || die asso_loadk
+		for line in "${asso_y[@]}"; do
+			vsn=$(asso_getv versions "$line") || vsn=
+			[[ -n $vsn ]] || continue
+			typ=${line::1}
+			enrich "${line:2}:$vsn"
+		done
+	}
+	function enrich {
+		local inds ind il
+
+		inds=$(asso_getv ins "$1") || return 0
+		for ind in $inds; do
+			il=$typ/${ind%:*}
+			if asso_isset "$lines" "$il"; then
+				print -ru2 "W: preventing loop" \
+				    "$typ/$1:$(asso_getv versions "$il" || \
+				    print -nr "???") → $ind"
+				continue
+			fi
+			asso_sets "${ind##*:}" versions "$il" || die asso_sets
+			asso_setnull "$lines" "$il" || die asso_setnull
+			let ++Lox
+			enrich "$ind"
+		done
+	}
+	enrich_lines plines
+	enrich_lines elines
+fi
+rm -f target/effective-pom.xml target/pom.xp
+
+asso_loadk elines || die asso_loadk
 Loe=${#asso_y[*]}
-redo_progress_bar $((Lxpr + 2 + Lxer + Lop + Lop + Loe))
-set -e
+redo_progress_bar $((Lxpr + 2 + Lxer + Lop + Lop + Loe + Lox))
 
 output plines
 print
 (( rawout )) || print Effective POM extras:
 output elines
-set +e
 done_progress_bar
