@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2018, 2019
+# Copyright © 2018, 2019, 2024
 #	mirabilos <t.glaser@qvest-digital.com>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -299,12 +299,12 @@ while IFS="$cr" read -prA el; do
 	[[ -n ${el[OgroupId]} ]] && print -r -- "<groupId>${el[OgroupId]}</groupId>"
 	[[ -n ${el[OartifactId]} ]] && print -r -- "<artifactId>${el[OartifactId]}</artifactId>"
 	[[ -n ${el[Oversion]} ]] && print -r -- "<version>${el[Oversion]}</version>"
+	[[ -n ${el[Ogoals]} ]] && print -r -- "<goals>${el[Ogoals]}</goals>" #XXX deprecated
 	[[ -n ${el[Oextensions]} ]] && print -r -- "<extensions>${el[Oextensions]}</extensions>"
-	[[ -n ${el[Oexecutions]} ]] && print -r -- "<executions>${el[Oexecutions]}</executions>"
-	[[ -n ${el[Odependencies]} ]] && print -r -- "<dependencies>${el[Odependencies]}</dependencies>"
-	[[ -n ${el[Ogoals]} ]] && print -r -- "<goals>${el[Ogoals]}</goals>"
 	[[ -n ${el[Oinherited]} ]] && print -r -- "<inherited>${el[Oinherited]}</inherited>"
 	[[ -n ${el[Oconfiguration]} ]] && print -r -- "<configuration>${el[Oconfiguration]}</configuration>"
+	[[ -n ${el[Oexecutions]} ]] && print -r -- "<executions>${el[Oexecutions]}</executions>"
+	[[ -n ${el[Odependencies]} ]] && print -r -- "<dependencies>${el[Odependencies]}</dependencies>"
 	print -r -- '</plugin>'
 done
 
