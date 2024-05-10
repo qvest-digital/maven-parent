@@ -60,6 +60,7 @@
 		<org.evolvis.tartools.maven-parent.jdx>1.1</org.evolvis.tartools.maven-parent.jdx>
 		<!-- ‣ dependency management for Maven plugins -->
 		<!-- for many -->
+		<mvnplugindep.commons-compress>1.26.1</mvnplugindep.commons-compress>
 		<mvnplugindep.commons-io>2.16.1</mvnplugindep.commons-io>
 		<mvnplugindep.plexus-archiver>4.9.2</mvnplugindep.plexus-archiver>
 		<!-- retrofitting for older ones -->
@@ -94,6 +95,7 @@
 		<maven.resources.version>2.6</maven.resources.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.shade.version>3.5.3</maven.shade.version>
+		<!-- ↓ has dependencies to check on upgrade -->
 		<!-- ↓ not used by us; insecure dependencies -->
 		<maven.site.version>3.12.1</maven.site.version>
 		<!-- ↓ has dependencies to check on upgrade -->
@@ -287,6 +289,9 @@
 					<groupId>org.codehaus.gmavenplus</groupId>
 					<artifactId>gmavenplus-plugin</artifactId>
 					<version>${gmavenplus.plugin.version}</version>
+					<configuration>
+						<targetBytecode>${gmavenplus.javaRelease}</targetBytecode>
+					</configuration>
 					<executions>
 						<execution>
 							<id>gmavenplus-compile-tests</id>
@@ -302,14 +307,17 @@
 							<version>33.2.0-jre</version>
 						</dependency>
 						<dependency>
+							<!-- from commons-compress -->
+							<groupId>commons-io</groupId>
+							<artifactId>commons-io</artifactId>
+							<version>${mvnplugindep.commons-io}</version>
+						</dependency>
+						<dependency>
 							<groupId>org.apache.commons</groupId>
 							<artifactId>commons-compress</artifactId>
-							<version>1.26.1</version>
+							<version>${mvnplugindep.commons-compress}</version>
 						</dependency>
 					</dependencies>
-					<configuration>
-						<targetBytecode>${gmavenplus.javaRelease}</targetBytecode>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.jacoco</groupId>
@@ -331,13 +339,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>${maven.assembly.version}</version>
-					<dependencies>
-						<dependency>
-							<groupId>commons-io</groupId>
-							<artifactId>commons-io</artifactId>
-							<version>${mvnplugindep.commons-io}</version>
-						</dependency>
-					</dependencies>
 					<configuration>
 						<overrideUid>0</overrideUid>
 						<overrideUserName>root</overrideUserName>
@@ -345,6 +346,13 @@
 						<overrideGroupName>root</overrideGroupName>
 						<tarLongFileMode>posix</tarLongFileMode>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>commons-io</groupId>
+							<artifactId>commons-io</artifactId>
+							<version>${mvnplugindep.commons-io}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -370,13 +378,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-ear-plugin</artifactId>
 					<version>${maven.ear.version}</version>
-					<dependencies>
-						<dependency>
-							<groupId>org.codehaus.plexus</groupId>
-							<artifactId>plexus-archiver</artifactId>
-							<version>${mvnplugindep.plexus-archiver}</version>
-						</dependency>
-					</dependencies>
 					<configuration>
 						<archive>
 							<addMavenDescriptor>true</addMavenDescriptor>
@@ -404,11 +405,34 @@
 							</manifestEntries>
 						</archive>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<!-- from commons-compress via plexus-archiver -->
+							<groupId>commons-io</groupId>
+							<artifactId>commons-io</artifactId>
+							<version>${mvnplugindep.commons-io}</version>
+						</dependency>
+						<dependency>
+							<!-- from plexus-archiver -->
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-compress</artifactId>
+							<version>${mvnplugindep.commons-compress}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-archiver</artifactId>
+							<version>${mvnplugindep.plexus-archiver}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-eclipse-plugin</artifactId>
 					<version>${maven.eclipse.version}</version>
+					<configuration>
+						<downloadJavadocs>true</downloadJavadocs>
+						<downloadSources>true</downloadSources>
+					</configuration>
 					<dependencies>
 						<dependency>
 							<groupId>commons-io</groupId>
@@ -416,15 +440,22 @@
 							<version>${mvnplugindep.commons-io}</version>
 						</dependency>
 						<dependency>
+							<!-- from plexus-archiver -->
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-compress</artifactId>
+							<version>${mvnplugindep.commons-compress}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-archiver</artifactId>
+							<version>${mvnplugindep.plexus-archiver}</version>
+						</dependency>
+						<dependency>
 							<groupId>org.codehaus.plexus</groupId>
 							<artifactId>plexus-utils</artifactId>
 							<version>${mvnplugindep.plexus-utils}</version>
 						</dependency>
 					</dependencies>
-					<configuration>
-						<downloadJavadocs>true</downloadJavadocs>
-						<downloadSources>true</downloadSources>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -489,6 +520,9 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>${maven.resources.version}</version>
+					<configuration>
+						<escapeString>\</escapeString>
+					</configuration>
 					<dependencies>
 						<dependency>
 							<groupId>org.codehaus.plexus</groupId>
@@ -496,9 +530,6 @@
 							<version>${mvnplugindep.plexus-utils}</version>
 						</dependency>
 					</dependencies>
-					<configuration>
-						<escapeString>\</escapeString>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -517,12 +548,43 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>${maven.site.version}</version>
+					<dependencies>
+						<dependency>
+							<!-- from commons-compress via plexus-archiver -->
+							<groupId>commons-io</groupId>
+							<artifactId>commons-io</artifactId>
+							<version>${mvnplugindep.commons-io}</version>
+						</dependency>
+						<dependency>
+							<!-- from plexus-archiver -->
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-compress</artifactId>
+							<version>${mvnplugindep.commons-compress}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-archiver</artifactId>
+							<version>${mvnplugindep.plexus-archiver}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>${maven.source.version}</version>
 					<dependencies>
+						<dependency>
+							<!-- from commons-compress via plexus-archiver -->
+							<groupId>commons-io</groupId>
+							<artifactId>commons-io</artifactId>
+							<version>${mvnplugindep.commons-io}</version>
+						</dependency>
+						<dependency>
+							<!-- from plexus-archiver -->
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-compress</artifactId>
+							<version>${mvnplugindep.commons-compress}</version>
+						</dependency>
 						<dependency>
 							<!-- https://github.com/codehaus-plexus/plexus-archiver/issues/160 -->
 							<groupId>org.evolvis.tartools.forked</groupId>
@@ -540,18 +602,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>${maven.war.version}</version>
-					<dependencies>
-						<dependency>
-							<groupId>commons-io</groupId>
-							<artifactId>commons-io</artifactId>
-							<version>${mvnplugindep.commons-io}</version>
-						</dependency>
-						<dependency>
-							<groupId>org.codehaus.plexus</groupId>
-							<artifactId>plexus-archiver</artifactId>
-							<version>${mvnplugindep.plexus-archiver}</version>
-						</dependency>
-					</dependencies>
 					<configuration>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 						<webappDirectory>${project.build.directory}/war/webapps/</webappDirectory>
@@ -591,6 +641,24 @@
 							</resource>
 						</webResources>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>commons-io</groupId>
+							<artifactId>commons-io</artifactId>
+							<version>${mvnplugindep.commons-io}</version>
+						</dependency>
+						<dependency>
+							<!-- from plexus-archiver -->
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-compress</artifactId>
+							<version>${mvnplugindep.commons-compress}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-archiver</artifactId>
+							<version>${mvnplugindep.plexus-archiver}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>
