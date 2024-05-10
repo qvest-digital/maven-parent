@@ -61,10 +61,9 @@
 		<!-- ‣ dependency management for Maven plugins -->
 		<!-- for many -->
 		<mvnplugindep.commons-io>2.16.1</mvnplugindep.commons-io>
+		<mvnplugindep.plexus-archiver>4.9.2</mvnplugindep.plexus-archiver>
 		<!-- retrofitting for older ones -->
 		<mvnplugindep.plexus-utils>3.0.24</mvnplugindep.plexus-utils>
-		<!-- for maven-war-plugin -->
-		<mvnplugindep.xstream>1.4.20</mvnplugindep.xstream>
 		<!-- ‣ maven plugins -->
 		<!-- ↓ has dependencies to check on upgrade -->
 		<gmavenplus.plugin.version>3.0.2</gmavenplus.plugin.version>
@@ -78,7 +77,7 @@
 		<maven.dependency.version>3.6.1</maven.dependency.version>
 		<maven.deploy.version>3.1.2</maven.deploy.version>
 		<!-- ↓ has dependencies to check on upgrade -->
-		<maven.ear.version>2.10.1</maven.ear.version>
+		<maven.ear.version>3.3.0</maven.ear.version>
 		<!-- ↓ has dependencies to check on upgrade -->
 		<maven.eclipse.version>2.10</maven.eclipse.version>
 		<maven.enforcer.version>3.4.1</maven.enforcer.version>
@@ -101,7 +100,7 @@
 		<maven.source.version>3.2.1</maven.source.version>
 		<maven.surefire.version>3.2.5</maven.surefire.version>
 		<!-- ↓ has dependencies to check on upgrade -->
-		<maven.war.version>2.6</maven.war.version>
+		<maven.war.version>3.4.0</maven.war.version>
 		<!-- ‣ dependency management -->
 		<!-- ‣ release management -->
 		<project.build.outputTimestamp>2024-05-09T16:49:08Z</project.build.outputTimestamp>
@@ -374,8 +373,8 @@
 					<dependencies>
 						<dependency>
 							<groupId>org.codehaus.plexus</groupId>
-							<artifactId>plexus-utils</artifactId>
-							<version>${mvnplugindep.plexus-utils}</version>
+							<artifactId>plexus-archiver</artifactId>
+							<version>${mvnplugindep.plexus-archiver}</version>
 						</dependency>
 					</dependencies>
 					<configuration>
@@ -543,19 +542,14 @@
 					<version>${maven.war.version}</version>
 					<dependencies>
 						<dependency>
-							<groupId>com.thoughtworks.xstream</groupId>
-							<artifactId>xstream</artifactId>
-							<version>${mvnplugindep.xstream}</version>
-						</dependency>
-						<dependency>
 							<groupId>commons-io</groupId>
 							<artifactId>commons-io</artifactId>
 							<version>${mvnplugindep.commons-io}</version>
 						</dependency>
 						<dependency>
 							<groupId>org.codehaus.plexus</groupId>
-							<artifactId>plexus-utils</artifactId>
-							<version>${mvnplugindep.plexus-utils}</version>
+							<artifactId>plexus-archiver</artifactId>
+							<version>${mvnplugindep.plexus-archiver}</version>
 						</dependency>
 					</dependencies>
 					<configuration>
