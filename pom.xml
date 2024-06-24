@@ -34,6 +34,10 @@
 		</license>
 	</licenses>
 	<inceptionYear>2016</inceptionYear>
+	<properties>
+		<!-- ‣ maven plugins -->
+		<maven.owasp.dependency-check.version>9.2.0</maven.owasp.dependency-check.version>
+	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/tartools/mvnparent.git</developerConnection>
@@ -64,6 +68,34 @@
 									<classifier>source</classifier>
 								</artifact>
 							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- mvn -Ddependency-check.skip … -->
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>${maven.owasp.dependency-check.version}</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>owasp-check</id>
+						<phase>install</phase>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+						<configuration>
+							<failBuildOnCVSS>8</failBuildOnCVSS>
+							<scanSet>
+								<fileSet>
+									<directory>src</directory>
+								</fileSet>
+							</scanSet>
+							<skipArtifactType>pom</skipArtifactType>
+							<!-- suppressionFiles>
+								<suppressionFile>src/main/ancillary/dependency-check-suppressions.xml</suppressionFile>
+							</suppressionFiles -->
 						</configuration>
 					</execution>
 				</executions>
