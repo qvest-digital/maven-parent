@@ -726,6 +726,16 @@
 						</goals>
 					</execution>
 					<execution>
+						<id>analyse-dependency-exclusions</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>analyze-exclusions</goal>
+						</goals>
+						<configuration>
+							<exclusionFail>true</exclusionFail>
+						</configuration>
+					</execution>
+					<execution>
 						<id>analyse-dependency-management</id>
 						<phase>validate</phase>
 						<goals>
