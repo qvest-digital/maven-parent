@@ -126,10 +126,22 @@
 			<id>dstrepo-central</id>
 			<distributionManagement>
 				<repository>
+					<releases>
+						<checksumPolicy>fail</checksumPolicy>
+					</releases>
+					<snapshots>
+						<checksumPolicy>fail</checksumPolicy>
+					</snapshots>
 					<id>ossrh</id>
 					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 				</repository>
 				<snapshotRepository>
+					<releases>
+						<checksumPolicy>fail</checksumPolicy>
+					</releases>
+					<snapshots>
+						<checksumPolicy>fail</checksumPolicy>
+					</snapshots>
 					<id>ossrh</id>
 					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 				</snapshotRepository>
@@ -139,11 +151,23 @@
 			<id>dstrepo-qd</id>
 			<distributionManagement>
 				<repository>
+					<releases>
+						<checksumPolicy>fail</checksumPolicy>
+					</releases>
+					<snapshots>
+						<checksumPolicy>fail</checksumPolicy>
+					</snapshots>
 					<id>qd-nexus</id>
 					<name>qvest-digital-nexus releases</name>
 					<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
 				</repository>
 				<snapshotRepository>
+					<releases>
+						<checksumPolicy>fail</checksumPolicy>
+					</releases>
+					<snapshots>
+						<checksumPolicy>fail</checksumPolicy>
+					</snapshots>
 					<id>qd-nexus</id>
 					<name>qvest-digital-nexus snapshots</name>
 					<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
@@ -884,7 +908,11 @@
 	</dependencyManagement>
 	<repositories>
 		<repository>
+			<releases>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
 			<snapshots>
+				<checksumPolicy>fail</checksumPolicy>
 				<enabled>false</enabled>
 			</snapshots>
 			<id>central</id>
@@ -894,7 +922,11 @@
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
+			<releases>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
 			<snapshots>
+				<checksumPolicy>fail</checksumPolicy>
 				<enabled>false</enabled>
 			</snapshots>
 			<id>central</id>
