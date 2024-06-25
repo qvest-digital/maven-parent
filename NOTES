@@ -31,6 +31,7 @@ Children still need to define:
    → example properties for overriding some defaults
     – archiver.copyright.years (defaults to: ${archiver.copyright.firstyear}–${archiver.copyright.lastyear})
     – archiver.copyright (Copyright © ${archiver.copyright.years}; Licensor: cf. version_vendor)
+    – javadoc.copyright (© ${archiver.copyright.years} the respective authors; see &lt;tt&gt;${project.build.finalName}-sources.jar&lt;/tt&gt; for licences.)
     – javadoc.doclint (8/11="all" 17/21="all,-missing")
     – javaRelease (8 (default), 11, 17 or 21)
     – (possibly) gmavenplus.javaRelease (1.8 (default), 11, 17 or 21)

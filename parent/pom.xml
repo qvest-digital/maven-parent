@@ -43,6 +43,7 @@
 		<archiver.copyright.lastyear>XX(archiver.copyright.lastyear not set)XX</archiver.copyright.lastyear>
 		<archiver.copyright.years>${archiver.copyright.firstyear}–${archiver.copyright.lastyear}</archiver.copyright.years>
 		<archiver.copyright>Copyright © ${archiver.copyright.years}; Licensor: $version_vendor</archiver.copyright>
+		<javadoc.copyright>© ${archiver.copyright.years} the respective authors; see &lt;tt&gt;${project.build.finalName}-sources.jar&lt;/tt&gt; for licences.</javadoc.copyright>
 		<javadoc.doclint>all</javadoc.doclint>
 		<!-- default to nōn-JPMS (“legacy”) mode -->
 		<javadoc.noJ9modules>true</javadoc.noJ9modules>
@@ -964,6 +965,7 @@
 							<version_version>${project.version}</version_version>
 						</manifestEntries>
 					</archive>
+					<bottom>${javadoc.copyright}</bottom>
 					<detectOfflineLinks>false</detectOfflineLinks>
 					<doclint>${javadoc.doclint}</doclint>
 					<legacyMode>${javadoc.noJ9modules}</legacyMode>
