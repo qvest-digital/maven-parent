@@ -41,7 +41,8 @@
 		<!-- ‣ configurable settings -->
 		<archiver.copyright.firstyear>XX(archiver.copyright.firstyear not set)XX</archiver.copyright.firstyear>
 		<archiver.copyright.lastyear>XX(archiver.copyright.lastyear not set)XX</archiver.copyright.lastyear>
-		<archiver.copyright>Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: $version_vendor</archiver.copyright>
+		<archiver.copyright.years>${archiver.copyright.firstyear}–${archiver.copyright.lastyear}</archiver.copyright.years>
+		<archiver.copyright>Copyright © ${archiver.copyright.years}; Licensor: $version_vendor</archiver.copyright>
 		<javadoc.doclint>all</javadoc.doclint>
 		<!-- default to nōn-JPMS (“legacy”) mode -->
 		<javadoc.noJ9modules>true</javadoc.noJ9modules>

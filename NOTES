@@ -26,9 +26,11 @@ Children still need to define:
     – <project.build.outputTimestamp>1980-01-01T00:00:02Z</project.build.outputTimestamp>
       (add it once and let the maven-release-plugin deal with it) or $(date -u +'%Y-%m-%dT%H:%M:%SZ')
     – either archiver.copyright.firstyear and archiver.copyright.lastyear (four-digit number)
+      or archiver.copyright.years (as list: 2021, 2023, 2024)
       or override the archiver.copyright default (see below)
    → example properties for overriding some defaults
-    – archiver.copyright (Copyright © ${archiver.copyright.firstyear}–${archiver.copyright.lastyear}; Licensor: cf. version_vendor)
+    – archiver.copyright.years (defaults to: ${archiver.copyright.firstyear}–${archiver.copyright.lastyear})
+    – archiver.copyright (Copyright © ${archiver.copyright.years}; Licensor: cf. version_vendor)
     – javadoc.doclint (8/11="all" 17/21="all,-missing")
     – javaRelease (8 (default), 11, 17 or 21)
     – (possibly) gmavenplus.javaRelease (1.8 (default), 11, 17 or 21)
