@@ -111,8 +111,9 @@
 		<profile>
 			<id>build-mvnparent</id>
 			<properties>
-				<archiver.copyright.firstyear>2016</archiver.copyright.firstyear>
+				<archiver.copyright.firstyear>2015</archiver.copyright.firstyear>
 				<archiver.copyright.lastyear>2024</archiver.copyright.lastyear>
+				<archiver.copyright.years>2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024</archiver.copyright.years>
 			</properties>
 		</profile>
 		<profile>

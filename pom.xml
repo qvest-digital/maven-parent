@@ -33,7 +33,7 @@
 			<comments>only for: src/main/ancillary/mvnrepo.xsl</comments>
 		</license>
 	</licenses>
-	<inceptionYear>2016</inceptionYear>
+	<inceptionYear>2018</inceptionYear>
 	<properties>
 		<!-- ‣ maven plugins -->
 		<maven.owasp.dependency-check.version>9.2.0</maven.owasp.dependency-check.version>
