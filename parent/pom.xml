@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.evolvis.tartools.maven-parent</groupId>
 	<artifactId>pom</artifactId>
-	<version>3.2-SNAPSHOT</version>
+	<version>3.2</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Parent POM for Maven projects — Parent POM</description>
@@ -59,7 +59,7 @@
 		<java.version>${javaRelease}</java.version>
 		<releaseVersion>${project.version}</releaseVersion>
 		<!-- ‣ dependency management for the “tests” classifier and library JARs we provide -->
-		<org.evolvis.tartools.maven-parent.version>3.2-SNAPSHOT</org.evolvis.tartools.maven-parent.version>
+		<org.evolvis.tartools.maven-parent.version>3.2</org.evolvis.tartools.maven-parent.version>
 		<org.evolvis.tartools.maven-parent.jdx>1.2</org.evolvis.tartools.maven-parent.jdx>
 		<!-- ‣ dependency management for Maven plugins -->
 		<!-- for many -->
@@ -100,13 +100,13 @@
 		<!-- ‣ dependency management -->
 		<guava.version>33.2.1-jre</guava.version>
 		<!-- ‣ release management -->
-		<project.build.outputTimestamp>2024-05-10T17:08:51Z</project.build.outputTimestamp>
+		<project.build.outputTimestamp>2024-06-25T01:49:49Z</project.build.outputTimestamp>
 	</properties>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/tartools/mvnparent.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/tartools/mvnparent.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=tartools/mvnparent.git</url>
-		<tag>HEAD</tag>
+		<tag>mvnparent-3.2</tag>
 	</scm>
 	<profiles>
 		<profile>
