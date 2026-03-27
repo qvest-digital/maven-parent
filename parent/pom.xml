@@ -67,7 +67,7 @@
 		<mvnplugindep.commons-io>2.16.1</mvnplugindep.commons-io>
 		<mvnplugindep.plexus-archiver>4.10.0</mvnplugindep.plexus-archiver>
 		<!-- retrofitting for older ones -->
-		<mvnplugindep.plexus-utils.old>3.0.24</mvnplugindep.plexus-utils.old>
+		<mvnplugindep.plexus-utils.old>4.0.3</mvnplugindep.plexus-utils.old>
 		<!-- ‣ maven plugins -->
 		<gmavenplus.plugin.version>3.0.2</gmavenplus.plugin.version>
 		<!-- ↓ not used by us -->
